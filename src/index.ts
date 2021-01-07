@@ -4,13 +4,13 @@ import Console from './handlers/console'
 
 const { token } = require('../files/config.json')
 
-class Luke extends Client {
+export class Luke extends Client {
   eventHandler; console
   constructor(config: ClientOptions) {
     super(config)
 
     this.console = new Console()
-    this.eventHandler = new EventHandler()
+    this.eventHandler = new EventHandler(this)
     this.login(token)
   }
 }

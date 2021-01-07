@@ -1,7 +1,7 @@
-import Luke from '../index'
+import { Luke } from '../index'
 
 export default class EventHandler {
-  constructor() {
+  constructor(Luke: Luke) {
     Luke.on('ready', () => Luke.console.ready(`${Luke.user?.tag} is ready!`))
   }
 }
