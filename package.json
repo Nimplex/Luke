@@ -1,0 +1,24 @@
+{
+  "name": "luke",
+  "version": "1.0.0",
+  "description": "Luke, simple discord bot.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nimplex/Luke.git"
+  },
+  "keywords": [
+    "Discord",
+    "bot",
+    "typescript"
+  ],
+  "author": "Nimplex",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Nimplex/Luke/issues"
+  },
+  "homepage": "https://github.com/Nimplex/Luke#readme"
+}
