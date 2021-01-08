@@ -20,7 +20,7 @@ export interface Command {
     description: string,
     usage: string,
     dev?: boolean,
-    execute: (...args: any) => EmbedOptions
+    execute: (...args: any) => Promise<EmbedOptions>
   }
 }
 
@@ -30,7 +30,7 @@ export interface EmbedOptions {
   author?: { text: StringResolvable, icon: string },
   color?: ColorResolvable,
   description?: StringResolvable,
-  footer?: { text: StringResolvable, icon: string }
+  footer?: StringResolvable
   image?: string,
   thumbnail?: string,
   timestamp?: Date | number,
@@ -49,6 +49,14 @@ export class Luke extends Client {
     this.commandHandler = new CommandHandler(this)
 
     this.login(token)
+  }
+  get colors() {
+    return {
+      default: '#fcba03',
+      error: '#eb4034',
+      done: '#32a852',
+      info: '#4287f5'
+    }
   }
 }
 

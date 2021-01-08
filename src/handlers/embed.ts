@@ -11,9 +11,10 @@ export default function(Embed: EmbedOptions, message: Message, Luke: Luke) {
   if (Embed.timestamp) embed.setTimestamp(Embed.timestamp)
   if (Embed.author) embed.setAuthor(Embed.author?.text, Embed.author?.icon)
   if (Embed.url) embed.setURL(Embed.url)
-  embed.setColor(Embed.color || '#fcba03')
+  embed.setColor(Embed.color || Luke.colors.default)
   Embed.fields?.forEach(field => {
-    embed.addField(field[0] || 'Null', field[1] || 'null', field[2] || false)
+    embed.addField(field[0] || 'Null', `\`\`\`${field[1] || 'null'}\`\`\``, field[2] || true)
   })
+  console.log(Embed)
   message.channel.send(embed)
 }
