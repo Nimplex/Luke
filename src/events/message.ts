@@ -9,6 +9,6 @@ export const _ = async(message: Message, Luke: Luke) => {
   const command: Command = await Luke.commandHandler.get(commandName)
   if (command) {
     const output = await command.data.execute(message, ...args)
-    EmbedHandler(output, message)
+    EmbedHandler(output, message, Luke)
   }
 }
