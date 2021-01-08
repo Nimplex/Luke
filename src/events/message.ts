@@ -12,6 +12,6 @@ export const _ = async(message: Message, Luke: Luke) => {
     
     if (command.data.dev && !developers.includes(message.author.id)) return
 
-    EmbedHandler(output, message, Luke)
+    if (output) EmbedHandler(output, message, Luke)
   }
 }

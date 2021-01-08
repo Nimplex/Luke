@@ -20,7 +20,9 @@ export interface Command {
     description: string,
     usage: string,
     dev?: boolean,
-    execute: (...args: any) => Promise<EmbedOptions>
+    userPermissions?: string[],
+    botPermissions?: string[],
+    execute: (...args: any) => Promise<EmbedOptions | undefined>
   }
 }
 
