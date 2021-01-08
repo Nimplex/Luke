@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node .",
     "start:dev": "nodemon .",
-    "build": "tsc"
+    "build": "tsc",
+    "build:dev": "tsc --watch"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "rethinkdb": "^2.4.2"
   },
   "devDependencies": {
-    "@types/ws": "^7.4.0"
+    "@types/ws": "^7.4.0",
+    "nodemon": "^2.0.7"
   }
 }
