@@ -15,6 +15,5 @@ export default function(Embed: EmbedOptions, message: Message, Luke: Luke) {
   Embed.fields?.forEach(field => {
     embed.addField(field[0] || 'Null', `\`\`\`${field[1] || 'null'}\`\`\``, field[2] || true)
   })
-  console.log(Embed)
   message.channel.send(embed)
 }
