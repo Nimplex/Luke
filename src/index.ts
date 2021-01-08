@@ -1,4 +1,4 @@
-import { Client, ClientOptions, Message } from 'discord.js'
+import { Client, ClientOptions, ColorResolvable, FileOptions, Message, MessageAttachment, StringResolvable } from 'discord.js'
 import EventHandler from './handlers/events'
 import PluginHandler from './handlers/plugins'
 import CommandHandler from './handlers/commands'
@@ -8,25 +8,34 @@ const { token } = require('../files/config.json')
 
 export interface Plugin {
   data: {
-    name: String,
-    id: String,
+    name: string,
+    id: string,
     commands: any[]
   }
 }
 
 export interface Command {
   data: {
-    triggers: String[],
-    description: String,
-    usage: String,
-    dev: boolean,
-    execute: Function
+    triggers: string[],
+    description: string,
+    usage: string,
+    dev?: boolean,
+    execute: (...args: any) => EmbedOptions
   }
 }
 
-export interface CommandOutput {
-  message: Message,
-  args?: string[]
+export interface EmbedOptions {
+  fields?: any[],
+  files?: Array<string | FileOptions | MessageAttachment>,
+  author?: { text: StringResolvable, icon: string },
+  color?: ColorResolvable,
+  description?: StringResolvable,
+  footer?: { text: StringResolvable, icon: string }
+  image?: string,
+  thumbnail?: string,
+  timestamp?: Date | number,
+  title?: StringResolvable,
+  url?: string
 }
 
 export class Luke extends Client {
