@@ -13,7 +13,7 @@ export default function(Embed: EmbedOptions, message: Message) {
   if (Embed.author) embed.setAuthor(Embed.author?.text, Embed.author?.icon)
   if (Embed.url) embed.setURL(Embed.url)
   Embed.fields?.forEach(field => {
-    embed.addField(field[0], field[1], field[2] || false)
+    embed.addField(field[0] || '', field[1] || '', field[2] || false)
   })
   message.channel.send(embed)
 }

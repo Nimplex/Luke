@@ -10,7 +10,7 @@ export const data = {
     return { 
       title: 'Test',
       fields: [
-        ['Arguments', args]
+        []
       ]
     }
   }

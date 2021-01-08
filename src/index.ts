@@ -1,4 +1,4 @@
-import { Client, ClientOptions, ColorResolvable, FileOptions, Message, MessageAttachment, StringResolvable } from 'discord.js'
+import { Client, ClientOptions, ColorResolvable, FileOptions, MessageAttachment, StringResolvable } from 'discord.js'
 import EventHandler from './handlers/events'
 import PluginHandler from './handlers/plugins'
 import CommandHandler from './handlers/commands'

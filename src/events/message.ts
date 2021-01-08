@@ -1,5 +1,5 @@
 import { Message } from 'discord.js'
-import { Command, Luke, EmbedOptions } from '../index'
+import { Command, Luke } from '../index'
 import EmbedHandler from '../handlers/embed'
 
 const { prefix } = require('../../files/config.json')
