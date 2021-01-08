@@ -1,6 +1,6 @@
 # Luke
-Luke, simple Discord bot. <br/>
-<p>(Several things in the code were copied from <a href="https://badosz.com">badosz's bot</a></p>
+<p>Luke - simple Discord bot.</p>
+<p align="right">(Several things in the code were copied from <a href="https://badosz.com">badosz's bot</a>)</p>
 
 ---
 
