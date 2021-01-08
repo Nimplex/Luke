@@ -1,8 +1,6 @@
 import { Message } from 'discord.js'
 import Luke, { Command, EmbedOptions, Plugin } from './../../../index'
 
-const { prefix } = require('./../../../../files/config.json')
-
 export const data = {
   triggers: ['help'],
   description: 'Get all commands from category or view informations about single command.',
@@ -12,7 +10,7 @@ export const data = {
       const cmdHandler = Luke.commandHandler
       let fields: any[] = []
       cmdHandler.plugins.forEach((plugin: Plugin) => {
-        fields.push([plugin.data.name, `${prefix}help ${plugin.data.id}`])
+        fields.push([plugin.data.name, `${Luke.config.prefix}help ${plugin.data.id}`])
       })
       return {
         title: `Help - All avaible plugins (${cmdHandler.plugins.length}).`,
@@ -26,7 +24,7 @@ export const data = {
           fields: [
             ['Triggers', command.data.triggers, false],
             ['Description', command.data.description, false],
-            ['Usage', `${prefix}${command.data.triggers[0]} ${command.data.usage}`, false],
+            ['Usage', `${Luke.config.prefix}${command.data.triggers[0]} ${command.data.usage}`, false],
             ['Developers command?', command.data.dev? 'yes': 'no', false],
             ['Bot permissions', command.data.botPermissions || 'none'],
             ['User permissions', command.data.botPermissions || 'none']
