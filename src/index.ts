@@ -21,11 +21,13 @@ export interface Command {
     userPermissions?: string[],
     botPermissions?: string[],
     execute: (...args: any) => Promise<EmbedOptions | undefined>
-  }
+  },
 }
 
+export type Field = [string, any | any[], boolean?]
+
 export interface EmbedOptions {
-  fields?: any[],
+  fields?: Field[],
   files?: Array<string | FileOptions | MessageAttachment>,
   author?: { text: StringResolvable, icon: string },
   color?: ColorResolvable,
