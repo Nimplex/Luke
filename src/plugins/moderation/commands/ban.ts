@@ -25,10 +25,11 @@ export const data: Command['data'] = {
     return {
       title: ':hammer: ban.',
       fields: [
-        ['Moderator', message.author.tag],
-        ['Member', member.user.tag],
+        ['Moderator', `${message.author.tag} (${message.author.id})`],
+        ['Member', `${member.user.tag} (${member.user.id})`],
         ['Reason', reason || 'none', false]
-      ]
+      ],
+      color: Luke.colors.done
     }
   }
 }
