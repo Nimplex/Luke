@@ -10,7 +10,11 @@ export const data: Command['data'] = {
   execute: async(message: Message, ...args: any[]): Promise<EmbedOptions | undefined> => {
     const member = message.mentions.members?.first()
     if (!member) return
-
+    if (!member.bannable) return {
+      title: ':hammer: ban.',
+      description: 'You cannot ban this user.',
+      color: Luke.colors.error
+    }
     const reason = args.join(' ').replace(args[0], '').replace(' ', '')
     if (reason) {
       member.ban({ reason: `${message.author.tag} (${message.author.id}): ${reason}`, days: 7 })
