@@ -14,7 +14,7 @@ export const data: Command['data'] = {
         fields.push([plugin.data.name, `id: ${plugin.data.id}`])
       )
       return {
-        title: `Help - All avaible plugins (${cmdHandler.plugins.length}).`,
+        title: `:grey_question: Help - All avaible plugins (${cmdHandler.plugins.length}).`,
         description: `${Luke.config.prefix}help [command|category]`,
         color: Luke.colors.info,
         fields: fields
@@ -23,14 +23,14 @@ export const data: Command['data'] = {
       const command: Command = await Luke.commandHandler.get(args[0])
       if (command) 
         return {
-          title: `${command.data.triggers[0]} (help).`,
+          title: `:grey_question: ${command.data.triggers[0]} (help).`,
           color: Luke.colors.info,
           fields: [
             ['Triggers', command.data.triggers, false],
             ['Description', command.data.description, false],
             ['Usage', `${Luke.config.prefix}${command.data.triggers[0]} ${command.data.usage}`, false],
             ['Developers command?', command.data.dev? 'yes': 'no', false],
-            ['Bot permissions', command.data.botPermissions?.join(', ').toLowerCase() || 'none'],
+            ['Bot permissions', command.data.botPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none'],
             ['User permissions', command.data.userPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none']
           ]
         }
@@ -43,8 +43,7 @@ export const data: Command['data'] = {
           )
           return {
             title: `${plugin.data.name} (help).`,
-            description: field.join(', '),
-            color: Luke.colors.info,
+            description: field.join(', ')
           }
         }
       }

@@ -18,7 +18,7 @@ export const data: Command['data'] = {
       output = 'error'
     }
     return {
-      title: 'Eval code.',
+      title: ':gear: eval.',
       color: output == 'error' ? Luke.colors.error : Luke.colors.done,
       fields: [
         [':outbox_tray: Output', output]

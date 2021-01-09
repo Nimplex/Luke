@@ -3,7 +3,7 @@ const commands = require('fs')
   .map((file: string) => require(`${__dirname}/commands/${file}`))
 
 export const data = {
-	name: 'Developer',
+	name: ':computer: developer',
 	id: 'dev',
   commands: commands,
 }
