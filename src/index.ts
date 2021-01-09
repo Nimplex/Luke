@@ -1,4 +1,4 @@
-import { Client, ClientOptions, ColorResolvable, FileOptions, MessageAttachment, StringResolvable } from 'discord.js'
+import { BitFieldResolvable, Client, ClientOptions, ColorResolvable, FileOptions, MessageAttachment, PermissionString, StringResolvable } from 'discord.js'
 import EventHandler from './handlers/events'
 import PluginHandler from './handlers/plugins'
 import CommandHandler from './handlers/commands'
@@ -18,8 +18,8 @@ export interface Command {
     description: string,
     usage: string,
     dev?: boolean,
-    userPermissions?: string[],
-    botPermissions?: string[],
+    userPermissions?: Array<BitFieldResolvable<PermissionString>>,
+    botPermissions?: Array<BitFieldResolvable<PermissionString>>,
     execute: (...args: any) => Promise<EmbedOptions | undefined>
   },
 }

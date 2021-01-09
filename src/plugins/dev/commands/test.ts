@@ -1,11 +1,12 @@
 import { Message } from 'discord.js'
-import Luke, { EmbedOptions } from './../../../index'
+import Luke, { EmbedOptions, Command } from './../../../index'
 
-export const data = {
+export const data: Command['data'] = {
   triggers: ['test'],
   description: '',
   usage: '',
   dev: true,
+  userPermissions: ['ADMINISTRATOR', 'ATTACH_FILES'],
   execute: async(message: Message, ...args: any[]): Promise<EmbedOptions> => {
     return { 
       title: 'Test',
