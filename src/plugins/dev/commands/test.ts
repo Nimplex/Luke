@@ -7,7 +7,7 @@ export const data: Command['data'] = {
   usage: '',
   dev: true,
   userPermissions: ['ADMINISTRATOR', 'ATTACH_FILES'],
-  execute: async(message: Message, ...args: any[]): Promise<EmbedOptions> => {
+  execute: async(message: Message, ...args: any[]): Promise<EmbedOptions | undefined> => {
     return { 
       title: 'Test',
       color: Luke.colors.default,

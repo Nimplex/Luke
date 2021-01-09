@@ -5,6 +5,7 @@ export const data: Command['data'] = {
   triggers: ['help'],
   description: 'Get all commands from category or view informations about single command.',
   usage: '[command|category]',
+  botPermissions: ['SEND_MESSAGES'],
   execute: async(message: Message, ...args: any[]): Promise<EmbedOptions | undefined> => {
     if (!args[0]) {
       const cmdHandler = Luke.commandHandler
@@ -22,7 +23,7 @@ export const data: Command['data'] = {
       const command: Command = await Luke.commandHandler.get(args[0])
       if (command) 
         return {
-          title: `${command.data.triggers[0]} (help)`,
+          title: `${command.data.triggers[0]} (help).`,
           color: Luke.colors.info,
           fields: [
             ['Triggers', command.data.triggers, false],
@@ -41,7 +42,7 @@ export const data: Command['data'] = {
             field.push(command.data.triggers[0])
           )
           return {
-            title: `${plugin.data.name} (help)`,
+            title: `${plugin.data.name} (help).`,
             description: field.join(', '),
             color: Luke.colors.info,
           }
