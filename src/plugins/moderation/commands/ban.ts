@@ -3,7 +3,7 @@ import Luke, { Command, EmbedOptions } from './../../../index'
 
 export const data: Command['data'] = {
   triggers: ['ban'],
-  description: 'Shows bot ping.',
+  description: 'Ban member.',
   usage: '<@user> [reason]',
   botPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
   userPermissions: ['BAN_MEMBERS'],
