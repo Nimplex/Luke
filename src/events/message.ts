@@ -14,7 +14,7 @@ export const _ = async(message: Message, Luke: Luke) => {
     const output = await command.data.execute(message, ...args)
     if (output) {
       if (output == {}) {
-        const embed = await EmbedHandler({ title: 'Error', description: `Usage: ${command.data.usage}` }, message, Luke)
+        const embed = await EmbedHandler({ title: 'Error', description: `Usage: ${command.data.usage}`, color: Luke.colors.error }, message, Luke)
         message.channel.send(embed)
         return
       }
