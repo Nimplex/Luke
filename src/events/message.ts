@@ -5,6 +5,7 @@ import EmbedHandler from '../handlers/embed'
 export const _ = async(message: Message, Luke: Luke) => {
   const [commandName, ...args] = message.content.slice(Luke.config.prefix.length).split(/ +/g)
   const command: Command = await Luke.commandHandler.get(commandName)
+  
   if (command) {
     if (command.data.dev && !Luke.config.developers.includes(message.author.id)) return
     if (!message.guild?.me?.permissions.has(command.data.botPermissions || [])) return

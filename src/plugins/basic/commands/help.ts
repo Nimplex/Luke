@@ -35,12 +35,13 @@ export const data: Command['data'] = {
           ]
         }
       else {
-        const plugin: Plugin = await Luke.pluginHandler.get(args[0])
+        const plugin = await Luke.pluginHandler.get(args[0])
         if (plugin) {
           let field: string[] = []
-          plugin.data.commands.forEach((command: Command) =>
-            field.push(command.data.triggers[0])
-          )
+          plugin.data.commands.forEach((command: Command) => {
+            if (command.data.hide) return
+            else field.push(command.data.triggers[0])
+          })
           return {
             title: `${plugin.data.name} (help).`,
             description: field.join(', ')
