@@ -11,6 +11,9 @@ export const _ = async(message: Message, Luke: Luke) => {
     if (!message.member?.permissions.has(command.data.userPermissions || [])) return
     
     const output = await command.data.execute(message, ...args)
-    if (output) EmbedHandler(output, message, Luke)
+    if (output) {
+      const embed = await EmbedHandler(output, message, Luke)
+      message.channel.send(embed)
+    }
   }
 }

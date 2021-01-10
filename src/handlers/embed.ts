@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js'
 import { EmbedOptions, Luke } from './../index'
 
-export default function(Embed: EmbedOptions, message: Message, Luke: Luke) {
+export default function(Embed: EmbedOptions, message: Message, Luke: Luke): MessageEmbed {
   const embed = new MessageEmbed()
   if (Embed.title) embed.setTitle(Embed.title)
   if (Embed.description) embed.setDescription(`\`\`\`${Embed.description}\`\`\``)
@@ -17,5 +17,5 @@ export default function(Embed: EmbedOptions, message: Message, Luke: Luke) {
   Embed.fields?.forEach(field => {
     embed.addField(field[0] || 'Null', `\`\`\`${field[1] || 'null'}\`\`\``, field[2] !== false? true: false)
   })
-  message.channel.send(embed)
+  return embed
 }
