@@ -36,7 +36,7 @@ export const _ = async(message: Message, Luke: Luke) => {
     const output = await command.data.execute(message, ...args)
 
     if (output == false) {
-      const embed = await EmbedHandler({ title: 'Error, missing arguments.', fields: [[`Usage`, command.data.usage]], color: Luke.colors.error }, message, Luke)
+      const embed = await EmbedHandler({ title: 'Error, missing valid arguments.', fields: [[`Usage`, command.data.usage]], color: Luke.colors.error }, message, Luke)
       message.channel.send(embed)
     }
     else if (!output) return
