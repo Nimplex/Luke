@@ -36,7 +36,7 @@ export interface EmbedOptions {
   description?: StringResolvable,
   footer?: StringResolvable
   image?: string,
-  thumbnail?: string,
+  thumbnail?: string | null | undefined,
   timestamp?: Date | number,
   title?: StringResolvable,
   url?: string
@@ -65,4 +65,4 @@ export class Luke extends Client {
   }
 }
 
-export default new Luke({ partials: ['MESSAGE', 'CHANNEL'] })
+export default new Luke({ partials: ['USER', 'MESSAGE', 'CHANNEL'] })

@@ -26,12 +26,12 @@ export const data: Command['data'] = {
           color: Luke.colors.info,
           fields: [
             ['Triggers', command.data.triggers, false],
-            ['Hide in help?', command.data?.hide ? 'yes' : 'no', true],
-            ['Developers command?', command.data.dev? 'yes': 'no', true],
+            ['Hide in help?', command.data?.hide ? 'yes' : 'no'],
+            ['Developers command?', command.data.dev? 'yes': 'no'],
             ['Description', command.data.description, false],
             ['Usage', `${Luke.config.prefix}${command.data.triggers[0]} ${command.data.usage || ''}`, false],
-            ['Bot permissions', command.data.botPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none', true],
-            ['User permissions', command.data.userPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none', true]
+            ['Bot permissions', command.data.botPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none'],
+            ['User permissions', command.data.userPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none']
           ]
         }
       else {
