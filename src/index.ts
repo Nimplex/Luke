@@ -8,6 +8,7 @@ export interface Plugin {
   data: {
     name: string,
     id: string,
+    hide?: boolean,
     commands: Command[]
   }
 }
@@ -22,7 +23,7 @@ export interface Command {
     userPermissions?: Array<BitFieldResolvable<PermissionString>>,
     botPermissions?: Array<BitFieldResolvable<PermissionString>>,
     execute: (message: Message, ...args: string[]) => Promise<EmbedOptions | undefined | false>
-  },
+  }
 }
 
 export type Field = [string, any | any[], boolean?]

@@ -15,7 +15,7 @@ export default function(Embed: EmbedOptions, message: Message, Luke: Luke): Mess
   if (Embed.url) embed.setURL(Embed.url)
   embed.setColor(Embed.color || Luke.colors.default)
   Embed.fields?.forEach(field => {
-    embed.addField(field[0] || 'Null', `\`\`\`${field[1] || 'null'}\`\`\``, field[2] !== false? true: false)
+    embed.addField(field[0] || 'Null', `${field[1] == false ?  '** **' : `\`\`\`${field[1] || 'null'}\`\`\``}`, field[2] !== false? true: false)
   })
   return embed
 }

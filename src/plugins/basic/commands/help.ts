@@ -10,7 +10,7 @@ export const data: Command['data'] = {
       const cmdHandler = Luke.commandHandler
       let fields: any[] = []
       cmdHandler.plugins.forEach((plugin: Plugin) =>
-        fields.push([plugin.data.name, `id: ${plugin.data.id}`])
+        plugin.data?.hide ? '' : fields.push([plugin.data.name, `id: ${plugin.data.id}`])
       )
       return {
         title: `:grey_question: Help - All avaible plugins (${cmdHandler.plugins.length}).`,
@@ -28,9 +28,11 @@ export const data: Command['data'] = {
             ['Triggers', command.data.triggers, false],
             ['Description', command.data.description, false],
             ['Usage', `${Luke.config.prefix}${command.data.triggers[0]} ${command.data.usage}`, false],
-            ['Developers command?', command.data.dev? 'yes': 'no', false],
-            ['Bot permissions', command.data.botPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none'],
-            ['User permissions', command.data.userPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none']
+            ['Hide in help?', command.data?.hide ? 'yes' : 'no', true],
+            ['Developers command?', command.data.dev? 'yes': 'no', true],
+            ['** **', false, false],
+            ['Bot permissions', command.data.botPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none', true],
+            ['User permissions', command.data.userPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none', true]
           ]
         }
       else {

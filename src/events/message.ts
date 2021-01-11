@@ -12,7 +12,7 @@ export const _ = async(message: Message, Luke: Luke) => {
     if (!message.member?.permissions.has(command.data.userPermissions || [])) return
     
     const output = await command.data.execute(message, ...args)
-    console.log(output)
+
     if (output == false) {
       const embed = await EmbedHandler({ title: 'Error, missing arguments.', fields: [[`Usage`, command.data.usage]], color: Luke.colors.error }, message, Luke)
       message.channel.send(embed)

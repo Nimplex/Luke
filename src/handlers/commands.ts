@@ -13,4 +13,12 @@ export default class CommandHandler {
     })
     return temp
   }
+  async findPlugin(cmdName: string): Promise<any> {
+    let temp
+    this.plugins.forEach(async(plugin: Plugin) => {
+      const command = plugin.data.commands.find((command: Command) => command.data.triggers.includes(cmdName))
+      if (command) temp = plugin
+    })
+    return temp
+  }
 }

@@ -4,6 +4,7 @@ const commands = require('fs')
 
 export const data = {
 	name: ':computer: developer',
-	id: 'dev',
+  id: 'dev',
+  hide: true,
   commands: commands,
 }
