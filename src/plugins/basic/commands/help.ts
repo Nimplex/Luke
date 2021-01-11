@@ -26,11 +26,10 @@ export const data: Command['data'] = {
           color: Luke.colors.info,
           fields: [
             ['Triggers', command.data.triggers, false],
-            ['Description', command.data.description, false],
-            ['Usage', `${Luke.config.prefix}${command.data.triggers[0]} ${command.data.usage}`, false],
             ['Hide in help?', command.data?.hide ? 'yes' : 'no', true],
             ['Developers command?', command.data.dev? 'yes': 'no', true],
-            ['** **', false, false],
+            ['Description', command.data.description, false],
+            ['Usage', `${Luke.config.prefix}${command.data.triggers[0]} ${command.data.usage}`, false],
             ['Bot permissions', command.data.botPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none', true],
             ['User permissions', command.data.userPermissions?.join(', ').toLowerCase().replace(/_/g, ' ') || 'none', true]
           ]
