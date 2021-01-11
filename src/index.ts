@@ -44,7 +44,7 @@ export interface EmbedOptions {
 
 export class Luke extends Client {
   eventHandler; pluginHandler; commandHandler; console; plugins: any; config;
-  constructor(config: ClientOptions) {
+  constructor(config?: ClientOptions) {
     super(config)
 
     this.console = new Console()
@@ -65,4 +65,4 @@ export class Luke extends Client {
   }
 }
 
-export default new Luke({ partials: ['USER', 'MESSAGE', 'CHANNEL'] })
+export default new Luke({ partials: ['GUILD_MEMBER', 'USER', 'MESSAGE', 'CHANNEL'] })
