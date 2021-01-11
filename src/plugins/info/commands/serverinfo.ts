@@ -7,25 +7,29 @@ export const data: Command['data'] = {
   execute: async(message, ...args) => {
     const bots = message.guild?.members.cache.map(member => member.user.bot).length
     const members = message.guild?.memberCount
+    const { guild } = message
     return {
-      title: `${message.guild?.name} (serverinfo).`,
+      title: `${guild?.name} (serverinfo).`,
       thumbnail: message.guild?.iconURL(),
       fields: [
-        ['Name', message.guild?.name],
-        ['Owner', message.guild?.owner?.user.tag],
-        ['ID', message.guild?.id, false],
-        ['Discord partner?', message.guild?.partnered ? 'yes' : 'no'],
-        ['Large?', message.guild?.large ? 'yes' : 'no'],
-        ['Region', message.guild?.region],
-        ['Members', members],
-        ['Bots', bots],
-        ['Users', (members || 0) - (bots || 0)],
-        ['Max. members', message.guild?.maximumMembers],
-        ['Roles', message.guild?.roles.cache.size],
-        ['Channels', message.guild?.channels.cache.size],
-        ['Emojis', message.guild?.emojis.cache.size],
-        ['Veryfication level', message.guild?.verificationLevel.toLocaleLowerCase().replace(/_/gm, ' ')],
-        ['Guild creation', message.guild?.createdAt.toLocaleDateString()],
+        ['Name', guild?.name, true],
+        ['Owner', guild?.owner?.user.tag, true],
+        ['ID', guild?.id],
+        ['Deleted?', guild?.deleted ? 'yes' : 'no', true],
+        ['Avaible?', guild?.available ? 'yes' : 'no', true],
+        ['Partner?', guild?.partnered ? 'yes' : 'no', true],
+        ['Description', guild?.description],
+        ['Creation date', guild?.createdAt.toLocaleDateString()],
+        ['Boosts', guild?.premiumSubscriptionCount?.toString(), true],
+        ['Boost level', guild?.premiumTier.toString(), true],
+        ['Veryfication level', guild?.verificationLevel.toLocaleLowerCase().replace(/_/gm, ' ')],
+        ['Roles', guild?.roles.cache.size, true],
+        ['Channels', guild?.channels.cache.size, true],
+        ['Emojis', guild?.emojis.cache.size, true],
+        ['Members', members, true],
+        ['Bots', bots, true],
+        ['Users', (members || 0) - (bots || 0), true],
+        ['Icon URL', guild?.iconURL()]
       ]
     }
   }

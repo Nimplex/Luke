@@ -4,7 +4,6 @@ export const data: Command['data'] = {
   triggers: ['test'],
   description: '',
   dev: true,
-  userPermissions: ['ADMINISTRATOR', 'ATTACH_FILES'],
   execute: async(message, ...args) => {
     return { 
       title: 'Test',

@@ -6,8 +6,7 @@ export const data: Command['data'] = {
   description: 'Eval code.',
   usage: '<code>',
   dev: true,
-  userPermissions: ['ADMINISTRATOR'],
-  botPermissions: ['ADMINISTRATOR', 'SEND_MESSAGES'],
+  botPermissions: ['SEND_MESSAGES'],
   execute: async(message, ...args) => {
     let evaled, output
     try {

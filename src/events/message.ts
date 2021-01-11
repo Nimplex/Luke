@@ -22,7 +22,7 @@ export const _ = async(message: Message, Luke: Luke) => {
     }
     if (!message.member?.permissions.has(command.data.userPermissions || [])) {
       let missing: any[] = []
-      command.data.botPermissions?.forEach(permission => {
+      command.data.userPermissions?.forEach(permission => {
         if (!message.member?.permissions.has(permission)) missing.push(permission)
       })
       const embed = await EmbedHandler(

@@ -10,7 +10,7 @@ export const data: Command['data'] = {
       const cmdHandler = Luke.commandHandler
       let fields: any[] = []
       cmdHandler.plugins.forEach((plugin: Plugin) =>
-        plugin.data?.hide ? '' : fields.push([plugin.data.name, `id: ${plugin.data.id}`])
+        plugin.data?.hide ? '' : fields.push([plugin.data.name, `id: ${plugin.data.id}`, true])
       )
       return {
         title: `:grey_question: Help - All avaible plugins (${cmdHandler.plugins.length}).`,
