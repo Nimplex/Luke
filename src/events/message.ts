@@ -8,8 +8,30 @@ export const _ = async(message: Message, Luke: Luke) => {
   
   if (command) {
     if (command.data.dev && !Luke.config.developers.includes(message.author.id)) return
-    if (!message.guild?.me?.permissions.has(command.data.botPermissions || [])) return
-    if (!message.member?.permissions.has(command.data.userPermissions || [])) return
+    if (!message.guild?.me?.permissions.has(command.data.botPermissions || [])) {
+      let missing: any[] = []
+      command.data.botPermissions?.forEach(permission => {
+        if (!message.guild?.me?.permissions.has(permission)) missing.push(permission)
+      })
+      const embed = await EmbedHandler(
+        { title: 'Error, i\'m missing permissions.', 
+          fields: [['Required permissions', missing.join(', ').toLowerCase().replace(/_/gm, ' ')]], 
+          color: Luke.colors.error 
+        }, message, Luke)
+      message.channel.send(embed); return
+    }
+    if (!message.member?.permissions.has(command.data.userPermissions || [])) {
+      let missing: any[] = []
+      command.data.botPermissions?.forEach(permission => {
+        if (!message.member?.permissions.has(permission)) missing.push(permission)
+      })
+      const embed = await EmbedHandler(
+        { title: 'Error, you\'re missing permissions.', 
+          fields: [['Required permissions', missing.join(', ').toLowerCase().replace(/_/gm, ' ')]], 
+          color: Luke.colors.error 
+        }, message, Luke)
+      message.channel.send(embed); return
+    }
     
     const output = await command.data.execute(message, ...args)
 

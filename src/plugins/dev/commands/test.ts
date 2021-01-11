@@ -3,7 +3,6 @@ import Luke, { Command } from './../../../index'
 export const data: Command['data'] = {
   triggers: ['test'],
   description: '',
-  usage: '',
   dev: true,
   userPermissions: ['ADMINISTRATOR', 'ATTACH_FILES'],
   execute: async(message, ...args) => {

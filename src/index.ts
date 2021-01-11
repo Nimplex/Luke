@@ -17,7 +17,7 @@ export interface Command {
   data: {
     triggers: string[],
     description: string,
-    usage: string,
+    usage?: string,
     dev?: boolean,
     hide?: boolean,
     userPermissions?: Array<BitFieldResolvable<PermissionString>>,
