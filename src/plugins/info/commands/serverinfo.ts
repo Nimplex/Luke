@@ -10,7 +10,7 @@ export const data: Command['data'] = {
     const { guild } = message
     return {
       title: `${guild?.name} (serverinfo).`,
-      thumbnail: message.guild?.iconURL(),
+      thumbnail: guild?.iconURL(),
       fields: [
         ['Name', guild?.name, true],
         ['Owner', guild?.owner?.user.tag, true],
