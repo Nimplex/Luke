@@ -23,9 +23,9 @@ export const data: Command['data'] = {
     return {
       title: ':hammer: ban.',
       fields: [
-        ['Moderator', `${message.author.tag} (${message.author.id})`],
-        ['Member', `${member.user.tag} (${member.user.id})`],
-        ['Reason', reason || 'none', false]
+        ['Moderator', `${message.author.tag} (${message.author.id})`, true],
+        ['Member', `${member.user.tag} (${member.user.id})`, true],
+        ['Reason', reason || 'none']
       ],
       color: Luke.colors.done
     }

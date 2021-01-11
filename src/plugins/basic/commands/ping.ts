@@ -11,8 +11,8 @@ export const data: Command['data'] = {
     return {
       title: ':ping_pong: ping.',
       fields: [
-        ['Message', `${messagePing}ms`],
-        ['API', `${clientPing}ms`]
+        ['Message', `${messagePing}ms`, true],
+        ['API', `${clientPing}ms`, true]
       ]
     }
   }
