@@ -16,18 +16,18 @@ export const data: Command['data'] = {
         ['Username', user.tag, true],
         ['Status', user.presence.status, true],
         ['Client', 
-          user.presence.clientStatus?.desktop ? 'Desktop' : undefined || 
-          user.presence.clientStatus?.web ? 'Web' : undefined || 
-          user.presence.clientStatus?.mobile ? 'Mobile' : undefined, 
-          true
+        user.presence.clientStatus?.desktop ? 'Desktop' : undefined || 
+        user.presence.clientStatus?.web ? 'Web' : undefined || 
+        user.presence.clientStatus?.mobile ? 'Mobile' : undefined, 
+        true
         ],
         ['Bannable?', member?.bannable ? 'yes' : 'no', true],
         ['Kickable?', member?.kickable ? 'yes' : 'no', true],
         ['Bot?', user.bot ? 'yes' : 'no', true],
-        ['ID', user.id],
         ['Nickname', member?.nickname, true],
         ['Administrator?', member?.permissions.has('ADMINISTRATOR') ? 'yes' : 'no', true],
         ['Boosted?', member?.premiumSince ? 'yes' : 'no', true],
+        ['ID', user.id],
         ['Joined', `${member?.joinedAt?.toLocaleTimeString()}, ${member?.joinedAt?.toLocaleDateString()}`, true],
         ['Created', `${user?.createdAt?.toLocaleTimeString()}, ${user?.createdAt?.toLocaleDateString()}`, true],
       ],
