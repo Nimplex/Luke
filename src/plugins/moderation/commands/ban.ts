@@ -12,7 +12,7 @@ export const data: Command['data'] = {
     if (!member) return false
     if (!member.bannable) return {
       title: ':hammer: ban.',
-      description: 'You cannot ban this user.',
+      description: 'You can\'t ban this user.',
       color: Luke.colors.error
     }
 

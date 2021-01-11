@@ -12,7 +12,7 @@ export const data: Command['data'] = {
     if (!member) return false
     if (!member.kickable) return {
       title: ':door: kick.',
-      description: 'You cant kick this user.',
+      description: 'You can\'t kick this user.',
       color: Luke.colors.error
     }
 
