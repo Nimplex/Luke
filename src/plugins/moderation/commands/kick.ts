@@ -11,7 +11,7 @@ export const data: Command['data'] = {
 
     if (!member) return false
     if (!member.kickable) return {
-      title: ':doors: kick.',
+      title: ':door: kick.',
       description: 'You cant kick this user.',
       color: Luke.colors.error
     }
@@ -21,7 +21,7 @@ export const data: Command['data'] = {
     reason ? member.kick(reason) : member.kick()
 
     return {
-      title: ':doors: kick.',
+      title: ':door: kick.',
       fields: [
         ['Moderator', `${message.author.tag} (${message.author.id})`],
         ['Member', `${member.user.tag} (${member.user.id})`],
