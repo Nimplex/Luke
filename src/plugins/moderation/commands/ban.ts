@@ -1,5 +1,4 @@
-import { Message, MessageAttachment, MessageEmbed } from 'discord.js'
-import Luke, { Command, EmbedOptions } from './../../../index'
+import Luke, { Command } from './../../../index'
 
 export const data: Command['data'] = {
   triggers: ['ban'],
@@ -7,21 +6,20 @@ export const data: Command['data'] = {
   usage: '<@user> [reason]',
   botPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
   userPermissions: ['BAN_MEMBERS'],
-  execute: async(message: Message, ...args: any[]): Promise<EmbedOptions | undefined> => {
+  execute: async(message, ...args) => {
     const member = message.mentions.members?.first()
-    if (!member) return
+    
+    if (!member) return false
     if (!member.bannable) return {
       title: ':hammer: ban.',
       description: 'You cannot ban this user.',
       color: Luke.colors.error
     }
-    const reason = args.join(' ').replace(args[0], '').replace(' ', '')
-    if (reason) {
-      member.ban({ reason: `${message.author.tag} (${message.author.id}): ${reason}`, days: 7 })
-    } else {
-      member.ban()
-    }
 
+    const reason = args.join(' ').replace(args[0], '').replace(' ', '')
+
+    reason ? member.ban({ reason: `${message.author.tag} (${message.author.id}): ${reason}`, days: 7 }) : member.ban()
+    
     return {
       title: ':hammer: ban.',
       fields: [

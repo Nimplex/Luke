@@ -1,6 +1,5 @@
-import { Message } from 'discord.js'
 import fetch from 'node-fetch'
-import Luke, { EmbedOptions, Command } from './../../../index'
+import Luke, { Command } from './../../../index'
 
 export const data: Command['data'] = {
   triggers: ['eval'],
@@ -9,7 +8,7 @@ export const data: Command['data'] = {
   dev: true,
   userPermissions: ['ADMINISTRATOR'],
   botPermissions: ['ADMINISTRATOR', 'SEND_MESSAGES'],
-  execute: async(message: Message, ...args: any[]): Promise<EmbedOptions | undefined> => {
+  execute: async(message, ...args) => {
     let evaled, output
     try {
       evaled = await eval(args[0])

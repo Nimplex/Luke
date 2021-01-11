@@ -21,7 +21,7 @@ export interface Command {
     hide?: boolean,
     userPermissions?: Array<BitFieldResolvable<PermissionString>>,
     botPermissions?: Array<BitFieldResolvable<PermissionString>>,
-    execute: (message: Message, ...args: string[]) => Promise<EmbedOptions | undefined>
+    execute: (message: Message, ...args: string[]) => Promise<EmbedOptions | undefined | false>
   },
 }
 

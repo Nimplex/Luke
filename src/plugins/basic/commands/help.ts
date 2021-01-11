@@ -1,12 +1,11 @@
-import { Message } from 'discord.js'
-import Luke, { Command, EmbedOptions, Plugin } from './../../../index'
+import Luke, { Command, Plugin } from './../../../index'
 
 export const data: Command['data'] = {
   triggers: ['help'],
   description: 'Get all commands from category or view informations about single command.',
   usage: '[command|category]',
   botPermissions: ['SEND_MESSAGES'],
-  execute: async(message: Message, ...args: any[]): Promise<EmbedOptions | undefined> => {
+  execute: async(message, ...args) => {
     if (!args[0]) {
       const cmdHandler = Luke.commandHandler
       let fields: any[] = []

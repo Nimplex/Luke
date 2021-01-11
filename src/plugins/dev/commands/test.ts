@@ -1,5 +1,4 @@
-import { Message } from 'discord.js'
-import Luke, { EmbedOptions, Command } from './../../../index'
+import Luke, { Command } from './../../../index'
 
 export const data: Command['data'] = {
   triggers: ['test'],
@@ -7,7 +6,7 @@ export const data: Command['data'] = {
   usage: '',
   dev: true,
   userPermissions: ['ADMINISTRATOR', 'ATTACH_FILES'],
-  execute: async(message: Message, ...args: any[]): Promise<EmbedOptions | undefined> => {
+  execute: async(message, ...args) => {
     return { 
       title: 'Test',
       color: Luke.colors.default,

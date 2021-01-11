@@ -1,5 +1,4 @@
-import { Message, MessageAttachment, MessageEmbed } from 'discord.js'
-import Luke, { Command, EmbedOptions } from './../../../index'
+import Luke, { Command } from './../../../index'
 
 export const data: Command['data'] = {
   triggers: ['kick'],
@@ -7,18 +6,14 @@ export const data: Command['data'] = {
   usage: '<@user> [reason]',
   botPermissions: ['SEND_MESSAGES', 'KICK_MEMBERS'],
   userPermissions: ['KICK_MEMBERS'],
-  execute: async(message: Message, ...args: any[]): Promise<EmbedOptions | undefined> => {
-      
+  execute: async(message, ...args) => {
     const member = message.mentions.members?.first()
 
-    if (!member) return 
-
+    if (!member) return false
     if (!member.kickable) return {
-
       title: ':doors: kick.',
       description: 'You cant kick this user.',
       color: Luke.colors.error
-
     }
 
     const reason = args.slice(1).join(" ")
@@ -26,18 +21,13 @@ export const data: Command['data'] = {
     reason ? member.kick(reason) : member.kick()
 
     return {
-
       title: ':doors: kick.',
-
       fields: [
-
         ['Moderator', `${message.author.tag} (${message.author.id})`],
         ['Member', `${member.user.tag} (${member.user.id})`],
         ['Reason', reason || 'none', false]
       ],
-
       color: Luke.colors.done
-
     }
   }
 }
