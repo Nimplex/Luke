@@ -3,6 +3,7 @@ import Luke, { Command } from './../../../index'
 export const data: Command['data'] = {
   triggers: ['userinfo', 'user'],
   description: 'Shows informations about user.',
+  usage: '[@user|id]',
   botPermissions: ['SEND_MESSAGES'],
   execute: async(message, ...args) => {
     const user = message.mentions.members?.first()?.user || message.guild?.members.cache.get(args[0])?.user || message.author
