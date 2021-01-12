@@ -28,9 +28,10 @@ export const data: Command['data'] = {
         ['Nickname', member?.nickname, true],
         ['Administrator?', member?.permissions.has('ADMINISTRATOR') ? 'yes' : 'no', true],
         ['Boosted?', member?.premiumSince ? 'yes' : 'no', true],
-        ['ID', user.id],
         ['Joined', `${member?.joinedAt?.toLocaleTimeString()}, ${member?.joinedAt?.toLocaleDateString()}`, true],
         ['Created', `${user?.createdAt?.toLocaleTimeString()}, ${user?.createdAt?.toLocaleDateString()}`, true],
+        ['ID', user.id],
+        ['Avatar URL', avatar]
       ],
       url: avatar
     }

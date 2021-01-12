@@ -8,8 +8,10 @@ export const data: Command['data'] = {
     const bots = message.guild?.members.cache.map(member => member.user.bot).length
     const members = message.guild?.memberCount
     const { guild } = message
+    const icon = await guild?.iconURL()?.toString()
+
     return {
-      title: `${guild?.name} (serverinfo).`,
+      title: `${guild?.name} (click for icon).`,
       thumbnail: guild?.iconURL(),
       fields: [
         ['Name', guild?.name, true],
@@ -29,8 +31,9 @@ export const data: Command['data'] = {
         ['Members', members, true],
         ['Bots', bots, true],
         ['Users', (members || 0) - (bots || 0), true],
-        ['Icon URL', guild?.iconURL()]
-      ]
+        ['Icon URL', icon]
+      ],
+      url: icon
     }
   }
 }
