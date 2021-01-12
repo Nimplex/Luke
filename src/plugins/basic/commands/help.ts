@@ -1,4 +1,4 @@
-import Luke, { Command, Plugin } from './../../../index'
+import Luke, { Command, Field, Plugin } from './../../../index'
 
 export const data: Command['data'] = {
   triggers: ['help'],
@@ -8,12 +8,12 @@ export const data: Command['data'] = {
   execute: async(message, ...args) => {
     if (!args[0]) {
       const cmdHandler = Luke.commandHandler
-      let fields: any[] = []
+      let fields: Field[] = []
       cmdHandler.plugins.forEach((plugin: Plugin) =>
         plugin.data?.hide ? '' : fields.push([plugin.data.name, `id: ${plugin.data.id}`, true])
       )
       return {
-        title: `:grey_question: Help - All avaible plugins (${cmdHandler.plugins.length}).`,
+        title: `:grey_question: Help - All avaible plugins (${fields.length}).`,
         description: `${Luke.config.prefix}help [command|category]`,
         color: Luke.colors.info,
         fields: fields
