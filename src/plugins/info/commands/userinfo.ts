@@ -5,8 +5,8 @@ export const data: Command['data'] = {
   description: 'Shows informations about user.',
   botPermissions: ['SEND_MESSAGES'],
   execute: async(message, ...args) => {
-    const user = message.mentions.members?.first()?.user || message.author
-    const member = message.mentions.members?.first() || message.member
+    const user = message.mentions.members?.first()?.user || message.guild?.members.cache.get(args[0])?.user || message.author
+    const member = message.mentions.members?.first() || message.guild?.members.cache.get(args[0]) || message.member
     const avatar = await user.avatarURL({ dynamic: true })?.toString()
 
     return {
