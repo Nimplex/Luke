@@ -3,6 +3,8 @@ import { Command, Luke } from '../index'
 import EmbedHandler from '../handlers/embed'
 
 export const _ = async(message: Message, Luke: Luke) => {
+  if (!message.content.startsWith(Luke.config.prefix) || !message.guild || message.author.bot) return
+  
   const [commandName, ...args] = message.content.slice(Luke.config.prefix.length).split(/ +/g)
   const command: Command = await Luke.commandHandler.get(commandName)
   
