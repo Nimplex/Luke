@@ -20,7 +20,7 @@ export const data: Command['data'] = {
       }
     } else {
       const command: Command = await Luke.commandHandler.get(args[0])
-      if (command) 
+      if (command)
         return {
           title: `:grey_question: ${command.data.triggers[0]} (help).`,
           color: Luke.colors.info,
@@ -48,6 +48,6 @@ export const data: Command['data'] = {
           }
         }
       }
-    }   
+    }
   }
 }
