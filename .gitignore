@@ -1,3 +1,5 @@
 node_modules
 dist
 files/config.json
+yarn.lock
+package-lock.json

@@ -1,0 +1,22 @@
+{
+  "name": "lukebot",
+  "version": "2.0.0",
+  "description": "Multipurpose discord bot",
+  "main": "dist/index.js",
+  "repository": "https://github.com/Nimplex/Luke.git",
+  "author": "Nimplex <39964594+Nimplex@users.noreply.github.com>",
+  "license": "GPL-3.0",
+  "private": false,
+  "scripts": {
+    "start": "node .",
+    "start:dev": "nodemon ."
+  },
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.25",
+    "nodemon": "^2.0.7",
+    "typescript": "^4.1.3"
+  }
+}
