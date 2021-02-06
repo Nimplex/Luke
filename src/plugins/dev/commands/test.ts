@@ -5,7 +5,7 @@ export const data: Command['data'] = {
   description: '',
   dev: true,
   execute: async(message, ...args) => {
-    return { 
+    return {
       title: 'Test',
       color: Luke.colors.default,
       description: 'Test description',

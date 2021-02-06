@@ -16,9 +16,9 @@ export const _ = async(message: Message, Luke: Luke) => {
         if (!message.guild?.me?.permissions.has(permission)) missing.push(permission)
       })
       const embed = await EmbedHandler(
-        { title: 'Error, i\'m missing permissions.', 
-          fields: [['Required permissions', missing.join(', ').toLowerCase().replace(/_/gm, ' ')]], 
-          color: Luke.colors.error 
+        { title: 'Error, i\'m missing permissions.',
+          fields: [['Required permissions', missing.join(', ').toLowerCase().replace(/_/gm, ' ')]],
+          color: Luke.colors.error
         }, message, Luke)
       message.channel.send(embed); return
     }
@@ -28,9 +28,9 @@ export const _ = async(message: Message, Luke: Luke) => {
         if (!message.member?.permissions.has(permission)) missing.push(permission)
       })
       const embed = await EmbedHandler(
-        { title: 'Error, you\'re missing permissions.', 
-          fields: [['Required permissions', missing.join(', ').toLowerCase().replace(/_/gm, ' ')]], 
-          color: Luke.colors.error 
+        { title: 'Error, you\'re missing permissions.',
+          fields: [['Required permissions', missing.join(', ').toLowerCase().replace(/_/gm, ' ')]],
+          color: Luke.colors.error
         }, message, Luke)
       message.channel.send(embed); return
     }

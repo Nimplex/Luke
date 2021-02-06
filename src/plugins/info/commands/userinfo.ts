@@ -16,10 +16,10 @@ export const data: Command['data'] = {
       fields: [
         ['Username', user.tag, true],
         ['Status', user.presence.status, true],
-        ['Client', 
-        user.presence.clientStatus?.desktop ? 'Desktop' : undefined || 
-        user.presence.clientStatus?.web ? 'Web' : undefined || 
-        user.presence.clientStatus?.mobile ? 'Mobile' : undefined, 
+        ['Client',
+        user.presence.clientStatus?.desktop ? 'Desktop' : undefined ||
+        user.presence.clientStatus?.web ? 'Web' : undefined ||
+        user.presence.clientStatus?.mobile ? 'Mobile' : undefined,
         true
         ],
         ['Bannable?', member?.bannable ? 'yes' : 'no', true],

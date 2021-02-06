@@ -15,6 +15,6 @@ export default class PluginHandler {
     })
     this.plugins = Luke.plugins
   }
-  get = async(id: string): Promise<Plugin | undefined> => 
+  get = async(id: string): Promise<Plugin | undefined> =>
     this.plugins.find(plugin => plugin.data.id == id)
 }
