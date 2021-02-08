@@ -13,7 +13,7 @@ export interface Command {
     developer?: boolean
     hide?: boolean
     permissions?: PermissionArray
-    execute: (message: Message, ...args: Array<string>) => Promise<Embed | boolean>
+    execute: (message: Message, ...args: Array<string>) => Promise<Embed | undefined>
 }
 export interface Embed {
     fields?: Array<Field>

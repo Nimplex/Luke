@@ -9,7 +9,7 @@ const command: Command = {
         const messageTimestamp = Date.now() - message.createdTimestamp
         const messagePing = new Date(messageTimestamp).getMilliseconds()
         const clientPing = Math.round(Luke.ws.ping)
-        message.channel.send('Hello!')
+
         return {
             title: ':ping_pong: ping.',
             fields: [

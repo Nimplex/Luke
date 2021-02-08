@@ -1,4 +1,7 @@
 {
   "prefix": ".",
-  "developers": ["364056796932997121"]
+  "developers": ["364056796932997121"],
+  "colors": {
+    "default": "#fcba03"
+  }
 }
