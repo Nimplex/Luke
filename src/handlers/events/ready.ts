@@ -1,5 +1,5 @@
-import Luke from '../../'
+import { Luke } from '../../'
 
-export default (): void => {
-    console.log(`${Luke.user?.tag} is ready!`)
+export default (client: Luke): void => {
+    client.console.ready(`${client.user?.tag} is ready!`)
 }

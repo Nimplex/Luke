@@ -1,4 +1,4 @@
-import { ColorResolvable, FileOptions, Message, MessageAttachment, StringResolvable } from 'discord.js'
+import { BitFieldResolvable, ColorResolvable, FileOptions, Message, MessageAttachment, PermissionString, StringResolvable } from 'discord.js'
 
 export interface Plugin {
     name: string
@@ -30,4 +30,5 @@ export interface Embed {
 }
 
 export type Field = [string, any | any[], boolean?]
-export type PermissionArray = { user?: Array<string>, bot?: Array<string> }
+export type PermissionBitField = BitFieldResolvable<PermissionString>
+export type PermissionArray = { user?: PermissionBitField, bot?: PermissionBitField }

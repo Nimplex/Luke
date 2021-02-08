@@ -8,14 +8,17 @@ export default class PluginHandler {
     cmds: CommandHandler
     plugins: Array<Plugin>
     constructor(client: Luke) {
+        this.plugins = []
+
         readdir(join(__dirname, '..', 'plugins'), (err, files) => {
-            if (err) return Luke.console.error(err)
+            if (err) return client.console.error(err)
             files.forEach(file => {
                 const Plugin: Plugin = require(`../plugins/${file}`)
                 this.plugins.push(Plugin)
             })
-            Luke.console.ready(`Loaded ${this.plugins.length} plugins.`)
+            client.console.ready(`Loaded ${this.plugins.length} plugin(s).`)
         })
+
         this.cmds = new CommandHandler(this)
     }
 

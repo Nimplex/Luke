@@ -11,8 +11,13 @@
 6. Edit content of "config.json", it should look like this.
 ```json
 {
-  "token": "YourBotToken",
   "prefix": ".",
   "developers": ["YourDiscordId"]
 }
+```
+7. Create ".env" file in root directory of project.
+  * ```touch .env```
+8. Edit content of ".env", it should look like this.
+```
+token=YOUR_DISCORD_BOT_TOKEN
 ```
