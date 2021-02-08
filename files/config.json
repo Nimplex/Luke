@@ -2,6 +2,9 @@
   "prefix": ".",
   "developers": ["364056796932997121"],
   "colors": {
-    "default": "#fcba03"
+    "default": "#fcba03",
+    "error": "#eb4034",
+    "done": "#32a852",
+    "info": "#4287f5"
   }
 }

@@ -1,4 +1,3 @@
-import { Luke } from '../'
 import { Plugin, Command } from '../types'
 import PluginHandler from './PluginHandler'
 
