@@ -1,6 +1,6 @@
 module.exports = {
-    name: ':scroll: Basic',
-    id: 'basic',
+    name: ':hammer: Moderation',
+    id: 'mod',
     commands: require('fs')
         .readdirSync(`${__dirname}/commands/`)
         .map((file: string) => require(`${__dirname}/commands/${file}`))

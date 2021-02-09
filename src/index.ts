@@ -1,10 +1,11 @@
 import { config as dotenv } from 'dotenv'
 import { Client, ClientOptions } from 'discord.js'
+import { join } from 'path'
 import Console from './handlers/Console'
 import EventHandler from './handlers/EventHandler'
 import PluginHandler from './handlers/PluginHandler'
 
-dotenv()
+dotenv({ path: join(__dirname, '..', '.env')})
 
 export class Luke extends Client {
     console: Console

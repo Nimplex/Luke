@@ -7,9 +7,6 @@ const command: Command = {
     triggers: ['help'],
     description: 'Get all commands from category or view informations about single command.',
     usage: '[command|category]',
-    permissions: {
-        bot: ['SEND_MESSAGES']
-    },
     execute: async(message, ...args) => {
         const cmdHandler = Luke.pluginHandler.cmds
         if (!args[0]) {

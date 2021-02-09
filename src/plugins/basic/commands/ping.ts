@@ -4,9 +4,6 @@ import { Command } from '../../../types'
 const command: Command = {
     triggers: ['ping'],
     description: 'Shows bot ping.',
-    permissions: {
-        bot: ['SEND_MESSAGES']
-    },
     execute: async(message, ...args) => {
         const messageTimestamp = Date.now() - message.createdTimestamp
         const messagePing = new Date(messageTimestamp).getMilliseconds()

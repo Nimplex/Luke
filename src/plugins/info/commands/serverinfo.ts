@@ -4,7 +4,7 @@ const command: Command = {
     triggers: ['serverinfo', 'server'],
     description: 'Shows informations about server.',
     permissions: { 
-        bot: ['MANAGE_GUILD', 'SEND_MESSAGES']
+        bot: ['MANAGE_GUILD']
     },
     execute: async(message, ...args) => {
         const { guild } = message
