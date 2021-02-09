@@ -1,6 +1,6 @@
 import { Message } from 'discord.js'
-import EmbedHandler from '../../handlers/EmbedHandler'
 import { Luke } from '../../'
+import EmbedHandler from '../../handlers/EmbedHandler'
 
 const config = require('../../../files/config.json')
 
@@ -20,5 +20,5 @@ export default async(client: Luke, message: Message): Promise<void> => {
     if (output) {
         const embed = EmbedHandler(output, message)
         message.channel.send(embed)
-    }
+    } else return
 }

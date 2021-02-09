@@ -5,7 +5,7 @@ const command: Command = {
     description: 'Shows informations about user.',
     usage: '[@user|id]',
     permissions: { 
-      bot: ['SEND_MESSAGES']
+        bot: ['SEND_MESSAGES']
     },
     execute: async(message, ...args) => {
         const user = message.mentions.members?.first()?.user || message.guild?.members.cache.get(args[0])?.user || message.author
