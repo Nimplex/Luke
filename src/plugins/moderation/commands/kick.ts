@@ -3,7 +3,7 @@ import { Command } from '../../../types'
 const config = require('../../../../files/config.json')
 
 const command: Command = {
-    triggers: ['kick'],
+    triggers: ['kick', 'k'],
     description: 'Kick member.',
     usage: '<@user> [reason]',
     permissions: {
@@ -12,6 +12,7 @@ const command: Command = {
     },
     execute: async(message, ...args) => {
         const member = message.mentions.members?.first()
+        const reason = args.join(' ').replace(args[0], '').replace(' ', '')
         
         if (!member) return undefined
         if (!member.kickable) return {
@@ -19,8 +20,6 @@ const command: Command = {
             description: 'You can\'t kick this member.',
             color: config.colors.error
         }
-
-        const reason = args.join(' ').replace(args[0], '').replace(' ', '')
 
         reason ? member.kick(`${message.author.tag} (${message.author.id}): ${reason}`) : member.kick()
         
