@@ -1,10 +1,10 @@
-import { Message, PermissionString } from 'discord.js'
 import { Luke } from '../../'
+import { message } from '../../types'
 import EmbedHandler from '../../handlers/EmbedHandler'
 
 const config = require('../../../files/config.json')
 
-export default async(client: Luke, message: Message): Promise<void> => {
+export default async(client: Luke, message: message): Promise<void> => {
     if (!message.content.startsWith(config.prefix)
         || message.author.bot
         || !message.guild

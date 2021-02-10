@@ -1,4 +1,5 @@
 import { Luke } from '../'
+import { message } from '../types'
 
 import Ready from './events/ready'
 import Message from './events/message'
@@ -6,6 +7,6 @@ import Message from './events/message'
 export default class EventHandler {
     constructor(client: Luke) {
         client.on('ready', () => Ready(client))
-        client.on('message', (message) => Message(client, message))
+        client.on('message', (message: any) => Message(client, message))
     }
 }

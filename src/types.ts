@@ -1,10 +1,13 @@
-import { BitFieldResolvable, ColorResolvable, FileOptions, Message, MessageAttachment, PermissionString, StringResolvable } from 'discord.js'
+import { BitFieldResolvable, ColorResolvable, FileOptions, Message, MessageAttachment, NewsChannel, PermissionString, StringResolvable, TextChannel } from 'discord.js'
 
 export interface Plugin {
     name: string
     id: string
     hide?: boolean
     commands: Array<Command>
+}
+export interface message extends Message{
+    channel: TextChannel | NewsChannel
 }
 export interface Command {
     triggers: Array<string>
@@ -13,7 +16,7 @@ export interface Command {
     developer?: boolean
     hide?: boolean
     permissions?: PermissionArray
-    execute: (message: Message, ...args: Array<string>) => Promise<Embed | undefined>
+    execute: (message: message, ...args: Array<string>) => Promise<Embed | undefined>
 }
 export interface Embed {
     fields?: Array<Field>

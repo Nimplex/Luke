@@ -13,7 +13,7 @@ const command: Command = {
     execute: async(message, ...args) => {
         const amount = parseInt(args[0])
 
-        if (!amount || isNaN(amount) || amount > 100 || amount < 0 || message.channel.type == "dm") return
+        if (!amount || isNaN(amount) || amount > 100 || amount < 0) return
         
         try {
             const messages = await message.channel.messages.fetch({ limit: amount })
