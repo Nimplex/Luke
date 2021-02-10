@@ -1,4 +1,3 @@
-import { url } from 'inspector'
 import { Command } from '../../../types'
 
 const command: Command = {
@@ -16,7 +15,7 @@ const command: Command = {
                 ['Content', firstMessage?.content],
                 ['Author', `Username: ${author?.tag}\nID: ${author?.id}`],
             ],
-            thumbnail: author?.avatarURL(),
+            thumbnail: author?.avatarURL({ dynamic: true }),
             url: firstMessage?.url
         }
     }
