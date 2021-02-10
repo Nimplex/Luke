@@ -7,8 +7,8 @@ const command: Command = {
     description: 'Ban member.',
     usage: '<@user> [reason]',
     permissions: {
-      bot: ['BAN_MEMBERS'],
-      user: ['BAN_MEMBERS'],
+        bot: ['BAN_MEMBERS'],
+        user: ['BAN_MEMBERS'],
     },
     execute: async(message, ...args) => {
         const member = message.mentions.members?.first()
@@ -24,7 +24,7 @@ const command: Command = {
         reason ? member.ban({ reason: `${message.author.tag} (${message.author.id}): ${reason}`, days: 7 }) : member.ban()
         
         return {
-            title: ':hammer: Member banned.',
+            title: ':hammer: Member has been banned.',
             fields: [
                 ['Moderator', `${message.author.tag} (${message.author.id})`, true],
                 ['Member', `${member.user.tag} (${member.user.id})`, true],

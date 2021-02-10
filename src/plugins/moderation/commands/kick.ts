@@ -7,8 +7,8 @@ const command: Command = {
     description: 'Kick member.',
     usage: '<@user> [reason]',
     permissions: {
-      bot: ['KICK_MEMBERS'],
-      user: ['KICK_MEMBERS'],
+        bot: ['KICK_MEMBERS'],
+        user: ['KICK_MEMBERS'],
     },
     execute: async(message, ...args) => {
         const member = message.mentions.members?.first()
@@ -24,7 +24,7 @@ const command: Command = {
         reason ? member.kick(`${message.author.tag} (${message.author.id}): ${reason}`) : member.kick()
         
         return {
-            title: ':door: Member kicked.',
+            title: ':door: Member has been kicked.',
             fields: [
                 ['Moderator', `${message.author.tag} (${message.author.id})`, true],
                 ['Member', `${member.user.tag} (${member.user.id})`, true],
