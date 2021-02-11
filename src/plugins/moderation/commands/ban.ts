@@ -1,4 +1,4 @@
-import Luke from 'index'
+import Luke from '../../../'
 import { Command } from '../../../types'
 
 const config = require('../../../../files/config.json')
