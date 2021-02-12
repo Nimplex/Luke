@@ -29,7 +29,8 @@ export interface Embed {
     thumbnail?: string | null | undefined
     timestamp?: Date | number
     title?: StringResolvable
-    url?: string
+    url?: string,
+    dcodeblock?: boolean
 }
 
 export type Field = [string, any | any[], boolean?]

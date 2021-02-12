@@ -5,7 +5,7 @@ const config = require('../../../../files/config.json')
 
 const command: Command = {
     triggers: ['help'],
-    description: 'Get all commands from category or view informations about single command.',
+    description: 'View all commands from category or view informations about single command.',
     usage: '[command|category]',
     execute: async(message, ...args) => {
         const cmdHandler = Luke.pluginHandler.cmds
@@ -15,16 +15,16 @@ const command: Command = {
                 plugin?.hide ? '' : fields.push([plugin.name, `id: ${plugin.id}`, true])
             )
             return {
-                title: `:grey_question: Help - All avaible plugins (${fields.length}).`,
+                title: `:grey_question: Available plugins (${fields.length})`,
                 description: `${config.prefix}help [command|category]`,
-                color: config.colors.info,
+                color: config.colors.default,
                 fields: fields
             }
         } else {
             const command = await cmdHandler.get(args[0])
             if (command) 
             return {
-                title: `:grey_question: ${command.triggers[0]} (help).`,
+                title: `:grey_question: ${command.triggers[0]}`,
                 color: config.colors.info,
                 fields: [
                     ['Triggers', command.triggers],
@@ -45,7 +45,7 @@ const command: Command = {
                         else field.push(command.triggers[0])
                     })
                     return {
-                        title: `${plugin.name} (help).`,
+                        title: plugin.name,
                         description: field.join(', ')
                     }
                 }

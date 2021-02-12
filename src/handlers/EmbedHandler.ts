@@ -6,7 +6,7 @@ const config = require('../../files/config.json')
 export default function(Embed: Embed, message: Message): MessageEmbed {
     const embed = new MessageEmbed()
     if (Embed.title) embed.setTitle(Embed.title)
-    if (Embed.description) embed.setDescription(`\`\`\`${Embed.description}\`\`\``)
+    if (Embed.description) embed.setDescription(`${Embed.dcodeblock !== false ? `\`\`\`${Embed.description}\`\`\`` : Embed.description}`)
     if (Embed.footer) embed.setFooter(Embed.footer)
     else embed.setFooter(`Invoked by ${message.author.tag} (${message.author.id})`)
     if (Embed.image) embed.setImage(Embed.image)
