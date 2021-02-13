@@ -1,7 +1,14 @@
-node_modules
-dist
-yarn.lock
+# Dependencies lock files
 package-lock.json
+yarn.lock
+
+# Errors / debug
+yarn-error.log
+
+# Sensitive files
+files/tokens.json
 .env
-dist/.env
-src/.env
+
+# Builded source & node_modules
+dist
+node_modules
