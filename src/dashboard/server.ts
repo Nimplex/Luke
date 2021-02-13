@@ -16,8 +16,10 @@ export default class Server {
         this.app.set('views', join(__dirname, '..', '..', 'public', 'views'))
         this.app.set('view engine', 'pug')
 
+        require('./router')(this.app)
+
         this.app.listen(server.port, () => 
-            Console.ready(`dashboard is ready, listening to port: ${server.port}`)
+            Console.ready(`Dashboard is listening on port: ${server.port}`)
         )
     }
 }

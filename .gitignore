@@ -11,4 +11,5 @@ files/tokens.json
 
 # Builded source & node_modules
 dist
+public/css
 node_modules
