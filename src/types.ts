@@ -18,6 +18,7 @@ export interface Command {
     usage?: arg[]
     hide?: boolean
     nsfw?: boolean
+    dev?: boolean
     permissions?: { bot?: PermissionResolvable, user?: PermissionResolvable }
     execute: (message: message, Luke: Luke, ...args: any[]) => Promise<boolean | void | undefined>
 }
