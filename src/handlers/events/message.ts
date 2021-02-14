@@ -24,7 +24,10 @@ module.exports = async (Luke: Luke, message: message) => {
     ) return
     else if (!testArgs){
         try {
-            command?.execute(message, Luke, args)
+            const output = await command?.execute(message, Luke, args)
+            if (output == false) {
+                ArgsHandler(args, command, message, true)
+            }
         } catch (error) {
 
         }
