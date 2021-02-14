@@ -15,7 +15,7 @@ export default async function (args: any[], command: Command, message: message) 
                 usage += `${us.required ? `<${us.type}>` : `[${us.type}]`} `
             })
 
-            return error(message, `Correct Usage:\n${usage}`)
+            return error(message, `Correct Usage:\n\n${usage}`)
         }
 
         for (let i = 0; i < command.usage.length; i++) {
