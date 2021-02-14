@@ -29,7 +29,7 @@ module.exports = async (Luke: Luke, message: message) => {
                 ArgsHandler(args, command, message, true)
             }
         } catch (error) {
-
+            Luke.console.error(error)
         }
     }
 }

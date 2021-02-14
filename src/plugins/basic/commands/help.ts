@@ -27,8 +27,6 @@ const command: Command = {
             const plugin = Luke.PluginHandler.plugins.find(plugin => plugin.id == args[0])
             const command = Luke.CommandHandler.get(args[0])
 
-            console.log(plugin, command, Luke.PluginHandler.plugins)
-
             if (!plugin && !command) return false
             else {
                 if (plugin) {

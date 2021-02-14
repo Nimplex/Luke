@@ -12,9 +12,9 @@ export default function(options: Embed) {
     options.color ? embed.setColor(options.color) : embed.setColor(colors.default)
     options.files ? embed.attachFiles(options.files) : false
     options.image ? embed.setImage(options.image) : false
-    options.thumbnail ? embed.setTitle(options.thumbnail) : false
-    options.timestamp ? embed.setTitle(options.timestamp) : embed.setTimestamp(new Date())
-    options.url ? embed.setTitle(options.url) : false
+    options.thumbnail ? embed.setThumbnail(options.thumbnail) : false
+    options.timestamp ? embed.setTimestamp(options.timestamp) : embed.setTimestamp(new Date())
+    options.url ? embed.setURL(options.url) : false
     options.footer ? embed.setFooter(options.footer) : options.object ? embed.setFooter(`Invoked by ${options.object?.author.tag} (${options.object?.author.id})`) : false
 
     options.fields?.forEach(field => {

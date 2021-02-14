@@ -32,7 +32,7 @@ export interface Embed {
     files?: Array<FileOptions | string | MessageAttachment>
     footer?: MessageEmbedFooter
     image?: string
-    thumbnail?: string
+    thumbnail?: string | null | undefined
     timestamp?: number
     title?: string
     url?: string
