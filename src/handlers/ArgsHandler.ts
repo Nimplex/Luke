@@ -4,11 +4,19 @@ import Luke from '..'
 const { bot } = require('../../files/config.json')
 const colors = require('../../files/colors.json')
 
-export default async function (args: any[], command: Command, message: message, error?: boolean) {
+export default async function (args: any[], command: Command, message: message, err: boolean = false) {
     return new Promise(async (resolve, reject) => {
         if (!command.usage) return resolve(false)
     
-        if (command.usage.length > 0 && args.length < command.usage.length || error) {
+        if ((command.usage.length > 0 && args.length < command.usage.length) || error) {
+            console.log(command.usage, args, err)
+
+            if (!err) 
+                for (let i = 0; i < command.usage.length; i++) {
+                    if (command.usage[i].required == true && !args[i]) continue
+                    else return resolve(false)
+                }
+
             let usage = `${bot.prefix}${command.triggers[0]} `
 
             command.usage.forEach(us => {
