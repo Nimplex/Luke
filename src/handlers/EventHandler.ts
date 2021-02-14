@@ -1,4 +1,4 @@
-import { Luke } from '../'
+import { Luke } from '@/index'
 
 export default class EventHandler {
     constructor(Luke: Luke) {
