@@ -8,7 +8,7 @@ export default class CommandHandler {
         this.Luke = Luke
     }
 
-    get(trigger: string): Command|undefined {
+    get(trigger: string): Command | undefined {
         let command = undefined
         this.Luke.PluginHandler.plugins.forEach(plugin => 
             command = plugin.commands.find(command => command.triggers.includes(trigger))
