@@ -1,4 +1,4 @@
-import { arg, Command, message } from '@/types'
+import { Command, message } from '@/types'
 import Luke from '..'
 
 const { bot } = require('../../files/config.json')
@@ -31,6 +31,7 @@ export default async function (args: any[], command: Command, message: message) 
         function error(message: message, text: string) {
             Luke.embed({
                 object: message,
+                title: 'Invalid arguments',
                 description: text,
                 color: colors.error
             })
