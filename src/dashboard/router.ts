@@ -4,6 +4,8 @@ import FormData from 'form-data'
 
 const tokens = require('../../files/tokens.json')
 
+// TODO: Fix express-session
+
 export = (app: Application) => {
     // Dashboard
     app.get('/', (req, res) => res.render('index'))
@@ -30,7 +32,7 @@ export = (app: Application) => {
         data.append('grant_type', 'authorization_code')
         data.append('redirect_uri', 'https://lukebot.xyz/api/login')
         data.append('scope', ['identify', 'guilds'])
-        data.append('code', req.session?.code)
+        data.append('code', req.session!.code)
 
         fetch('https://discordapp.com/api/oauth2/token', {
             method: 'POST',
@@ -47,7 +49,7 @@ export = (app: Application) => {
                 userResponse.tag = `${userResponse.username}#${userResponse.discriminator}`
                 userResponse.avatarURL = userResponse.avatar ? `https://cdn.discordapp.com/avatars/${userResponse.id}/${userResponse.avatar}.png?size=1024` : null
 
-                if (req.session) req.session.body = userResponse
+                if (req.session) req.session!.body = userResponse
                 res.redirect('/dashboard')
             })
         })
