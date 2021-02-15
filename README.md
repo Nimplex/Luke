@@ -23,7 +23,7 @@ Start bot:
 ```sh
 yarn start
 ```
-=======
+
 ---
 
 <table>	
