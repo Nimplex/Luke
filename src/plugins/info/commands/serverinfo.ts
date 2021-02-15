@@ -14,7 +14,6 @@ const command: Command = {
 
         Luke.embed({
             object: message,
-            title: `${guild?.name} (click for icon).`,
             thumbnail: guild?.iconURL(),
             fields: [
                 ['Name', guild?.name, true],
@@ -36,7 +35,6 @@ const command: Command = {
                 ['Users', (members || 0) - (bots || 0), true],
                 ['Icon URL', icon]
             ],
-            url: icon
         })
     }
 }

@@ -16,7 +16,6 @@ const command: Command = {
 
         Luke.embed({
             object: message,
-            title: `${user.tag} (click for avatar)`,
             thumbnail: avatar,
             fields: [
                 ['Username', user.tag, true],
@@ -38,7 +37,6 @@ const command: Command = {
                 ['ID', user.id],
                 ['Avatar URL', avatar]
             ],
-            url: avatar
         })
     }
 }
