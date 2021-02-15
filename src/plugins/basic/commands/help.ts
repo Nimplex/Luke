@@ -16,7 +16,7 @@ const command: Command = {
             const fields: Field[] = []
             
             Luke.PluginHandler.plugins.forEach(plugin => {
-                plugin.hide == true ? false : fields.push([plugin.name, `ID: ${plugin.id}`])
+                plugin.hide == true ? false : fields.push([plugin.name, `ID: ${plugin.id}`, true])
             })
             
             Luke.embed({
