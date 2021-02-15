@@ -4,7 +4,9 @@ export = (app: Application) => {
     // Dashboard
     app.get('/', (req, res) => res.render('index'))
     app.get('/dashboard', (req, res) => {
-        res.render('dashboard', { body: req.session?.body })
+        if (!req.session?.body) return res.redirect('/403')
+        res.json(req.session.body)
+        // res.render('dashboard', { body: req.session?.body })
     })
 
     // API
