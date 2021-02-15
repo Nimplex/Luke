@@ -10,7 +10,7 @@ export = (app: Application) => {
     })
 
     // API
-    app.post('/api/login', (req, res) => {
+    app.get('/api/login', (req, res) => {
         console.log(req, req.body)
         if (req.session) req.session.body = req.body
         res.redirect('/dashboard')
