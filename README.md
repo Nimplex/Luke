@@ -7,7 +7,7 @@
 
 Install all dependencies using:
 ```sh
-yarn add package.json
+yarn
 ```
 Compile source code:
 ```sh
