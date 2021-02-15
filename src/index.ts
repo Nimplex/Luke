@@ -1,26 +1,31 @@
-import { config as dotenv } from 'dotenv'
 import { Client, ClientOptions } from 'discord.js'
-import { join } from 'path'
-import Console from './handlers/Console'
-import EventHandler from './handlers/EventHandler'
+import CommandHandler from './handlers/CommandHandler'
 import PluginHandler from './handlers/PluginHandler'
+import EventHandler from './handlers/EventHandler'
+import Embed from './modules/Embed'
+import Console from './modules/Console'
+import dashboard from './dashboard/server'
 
-dotenv({ path: join(__dirname, '..', '.env')})
+const tokens = require('../files/tokens.json')
 
 export class Luke extends Client {
-    console: Console
-    eventHandler: EventHandler
-    pluginHandler: PluginHandler
+    dashboard: dashboard
+    embed = Embed
+    console = Console
+    EventHandler: EventHandler
+    CommandHandler: CommandHandler
+    PluginHandler: PluginHandler
 
     constructor(options?: ClientOptions) {
         super(options)
 
-        this.console = new Console()
-        this.eventHandler = new EventHandler(this)
-        this.pluginHandler = new PluginHandler(this)
+        this.dashboard = new dashboard()
+        this.PluginHandler = new PluginHandler(this)
+        this.CommandHandler = new CommandHandler(this)
+        this.EventHandler = new EventHandler(this)
 
-        this.login(process.env.token)
+        this.login(tokens.discord)
     }
 }
 
-export default new Luke()
+export default new Luke({ partials: ['MESSAGE', 'USER', 'GUILD_MEMBER'] })

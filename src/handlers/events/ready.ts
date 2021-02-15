@@ -1,5 +1,5 @@
-import { Luke } from '../../'
+import { Luke } from '@/index'
 
-export default (client: Luke): void => {
-    client.console.ready(`${client.user?.tag} is ready!`)
+module.exports = (Luke: Luke) => {
+    Luke.console.ready(`${Luke.user?.tag} is ready`)
 }

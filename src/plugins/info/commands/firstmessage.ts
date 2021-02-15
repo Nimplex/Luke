@@ -6,10 +6,12 @@ const command: Command = {
     permissions: {
         bot: ['READ_MESSAGE_HISTORY']
     },
-    execute: async(message, ...args) => {
+    execute: async(message, Luke, ...args) => {
         const firstMessage = (await message.channel.messages.fetch({ limit: 1, after: '1' })).first()
         const author = firstMessage?.author
-        return {
+
+        Luke.embed({
+            object: message,
             title: `First message on channel: ${firstMessage?.channel?.type != 'dm' ? firstMessage?.channel.name : 'can\'t fetch name of the channel.'}`,
             fields: [
                 ['Content', firstMessage?.content],
@@ -17,7 +19,7 @@ const command: Command = {
             ],
             thumbnail: author?.avatarURL({ dynamic: true }),
             url: firstMessage?.url
-        }
+        })
     }
 }
 

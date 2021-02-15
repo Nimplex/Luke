@@ -1,12 +1,8 @@
-import { Luke } from '../'
-import { message } from '../types'
-
-import Ready from './events/ready'
-import Message from './events/message'
+import { Luke } from '@/index'
 
 export default class EventHandler {
-    constructor(client: Luke) {
-        client.on('ready', () => Ready(client))
-        client.on('message', (message: any) => Message(client, message))
+    constructor(Luke: Luke) {
+        Luke.on('ready', () => require('./events/ready')(Luke))
+        Luke.on('message', (message) => require('./events/message')(Luke, message))
     }
 }

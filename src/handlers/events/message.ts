@@ -1,63 +1,57 @@
-import { Luke } from '../../'
-import { message } from '../../types'
-import EmbedHandler from '../../handlers/EmbedHandler'
+import { Luke } from '@/index'
+import { Command, message } from '@/types'
+import ArgsHandler from '../ArgsHandler'
 
-const config = require('../../../files/config.json')
+const colors = require('../../../files/colors.json')
+const { bot } = require('../../../files/config.json')
 
-export default async(client: Luke, message: message): Promise<void> => {
-    if (!message.content.startsWith(config.prefix)
-        || message.author.bot
-        || !message.guild
+export function error(name: string, message: message, Luke: Luke, command: Command) {
+    switch(name) {
+        case 'permissions_user':
+            Luke.embed({
+                object: message,
+                description: `You're missing permissions:\n${command.permissions?.user}`,
+                color: colors.error
+            })
+            break
+        case 'permissions_bot':
+            Luke.embed({
+                object: message,
+                description: `I'm missing permissions:\n${command.permissions?.bot}`,
+                color: colors.error
+            })
+            break
+    }
+}
+
+module.exports = async (Luke: Luke, message: message) => {
+    if (
+        message.author.bot ||
+        !message.guild ||
+        !message.content.startsWith(bot.prefix)
     ) return
-    
-    const [commandName, ...args] = message.content.slice(config.prefix.length).split(/ +/g)
-    const command = client.pluginHandler.cmds.get(commandName)
+
+    const [commandName, ...args] = message.content.slice(bot.prefix.length).split(/ +/g)
+    const command = Luke.CommandHandler.get(commandName)
+
     if (!command) return
-    if (command.developer && !config.developers.include(message.author.id)) return
-    if (command.permissions?.bot && !message.guild.me?.permissions.has(command.permissions.bot)) {
-        const missing: string[] = []
-        
-        command.permissions.bot.toString().split(',').forEach((permission: any) => {
-            if(!message.guild?.me?.permissions.has(permission)) missing.push(permission.toLowerCase().replace(/_/gm, ' '))
-        })
+    if (!message.member?.permissions.has(command.permissions?.user || [])) return error('permissions_user', message, Luke, command)
+    if (!message.guild.me?.permissions.has(command.permissions?.bot || [])) return error('permissions_bot', message, Luke, command)
 
-        const Embed = {
-            title: ':x: Error',
-            description: `I'm missing these permissions:\n${missing.join(', ')}`,
-            color: config.colors.error
+    const testArgs = await ArgsHandler(args, command, message)
+
+    if (
+        command?.nsfw &&
+        message.channel.nsfw
+    ) return
+    else if (!testArgs){
+        try {
+            const output = await command?.execute(message, Luke, ...args)
+            if (output == false) {
+                ArgsHandler(args, command, message, true)
+            }
+        } catch (error) {
+            Luke.console.error(error)
         }
-
-        message.channel.send(EmbedHandler(Embed, message))
-        return
-    }
-    if (command.permissions?.user && !message.member?.permissions.has(command.permissions.user)) {
-        const missing: string[] = []
-        
-        command.permissions.user?.toString().split(',').forEach((permission: any) => {
-            if(!message.member?.permissions.has(permission)) missing.push(permission.toLowerCase().replace(/_/gm, ' '))
-        })
-
-        const Embed = {
-            title: ':x: Error',
-            description: `You're missing these permissions:\n${missing.join(', ')}`,
-            color: config.colors.error
-        }
-
-        message.channel.send(EmbedHandler(Embed, message))
-        return
-    }
-    const output = await command.execute(message, ...args)
-    if (output) {
-        const embed = EmbedHandler(output, message)
-        message.channel.send(embed)
-    } else {
-        const Embed = {
-            title: ':x: Error',
-            description: `Invalid arguments. Usage:\n${command.usage || 'none'}`,
-            color: config.colors.error
-        }
-
-        message.channel.send(EmbedHandler(Embed, message))
-        return
     }
 }

@@ -6,14 +6,14 @@ const command: Command = {
     permissions: { 
         bot: ['MANAGE_GUILD']
     },
-    execute: async(message, ...args) => {
+    execute: async(message, Luke, ...args) => {
         const { guild } = message
         const bots = message.guild?.members.cache.map(member => member.user.bot).length
         const members = message.guild?.memberCount
         const icon = await guild?.iconURL()?.toString()
 
-        return {
-            title: `${guild?.name} (click for icon).`,
+        Luke.embed({
+            object: message,
             thumbnail: guild?.iconURL(),
             fields: [
                 ['Name', guild?.name, true],
@@ -35,8 +35,7 @@ const command: Command = {
                 ['Users', (members || 0) - (bots || 0), true],
                 ['Icon URL', icon]
             ],
-            url: icon
-        }
+        })
     }
 }
 

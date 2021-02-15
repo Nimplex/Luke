@@ -1,36 +1,60 @@
-import { Command } from '../../../types'
+import { Command } from '@/types'
 
-const config = require('../../../../files/config.json')
+const colors = require('../../../../files/colors.json')
 
 const command: Command = {
     triggers: ['kick', 'k'],
     description: 'Kick member.',
-    usage: '<@user> [reason]',
     permissions: {
         bot: ['KICK_MEMBERS'],
         user: ['KICK_MEMBERS'],
     },
-    execute: async(message, ...args) => {
+    usage: [
+        {
+            name: '@member',
+            type: 'mention',
+            required: true
+        }
+    ],
+    execute: async(message, Luke, ...args) => {
         const member = message.mentions.members?.first()
         const reason = args.join(' ').replace(args[0], '').replace(' ', '')
         
-        if (!member) return undefined
-        if (!member.kickable) return {
-            title: ':x: Error.',
-            description: 'You can\'t kick this member.',
-            color: config.colors.error
+        if (!member) {
+            const user = await Luke.users.fetch(args[0])
+            if (user) {
+                message.guild?.members.cache.get(user.id)?.kick(reason)
+                Luke.embed({
+                    object: message,
+                    title: ':doors: Member has been kicked.',
+                    fields: [
+                        ['Moderator', `${message.author.tag} (${message.author.id})`, true],
+                        ['Member', `${user.tag} (${user.id})`, true],
+                        ['Reason', reason || 'none']
+                    ],
+                    color: colors.done
+                })
+            }
         }
+        else {
+            if (!member.kickable) Luke.embed({
+                object: message,
+                description: 'You can\'t kick this member.',
+                color: colors.error
+            })
 
-        reason ? member.kick(`${message.author.tag} (${message.author.id}): ${reason}`) : member.kick()
-        
-        return {
-            title: ':door: Member has been kicked.',
-            fields: [
-                ['Moderator', `${message.author.tag} (${message.author.id})`, true],
-                ['Member', `${member.user.tag} (${member.user.id})`, true],
-                ['Reason', reason || 'none']
-            ],
-            color: config.colors.done
+            reason ? member.kick(`${message.author.tag} (${message.author.id}): ${reason}`) : member.kick()
+            
+            Luke.embed({
+                object: message,
+                title: ':hammer: Member has been kicked.',
+                fields: [
+                    ['Moderator', `${message.author.tag} (${message.author.id})`, true],
+                    ['Member', `${member.user.tag} (${member.user.id})`, true],
+                    ['Reason', reason || 'none']
+                ],
+                color: colors.done
+            })
         }
     }
 }

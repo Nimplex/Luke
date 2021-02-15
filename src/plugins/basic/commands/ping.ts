@@ -1,21 +1,25 @@
-import Luke from '../../../index'
-import { Command } from '../../../types'
+import { Command } from '@/types'
 
 const command: Command = {
     triggers: ['ping'],
     description: 'Shows bot ping.',
-    execute: async(message, ...args) => {
-        const messageTimestamp = Date.now() - message.createdTimestamp
-        const messagePing = new Date(messageTimestamp).getMilliseconds()
-        const clientPing = Math.round(Luke.ws.ping)
-
-        return {
-            title: ':ping_pong: ping.',
-            fields: [
-                ['Message', `${messagePing}ms`, true],
-                ['API', `${clientPing}ms`, true]
-            ]
+    /*usage: [
+        {
+            type: 'number',
+            name: 'test',
+            required: true
+        },
+        {
+            type: 'number',
+            name: 'test'
         }
+    ],*/
+    execute: async(message, Luke, ...args) => {
+        Luke.embed({
+            object: message,
+            title: ':ping_pong: Pong',
+            description: `API: ${Math.floor(Luke.ws.ping)}ms\nMessage: ${Date.now() - message.createdTimestamp}ms`
+        })
     }
 }
 

@@ -1,27 +1,22 @@
-import { Luke } from '../'
-import { Plugin } from '../types'
+import { Luke } from '@/index'
+import { Plugin } from '@/types'
 import { readdir } from 'fs'
 import { join } from 'path'
-import CommandHandler from './CommandHandler'
 
 export default class PluginHandler {
-    cmds: CommandHandler
-    plugins: Array<Plugin>
-    constructor(client: Luke) {
+    plugins: Plugin[]
+
+    constructor(Luke: Luke) {
         this.plugins = []
-
-        readdir(join(__dirname, '..', 'plugins'), (err, files) => {
-            if (err) return client.console.error(err)
-            files.forEach(file => {
-                const Plugin: Plugin = require(`../plugins/${file}`)
-                this.plugins.push(Plugin)
-            })
-            client.console.ready(`Loaded ${this.plugins.length} plugin(s).`)
+        readdir(join(__dirname, '..', 'plugins'), (err, dirs) => {
+            if (err) return Luke.console.error(err)
+            else {
+                dirs.forEach(dir => {
+                    const plugin: Plugin = require(`../plugins/${dir}`)
+                    this.plugins.push(plugin)
+                })
+                Luke.console.log(`Loaded ${this.plugins.length} plugin(s)`)
+            }
         })
-
-        this.cmds = new CommandHandler(this)
     }
-
-    get = async(id: string): Promise<Plugin | undefined> =>
-        this.plugins.find(plugin => plugin.id == id)
 }

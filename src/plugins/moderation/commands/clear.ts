@@ -1,33 +1,39 @@
-import { Command } from '../../../types'
+import { Command } from '@/types'
 
-const config = require('../../../../files/config.json')
+const colors = require('../../../../files/colors.json')
 
 const command: Command = {
     triggers: ['clear'],
     description: 'Clear the specified amount of messages.',
-    usage: '<amount (< 100 | > 0)>',
     permissions: {
         bot: ['MANAGE_MESSAGES'],
         user: ['MANAGE_MESSAGES'],
     },
-    execute: async(message, ...args) => {
+    usage: [
+        {
+            type: 'number',
+            name: 'amount, (> 100 | < 0)'
+        }
+    ],
+    execute: async(message, Luke, ...args) => {
         const amount = parseInt(args[0])
 
-        if (!amount || isNaN(amount) || amount > 100 || amount < 0) return
+        if (amount > 100 || amount < 0) return false
         
         try {
             const messages = await message.channel.messages.fetch({ limit: amount })
             await message.channel?.bulkDelete(messages)
-            return {
-                title: `:broom: Deleted ${amount} message(s).`,
-                color: config.colors.done
-            }
+            Luke.embed({
+                object: message,
+                description: `:broom: Deleted ${amount} message(s).`,
+                color: colors.done
+            })
         } catch (err) {
-            return {
-                title: `:x: Error.`,
+            Luke.embed({
+                object: message,
                 description: `Failed to delete ${amount} messages.`,
-                color: config.colors.error
-            }
+                color: colors.error
+            })
         }
     }
 }

@@ -1,18 +1,19 @@
-import { Plugin, Command } from '../types'
-import PluginHandler from './PluginHandler'
+import { Luke } from '@/index'
+import { Command } from '@/types'
 
 export default class CommandHandler {
-    plugins: Array<Plugin>
-    constructor(PluginHandler: PluginHandler) {
-        this.plugins = PluginHandler.plugins
+    private Luke: Luke
+
+    constructor(Luke: Luke) {
+        this.Luke = Luke
     }
 
-    get = (name: string): Command | undefined => {
-        let temp
-        this.plugins.forEach(plugin => {
-            const command = plugin.commands.find(command => command.triggers.includes(name))
-            if (command) temp = command
+    get(trigger: string): Command | undefined {
+        let command: Command | undefined
+        this.Luke.PluginHandler.plugins.forEach(plugin => {
+            const cmd = plugin.commands.find(command => command.triggers.includes(trigger))
+            if (cmd) return command = cmd
         })
-        return temp
+        return command
     }
 }

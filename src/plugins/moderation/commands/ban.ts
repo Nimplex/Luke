@@ -1,17 +1,22 @@
-import Luke from '../../../'
-import { Command } from '../../../types'
+import { Command } from '@/types'
 
-const config = require('../../../../files/config.json')
+const colors = require('../../../../files/colors.json')
 
 const command: Command = {
     triggers: ['ban', 'b'],
     description: 'Ban member.',
-    usage: '<@user> [reason]',
     permissions: {
         bot: ['BAN_MEMBERS'],
         user: ['BAN_MEMBERS'],
     },
-    execute: async(message, ...args) => {
+    usage: [
+        {
+            name: '@member',
+            type: 'mention',
+            required: true
+        }
+    ],
+    execute: async(message, Luke, ...args) => {
         const member = message.mentions.members?.first()
         const reason = args.join(' ').replace(args[0], '').replace(' ', '')
         
@@ -19,35 +24,37 @@ const command: Command = {
             const user = await Luke.users.fetch(args[0])
             if (user) {
                 message.guild?.members.ban(user)
-                return {
+                Luke.embed({
+                    object: message,
                     title: ':hammer: Member has been banned.',
                     fields: [
                         ['Moderator', `${message.author.tag} (${message.author.id})`, true],
                         ['Member', `${user.tag} (${user.id})`, true],
                         ['Reason', reason || 'none']
                     ],
-                    color: config.colors.done
-                }
+                    color: colors.done
+                })
             }
         }
         else {
-            if (!member.bannable) return {
-                title: ':x: Error.',
+            if (!member.bannable) Luke.embed({
+                object: message,
                 description: 'You can\'t ban this member.',
-                color: config.colors.error
-            }
+                color: colors.error
+            })
 
             reason ? member.ban({ reason: `${message.author.tag} (${message.author.id}): ${reason}`, days: 7 }) : member.ban()
             
-            return {
+            Luke.embed({
+                object: message,
                 title: ':hammer: Member has been banned.',
                 fields: [
                     ['Moderator', `${message.author.tag} (${message.author.id})`, true],
                     ['Member', `${member.user.tag} (${member.user.id})`, true],
                     ['Reason', reason || 'none']
                 ],
-                color: config.colors.done
-            }
+                color: colors.done
+            })
         }
     }
 }

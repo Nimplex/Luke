@@ -1,38 +1,45 @@
-import { BitFieldResolvable, ColorResolvable, FileOptions, Message, MessageAttachment, NewsChannel, PermissionString, StringResolvable, TextChannel } from 'discord.js'
+import { ColorResolvable, FileOptions, Message, MessageAttachment, MessageEmbedAuthor, MessageEmbedFooter, MessageEmbedImage, MessageEmbedProvider, MessageEmbedThumbnail, NewsChannel, PermissionResolvable, TextChannel } from 'discord.js'
+import { Luke } from './index'
+
+export type arg = { name: string, type: string, required?: boolean }
+export type Field = [string, any, boolean?]
 
 export interface Plugin {
     name: string
     id: string
+    commands: Command[]
+    nsfw?: boolean
     hide?: boolean
-    commands: Array<Command>
-}
-export interface message extends Message{
-    channel: TextChannel | NewsChannel
-}
-export interface Command {
-    triggers: Array<string>
-    description: string
-    usage?: string
-    developer?: boolean
-    hide?: boolean
-    permissions?: PermissionArray
-    execute: (message: message, ...args: Array<string>) => Promise<Embed | undefined>
-}
-export interface Embed {
-    fields?: Array<Field>
-    files?: Array<string | FileOptions | MessageAttachment>
-    author?: { text: StringResolvable, icon?: string }
-    color?: ColorResolvable
-    description?: StringResolvable
-    footer?: StringResolvable
-    image?: string
-    thumbnail?: string | null | undefined
-    timestamp?: Date | number
-    title?: StringResolvable
-    url?: string,
-    dcodeblock?: boolean
 }
 
-export type Field = [string, any | any[], boolean?]
-export type PermissionBitField = BitFieldResolvable<PermissionString>
-export type PermissionArray = { user?: PermissionBitField, bot?: PermissionBitField }
+export interface Command {
+    triggers: string[]
+    description: string
+    usage?: arg[]
+    hide?: boolean
+    nsfw?: boolean
+    dev?: boolean
+    permissions?: { bot?: PermissionResolvable, user?: PermissionResolvable }
+    execute: (message: message, Luke: Luke, ...args: any[]) => Promise<boolean | void | undefined>
+}
+
+export interface Embed {
+    object?: message
+    author?: MessageEmbedAuthor
+    color?: ColorResolvable
+    description?: string
+    fields?: Field[]
+    files?: Array<FileOptions | string | MessageAttachment>
+    footer?: MessageEmbedFooter
+    image?: string
+    thumbnail?: string | null | undefined
+    timestamp?: number
+    title?: string
+    url?: string
+    disableDescriptionCodeBlock?: boolean
+    disableFieldsCodeBlock?: boolean
+}
+
+export interface message extends Message {
+    channel: TextChannel | NewsChannel
+}
