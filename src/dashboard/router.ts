@@ -24,15 +24,13 @@ export = (app: Application) => {
         })
     })
     app.get('/callback', (req, res) => {
-        if (!req.session?.body) return res.redirect('/403')
-
-        const data = new FormData();
-        data.append('client_id', tokens.id);
-        data.append('client_secret', tokens.secret);
-        data.append('grant_type', 'authorization_code');
-        data.append('redirect_uri', 'https://lukebot.xyz/api/login');
-        data.append('scope', ['identify', 'guilds']);
-        data.append('code', req.session.code);
+        const data = new FormData()
+        data.append('client_id', tokens.id)
+        data.append('client_secret', tokens.secret)
+        data.append('grant_type', 'authorization_code')
+        data.append('redirect_uri', 'https://lukebot.xyz/api/login')
+        data.append('scope', ['identify', 'guilds'])
+        data.append('code', req.session?.code)
 
         fetch('https://discordapp.com/api/oauth2/token', {
             method: 'POST',
