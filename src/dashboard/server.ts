@@ -18,7 +18,7 @@ export default class Server {
 
         require('./router')(this.app)
 
-        this.app.listen(server.port, () => 
+        this.app.listen(server.port, () =>
             Console.ready(`Dashboard is listening on port: ${server.port}`)
         )
     }

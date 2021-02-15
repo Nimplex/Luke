@@ -9,7 +9,7 @@ export default async function (args: any[], command: Command, message: message, 
         if (!command.usage) return resolve(false)
     
         if ((command.usage.length > 0 && args.length < command.usage.length) || error) {
-            if (!err) 
+            if (!err)
                 for (let i = 0; i < command.usage.length; i++) {
                     if (command.usage[i].required == true && !args[i]) continue
                     else return resolve(false)
