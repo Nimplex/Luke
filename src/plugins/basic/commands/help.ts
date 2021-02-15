@@ -38,7 +38,7 @@ const command: Command = {
                     
                     Luke.embed({
                         object: message,
-                        description: commands.join('\n')
+                        description: commands.join(', ')
                     })
                 } else if (command) {
                     let usage = `${bot.prefix}${command.triggers[0]} `
