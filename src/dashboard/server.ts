@@ -2,6 +2,7 @@ import Console from '../modules/Console'
 import express from 'express'
 import session from'express-session'
 import { join } from 'path'
+import { argv } from 'process'
 
 const { server } = require('../../files/config.json')
 const tokens = require('../../files/tokens.json')
@@ -14,9 +15,9 @@ export default class Server {
 
         this.app.use(session({
             secret: tokens.session_secret,
-            resave: false,
+            resave: true,
             saveUninitialized: true,
-            cookie: { secure: true }
+            cookie: { secure: argv[2] ? false : true }
         }))
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: true }))
