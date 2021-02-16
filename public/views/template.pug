@@ -6,11 +6,12 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         block head
     body.preload
-        #navbar
-            h1#navbar-title Luke
-            p#navbar-content
-                block navbar-content
-        
-        #container
-            block content
-        
+        #content-container
+            #navbar
+                h1#navbar-title 
+                    a(href="/") Luke
+                #navbar-content
+                    block navbar-content
+            
+            #container
+                block content

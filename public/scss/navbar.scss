@@ -1,0 +1,37 @@
+#navbar {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 70vw;
+    margin: 20px 0;
+
+    @media only screen and (max-width: 600px) {
+        & {
+            justify-content: center;
+        }
+        #navbar-title {
+            display: none;
+        }
+        #navbar-content {
+            & > *:first-child {
+                display: none;
+            }
+            margin-top: 20px;
+        }
+    }
+
+    * {
+        text-decoration: none;
+    }
+
+    #navbar-title {
+        font-size: 40px;
+    }
+
+    #navbar-content {
+        * {
+            padding: 0 10px;
+        }
+    }
+}

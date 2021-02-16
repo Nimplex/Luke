@@ -2,11 +2,13 @@ extends template.pug
 
 append head
     title Luke - Home
+    link(rel="stylesheet", href="/css/navbar.css")
+    link(rel="stylesheet", href="/css/index.css")
 
 append navbar-content
     if logged == true
         a(href="/dashboard")
-            | Welcome #{user.tag}
+            | Dashboard
         a(href="/api/logout")
             | Logout
     else

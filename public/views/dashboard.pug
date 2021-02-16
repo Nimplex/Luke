@@ -2,7 +2,6 @@ extends template.pug
 
 append head
     title Luke - Dashboard
-    link(rel="stylesheet", href="/css/navbar.css")
     link(rel="stylesheet", href="/css/dashboard.css")
 
 append navbar-content
@@ -12,9 +11,15 @@ append navbar-content
         | Logout
 
 append content
-    for guild of guilds
-        // | #{JSON.stringify(guild)}
-        .guild
-            img.guild-img(height=100 src=`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=640`)
-            a(href=`/dashboard/${guild.id}`)
-                p.guild-name #{guild.name}
+    #guilds
+        for guild of guilds
+            // | #{JSON.stringify(guild)}
+            .guild
+                .guild-img
+                    img(height=100 width=100 src=`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=640`)
+                - let name = guild.name
+                - if (name.length > 11) name = `${name.substr(0, 11)}...`
+                p.guild-name #{name}
+                .bottom
+                    a(href=`/dashboard/${guild.id}`)
+                        p.text Manage
