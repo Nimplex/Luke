@@ -13,12 +13,6 @@
         #navbar-title {
             display: none;
         }
-        #navbar-content {
-            & > *:first-child {
-                display: none;
-            }
-            margin-top: 20px;
-        }
     }
 
     * {

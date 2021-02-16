@@ -18,7 +18,14 @@ export = (app: Application) => {
     app.get('/dashboard', (req, res) => {
         if (!req.session || !req.session.code || !req.session.user || !req.session.guilds)
             return res.redirect(`https://discord.com/oauth2/authorize?client_id=${server.id}&redirect_uri=${process.argv[2] ? server.dev_uri : server.redirect_uri}&response_type=code&scope=identify%20guilds`)
-        else res.render('dashboard', { user: req.session.user, guilds: req.session.guilds })
+        else {
+            let guilds: any[] = []
+            req.session.guilds.forEach((guild: any) => {
+                guilds.push({ g: guild.g, b: Luke.guilds.cache.get(guild.g.id) ? true : false })
+            })
+            console.log(guilds)
+            res.render('dashboard', { user: req.session.user, guilds: guilds })
+        }
     })
 
     // API
@@ -55,7 +62,7 @@ export = (app: Application) => {
                     req.session!.guilds = []
                     guilds.forEach((guild: any) => {
                         const perms = new Permissions(guild.permissions)
-                        Luke.guilds.cache.has(guild.id) && perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ? req.session!.guilds.push(guild) : null
+                        perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ? req.session!.guilds.push({ g: guild, b: Luke.guilds.cache.get(guild.id) ? true : false }) : null
                     })
 
                     res.redirect('/dashboard')

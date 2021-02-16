@@ -6,7 +6,7 @@ append head
 
 append navbar-content
     a(href="/dashboard")
-        | Welcome #{user.tag}
+        | Dashboard
     a(href="/api/logout")
         | Logout
 
@@ -16,10 +16,14 @@ append content
             // | #{JSON.stringify(guild)}
             .guild
                 .guild-img
-                    img(height=100 width=100 src=`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=640`)
-                - let name = guild.name
+                    img(height=100 width=100 src=`https://cdn.discordapp.com/icons/${guild.g.id}/${guild.g.icon}.webp?size=640`)
+                - let name = guild.g.name
                 - if (name.length > 11) name = `${name.substr(0, 11)}...`
                 p.guild-name #{name}
                 .bottom
-                    a(href=`/dashboard/${guild.id}`)
-                        p.text Manage
+                    if guild.b
+                        a(href=`/dashboard/${guild.g.id}`)
+                            p.text Manage Guild
+                    else
+                        a(href=`https://discord.com/api/oauth2/authorize?client_id=576478552158109716&permissions=8&redirect_uri=http%3A%2F%2Flocalhost%3A8283%2Fapi%2Flogin&scope=bot`)
+                            p.text Invite bot
