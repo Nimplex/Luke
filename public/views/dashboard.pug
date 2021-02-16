@@ -1,9 +1,20 @@
-doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title LukeBot - Dashboard
-    body
-    #{body}
+extends template.pug
+
+append head
+    title Luke - Dashboard
+    link(rel="stylesheet", href="/css/navbar.css")
+    link(rel="stylesheet", href="/css/dashboard.css")
+
+append navbar-content
+    a(href="/dashboard")
+        | Welcome #{user.tag}
+    a(href="/api/logout")
+        | Logout
+
+append content
+    for guild of guilds
+        // | #{JSON.stringify(guild)}
+        .guild
+            img.guild-img(height=100 src=`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp?size=640`)
+            a(href=`/dashboard/${guild.id}`)
+                p.guild-name #{guild.name}

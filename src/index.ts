@@ -9,7 +9,7 @@ import dashboard from './dashboard/server'
 const tokens = require('../files/tokens.json')
 
 export class Luke extends Client {
-    dashboard: dashboard
+    dashboard!: dashboard
     embed = Embed
     console = Console
     EventHandler: EventHandler
@@ -19,7 +19,6 @@ export class Luke extends Client {
     constructor(options?: ClientOptions) {
         super(options)
 
-        this.dashboard = new dashboard()
         this.PluginHandler = new PluginHandler(this)
         this.CommandHandler = new CommandHandler(this)
         this.EventHandler = new EventHandler(this)
