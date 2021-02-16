@@ -4,6 +4,9 @@
         "developers": ["364056796932997121"]
     },
     "server": {
-        "port": 8283
+        "port": 8283,
+        "id": "576478552158109716",
+        "redirect_uri": "https://lukebot.xyz/api/login",
+        "dev_uri": "http://localhost:8283/api/login"
     }
 }
