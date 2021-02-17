@@ -4,10 +4,10 @@
 #guilds {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     padding: 20px 0;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
+    justify-content: center;
 
     @media only screen and (max-width: 800px) {
         & {

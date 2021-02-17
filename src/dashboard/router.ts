@@ -30,6 +30,23 @@ export = (app: Application) => {
             res.render('dashboard', { user: req.session?.user, guilds: req.session?.guilds || [] })
         }
     })
+    app.get('/dashboard/:id', (req, res) => {
+        const id = req.params.id
+
+        console.log(id)
+
+        if (!req.session || !req.session.code || !req.session.user || !req.session.guilds || !id)
+            return res.redirect('/')
+        if (!Luke.guilds.cache.get((id as string)))
+            return res.redirect('/')
+
+        const guild = req.session?.guilds.find((guild: any) => guild.g.id == id)
+
+        const perms = new Permissions(guild.g.permissions)
+        perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ?
+            res.render('guild', { guild: guild, user: req.session.user }) :
+            res.redirect('/401')
+    })
 
     // API
     app.get('/api/login', (req, res) => {

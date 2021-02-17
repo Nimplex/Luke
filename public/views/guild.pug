@@ -1,0 +1,14 @@
+extends template.pug
+
+append head
+    title Luke - Dashboard
+    link(rel="stylesheet", href="/css/settings.css")
+
+append navbar-content
+    a(href="/dashboard")
+        | Dashboard
+    a(href="/api/logout")
+        | Logout
+
+append content
+    #settings
