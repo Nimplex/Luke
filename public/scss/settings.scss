@@ -8,7 +8,7 @@
     padding: 20px 0;
     background: #212121;
     width: 80vw;
-    height: 80vh;
+    min-height: 80vh;
     border-radius: 20px;
     box-shadow:
         0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -19,4 +19,42 @@
         0 100px 80px rgba(0, 0, 0, 0.12);
     /* https://css-tricks.com/almanac/properties/b/box-shadow/ */
 
+    #menu-title {
+        padding: 20px 0;
+    }
+    #options {
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: center;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+
+
+        .option {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            margin: 10px 20px;
+            border: 1px solid #3a3a3a;
+            border-radius: 10px;
+            width: 150px;
+            height: 40px;
+            color: white;
+            transition: all .2s;
+            cursor: pointer;
+
+            &:hover {
+                background: #3a3a3a;
+                transition: all .2s;
+            }
+        }
+    }
+    #content {
+        width: 70vw;
+        min-height: 60vh;
+        background: #262626;
+        border-radius: 10px;
+        margin-top: 40px;
+    }
 }

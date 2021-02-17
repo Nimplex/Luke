@@ -27,6 +27,13 @@
     #navbar-content {
         * {
             padding: 0 10px;
+            color: white;
+            transition: color .2s;
+            
+            &:hover {
+                color: rgb(186, 186, 186);
+                transition: color .2s;
+            }
         }
     }
 }
