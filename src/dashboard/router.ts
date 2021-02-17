@@ -19,11 +19,15 @@ export = (app: Application) => {
         if (!req.session || !req.session.code || !req.session.user || !req.session.guilds)
             return res.redirect(`https://discord.com/oauth2/authorize?client_id=${server.id}&redirect_uri=${process.argv[2] ? server.dev_uri : server.redirect_uri}&response_type=code&scope=identify%20guilds`)
         else {
-            fetch('https://discord.com/api/users/@me/guilds', { method: 'GET', headers: { authorization: `${req.session.type} ${req.session.token}` } }).then(res => res.json()).then(guilds => {
-                    if (guilds.code == 0) return res.redirect('/401')
+            const guilds = req.session?.guilds
 
-                    res.render('dashboard', { user: req.session?.user, guilds: req.session?.guilds || [] })
+            req.session.guilds = []
+
+            guilds.forEach((guild: { g: any, b: any }) => {
+                req.session!.guilds.push({ g: guild.g, b: Luke.guilds.cache.get(guild.g.id) ? true : false })
             })
+
+            res.render('dashboard', { user: req.session?.user, guilds: req.session?.guilds || [] })
         }
     })
 

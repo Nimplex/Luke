@@ -25,5 +25,5 @@ append content
                         a(href=`/dashboard/${guild.g.id}`)
                             p.text Manage Guild
                     else
-                        a(href=`https://discord.com/api/oauth2/authorize?client_id=576478552158109716&permissions=8&redirect_uri=http%3A%2F%2Flocalhost%3A8283%2Fapi%2Flogin&scope=bot`)
+                        a(onclick=`let win = window.open("https://discord.com/api/oauth2/authorize?client_id=576478552158109716&permissions=8&guild_id=${guild.g.id}&scope=bot", "MsgWindow", "width=450,height=700"); let int = setInterval(() => { if (win.closed) { location.reload(); clearInterval(int) } }, 1000)`)
                             p.text Invite bot

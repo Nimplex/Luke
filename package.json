@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node .",
     "start:dev": "nodemon .",
-    "build": "tsc"
+    "build:ts": "tsc",
+    "build:sass": "sass public/scss/:public/css/"
   },
   "dependencies": {
     "chalk": "^4.1.0",
