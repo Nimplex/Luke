@@ -9,9 +9,10 @@
     @media only screen and (max-width: 600px) {
         & {
             justify-content: center;
+            flex-direction: column;
         }
         #navbar-title {
-            display: none;
+            margin-bottom: 20px;
         }
     }
 

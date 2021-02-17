@@ -19,12 +19,11 @@ export = (app: Application) => {
         if (!req.session || !req.session.code || !req.session.user || !req.session.guilds)
             return res.redirect(`https://discord.com/oauth2/authorize?client_id=${server.id}&redirect_uri=${process.argv[2] ? server.dev_uri : server.redirect_uri}&response_type=code&scope=identify%20guilds`)
         else {
-            let guilds: any[] = []
-            req.session.guilds.forEach((guild: any) => {
-                guilds.push({ g: guild.g, b: Luke.guilds.cache.get(guild.g.id) ? true : false })
+            fetch('https://discord.com/api/users/@me/guilds', { method: 'GET', headers: { authorization: `${req.session.type} ${req.session.token}` } }).then(res => res.json()).then(guilds => {
+                    if (guilds.code == 0) return res.redirect('/401')
+
+                    res.render('dashboard', { user: req.session?.user, guilds: req.session?.guilds || [] })
             })
-            console.log(guilds)
-            res.render('dashboard', { user: req.session.user, guilds: guilds })
         }
     })
 
@@ -55,6 +54,8 @@ export = (app: Application) => {
                 user.tag = `${user.username}#${user.discriminator}`
                 user.avatarURL = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=1024` : null
                 req.session!.user = user
+                req.session!.token = json.access_token
+                req.session!.type = json.token_type
 
                 fetch('https://discord.com/api/users/@me/guilds', { method: 'GET', headers: { authorization: `${json.token_type} ${json.access_token}` } }).then(res => res.json()).then(guilds => {
                     if (guilds.code == 0) return res.redirect('/401')

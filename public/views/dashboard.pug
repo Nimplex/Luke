@@ -16,7 +16,7 @@ append content
             // | #{JSON.stringify(guild)}
             .guild
                 .guild-img
-                    img(height=100 width=100 src=`https://cdn.discordapp.com/icons/${guild.g.id}/${guild.g.icon}.webp?size=640`)
+                    img(height=100 width=100 onerror="this.src = '/img/dc-icon.jpg'" src=`https://cdn.discordapp.com/icons/${guild.g.id}/${guild.g.icon}.webp?size=640`)
                 - let name = guild.g.name
                 - if (name.length > 11) name = `${name.substr(0, 11)}...`
                 p.guild-name #{name}
