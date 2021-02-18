@@ -109,8 +109,8 @@ export = (app: Application) => {
 
         const perms = new Permissions(guild.g.permissions)
         if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
-            const server = await guildManager.get(guild.g.id)
-            if (!server) return res.json({ status: 0, msg: 'Unknown error' })
+            let server = await guildManager.get(guild.g.id)
+            if (!server) server = await guildManager.create(guild.g.id)
             await server.updateOne({ prefix: req.body.prefix })
 
             res.json({ status: 1 })
