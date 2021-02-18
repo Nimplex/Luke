@@ -44,10 +44,18 @@ export = (app: Application) => {
         if (!guild) return res.redirect('/401')
 
         const server = await guildManager.get(guild.g.id)
+        const cacheChannels = Luke.guilds.cache.get(guild.g.id)?.channels.cache || []
+        const channels: any[] = []
+
+        cacheChannels.forEach((channel: any) => {
+            channels.push({ n: channel.name, id: channel.id })
+        })
+
+        console.log(channels)
 
         const perms = new Permissions(guild.g.permissions)
         perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ?
-            res.render('guild', { guild: guild, user: req.session.user, data: { prefix: server?.prefix || '.', token: req.session.token || '0' }, session_id: req.sessionID }) :
+            res.render('guild', { guild: guild, user: req.session.user, data: { prefix: server?.prefix || '.', token: req.session.token || '0' }, channels: channels }) :
             res.redirect('/401')
     })
 

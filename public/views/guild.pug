@@ -7,11 +7,22 @@ append guild-name
     h1#menu-title #{guild.g.name}
 
 append content
-    #data(data-id=guild.g.id data-user=user data-guild=guild)
-    #basic-content
-        .opt
-            p.ctitle Prefix
-            input.intext#prefix(type="text" name="prefix" placeholder="prefix..." value=data.prefix)
-
+    #center
+        #basic-content
+            .opt
+                p.ctitle Prefix
+                input.intext#prefix(type="text" name="prefix" placeholder="prefix..." value=data.prefix)
+            .opt
+                p.ctitle Join channel
+                select.intext.stext#join-channel(name="join-channel")
+                    each channel, index in channels
+                        p #{JSON.stringify(channel)}
+                        option(value=channel.id) #{channel.n}
+            .opt
+                p.ctitle Left channel
+                select.intext.stext#join-channel(name="join-channel")
+                    each channel, index in channels
+                        p #{JSON.stringify(channel)}
+                        option(value=channel.id) #{channel.n}
 append scripts
     script(src="/js/basic.js")

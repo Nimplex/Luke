@@ -1,14 +1,28 @@
+#center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 #basic-content {
+    display: inline-flex;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+
     .opt {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        margin: 9px;
+
         * {
-            margin: 5px 0;
+            margin: 5px;
         }
     }
-    input.intext {
+    .intext {
         background: #212121;
         outline: none;
         border: none;
@@ -31,5 +45,8 @@
             opacity: 0;
             transition: opacity .25s ease-in-out;
         }
+    }
+    .stext {
+        font-size: 10px;
     }
 }
