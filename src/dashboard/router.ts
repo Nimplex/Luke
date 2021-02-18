@@ -31,7 +31,7 @@ export = (app: Application) => {
             res.render('dashboard', { user: req.session?.user, guilds: req.session?.guilds || [] })
         }
     })
-    app.get('/dashboard/:id', (req, res) => {
+    app.get('/dashboard/:id', async(req, res) => {
         const id = req.params.id
 
         if (!req.session || !req.session.code || !req.session.user || !req.session.guilds || !id)
@@ -43,9 +43,14 @@ export = (app: Application) => {
         
         if (!guild) return res.redirect('/401')
 
+        let server = await guildManager.get(guild.g.id)
+        if (!server) await guildManager.create(guild.g.id)
+            server = await guildManager.get(guild.g.id)
+        if (!server) return res.redirect('/500')
+
         const perms = new Permissions(guild.g.permissions)
         perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ?
-            res.render('guild', { guild: guild, user: req.session.user, data: { prefix: '.', token: req.session.token || '0' }, session_id: req.sessionID }) :
+            res.render('guild', { guild: guild, user: req.session.user, data: { prefix: server?.prefix || '.', token: req.session.token || '0' }, session_id: req.sessionID }) :
             res.redirect('/401')
     })
 
