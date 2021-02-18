@@ -76,6 +76,14 @@
                 color: black;
                 border-radius: 90em;
             }
+
+            .no {
+                border: 1px solid #fcba03;
+                background: none;
+                color: white;
+                border-radius: 90em;
+                cursor: pointer;
+            }
         }
     }
 }
