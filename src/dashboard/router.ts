@@ -51,8 +51,6 @@ export = (app: Application) => {
             !['category', 'voice'].includes(channel.type) ? channels.push({ n: (channel as any).name, id: channel.id }) : null
         })
 
-        console.log(channels)
-
         const perms = new Permissions(guild.g.permissions)
         perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ?
             res.render('basic', { 
@@ -123,7 +121,6 @@ export = (app: Application) => {
         const id = req.params.id
         if (!id) return res.json({ status: 0, msg: 'Invalid ID' })
         if (!req.session?.user) return res.json({ status: 0, msg: 'Session is dead' })
-        console.log(req.body)
         if (!req.body.prefix || !req.body.wchannel || !req.body.lchannel) return res.json({ status: 0, msg: 'Invalid body' })
         
         const guild = req.session?.guilds.find((guild: any) => guild.g.id == id)
