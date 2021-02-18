@@ -33,9 +33,9 @@ module.exports = async (Luke: Luke, message: message) => {
         guild = await guildManager.get(message.guild.id)
     if (!guild) return
     
-    if (!message.content.startsWith(guild.prefix)) return
+    if (!message.content.startsWith(guild.prefix || bot.prefix)) return
 
-    const [commandName, ...args] = message.content.slice(bot.prefix.length).split(/ +/g)
+    const [commandName, ...args] = message.content.slice(guild.prefix.length || bot.prefix).split(/ +/g)
     const command = Luke.CommandHandler.get(commandName)
 
     if (!command) return

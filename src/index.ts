@@ -8,7 +8,6 @@ import dashboard from './dashboard/server'
 import mongoose from 'mongoose'
 
 const tokens = require('../files/tokens.json')
-const config = require('../files/config.json')
 
 mongoose.connect(
     `mongodb://${tokens.mongo.ip}/${tokens.mongo.database}`,
