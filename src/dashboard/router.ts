@@ -1,3 +1,4 @@
+import guildManager from '@/database/guildManager'
 import { Permissions } from 'discord.js'
 import { Application } from 'express'
 import FormData from 'form-data'
@@ -97,7 +98,7 @@ export = (app: Application) => {
             res.redirect('/')
         })
     })
-    app.post('/api/guild/:id', (req, res) => {
+    app.post('/api/guild/:id', async(req, res) => {
         const id = req.params.id
         if (!id) return res.json({ status: 0, msg: 'Invalid ID' })
         if (!req.session?.user) return res.json({ status: 0, msg: 'Session is dead' })
@@ -108,7 +109,11 @@ export = (app: Application) => {
 
         const perms = new Permissions(guild.g.permissions)
         if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
-            
+            const server = await guildManager.get(guild.g.id)
+            if (!server) return res.json({ status: 0, msg: 'Unknown error' })
+            await server.updateOne({ prefix: req.body.prefix })
+
+            res.json({ status: 1 })
         } else
             res.json({ status: 0, msg: 'Invalid permissions.' })
     })
