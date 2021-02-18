@@ -1,6 +1,7 @@
 import { Luke } from '@/index'
 import { Command, message } from '@/types'
 import ArgsHandler from '../ArgsHandler'
+import guildManager from '../../database/guildManager'
 
 const colors = require('../../../files/colors.json')
 const { bot } = require('../../../files/config.json')
@@ -25,11 +26,14 @@ export function error(name: string, message: message, Luke: Luke, command: Comma
 }
 
 module.exports = async (Luke: Luke, message: message) => {
-    if (
-        message.author.bot ||
-        !message.guild ||
-        !message.content.startsWith(bot.prefix)
-    ) return
+    if (message.author.bot || !message.guild) return
+
+    let guild = await guildManager.get(message.guild.id)
+    if (!guild) await guildManager.create(message.guild.id)
+        guild = await guildManager.get(message.guild.id)
+    if (!guild) return
+    
+    if (!message.content.startsWith(guild.prefix)) return
 
     const [commandName, ...args] = message.content.slice(bot.prefix.length).split(/ +/g)
     const command = Luke.CommandHandler.get(commandName)

@@ -1,0 +1,27 @@
+extends template.pug
+
+append head
+    title Luke - Dashboard
+    link(rel="stylesheet", href="/css/settings.css")
+    block head
+
+append navbar-content
+    a(href="/dashboard")
+        | Dashboard
+    a(href="/api/logout")
+        | Logout
+
+append content
+    #settings
+        block guild-name
+        #options
+            p.option Basics
+            p.option Soon
+            p.option Soon
+            p.option Soon
+            p.option Soon
+            p.option#save(style="background: #0698cd; border: none") Save
+        #content
+            #cnt
+                block content
+    block scripts

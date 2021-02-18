@@ -1,23 +1,17 @@
-extends template.pug
+extends guild-template.pug
 
 append head
-    title Luke - Dashboard
-    link(rel="stylesheet", href="/css/settings.css")
+    link(rel="stylesheet", href="/css/basic.css")
 
-append navbar-content
-    a(href="/dashboard")
-        | Dashboard
-    a(href="/api/logout")
-        | Logout
+append guild-name
+    h1#menu-title #{guild.g.name}
 
 append content
-    #settings
-        h1#menu-title #{guild.g.name}
-        #options
-            p.option Basics
-            p.option Soon
-            p.option Soon
-            p.option Soon
-            p.option Soon
-        #content
-            
+    #data(data-id=guild.g.id data-user=user data-guild=guild)
+    #basic-content
+        .opt
+            p.ctitle Prefix
+            input.intext#prefix(type="text" name="prefix" placeholder="prefix..." value=data.prefix)
+
+append scripts
+    script(src="/js/basic.js")

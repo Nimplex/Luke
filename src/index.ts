@@ -5,8 +5,26 @@ import EventHandler from './handlers/EventHandler'
 import Embed from './modules/Embed'
 import Console from './modules/Console'
 import dashboard from './dashboard/server'
+import mongoose from 'mongoose'
 
 const tokens = require('../files/tokens.json')
+const config = require('../files/config.json')
+
+mongoose.connect(
+    `mongodb://${tokens.mongo.ip}/${tokens.mongo.database}`,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        authSource: tokens.mongo.authDatabase,
+        user: tokens.mongo.username,
+        pass: tokens.mongo.password
+    }
+).then(() => {
+    Console.ready('MongoDB connected')
+}).catch(err => {
+    Console.error(`MongoDB error: ${err}`)
+    process.exit()
+})
 
 export class Luke extends Client {
     dashboard!: dashboard

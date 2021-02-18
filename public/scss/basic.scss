@@ -1,0 +1,35 @@
+#basic-content {
+    .opt {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        * {
+            margin: 5px 0;
+        }
+    }
+    input.intext {
+        background: #212121;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #212121;
+        border-radius: 5px;
+        width: 100px;
+        height: 30px;
+        text-align: center;
+        font-size: 19px;
+        transition: border-color .25s ease-out;
+
+        &:focus {
+            border-color: grey;
+            transition: border-color .25s ease-out;
+        }
+        &::placeholder {
+            transition: opacity .25s ease-in-out;
+        }
+        &:focus::placeholder {
+            opacity: 0;
+            transition: opacity .25s ease-in-out;
+        }
+    }
+}

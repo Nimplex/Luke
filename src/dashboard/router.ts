@@ -44,7 +44,7 @@ export = (app: Application) => {
 
         const perms = new Permissions(guild.g.permissions)
         perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ?
-            res.render('guild', { guild: guild, user: req.session.user }) :
+            res.render('guild', { guild: guild, user: req.session.user, data: { prefix: '.', token: req.session.token || '0' }, session_id: req.sessionID }) :
             res.redirect('/401')
     })
 
@@ -96,6 +96,21 @@ export = (app: Application) => {
         req.session?.destroy(() => {
             res.redirect('/')
         })
+    })
+    app.post('/api/guild/:id', (req, res) => {
+        const id = req.params.id
+        if (!id) return res.json({ status: 0, msg: 'Invalid ID' })
+        if (!req.session?.user) return res.json({ status: 0, msg: 'Session is dead' })
+        if (!req.body.prefix) return res.json({ status: 0, msg: 'Invalid body' })
+        
+        const guild = req.session?.guilds.find((guild: any) => guild.g.id == id)
+        if (!guild) return res.json({ status: 0 })
+
+        const perms = new Permissions(guild.g.permissions)
+        if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
+            
+        } else
+            res.json({ status: 0, msg: 'Invalid permissions.' })
     })
 
     // Errors
