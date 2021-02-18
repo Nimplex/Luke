@@ -20,7 +20,7 @@ const command: Command = {
             fields: [
                 ['Username', user.tag, true],
                 ['Status', user.presence.status, true],
-                ['Client', 
+                ['Client',
                     user.presence.clientStatus?.desktop ? 'Desktop' : undefined ||
                     user.presence.clientStatus?.web ? 'Web' : undefined ||
                     user.presence.clientStatus?.mobile ? 'Mobile' : undefined,

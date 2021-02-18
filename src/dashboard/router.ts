@@ -53,10 +53,10 @@ export = (app: Application) => {
 
         const perms = new Permissions(guild.g.permissions)
         perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ?
-            res.render('basic', { 
+            res.render('basic', {
                 guild: guild,
                 user: req.session.user,
-                data: { 
+                data: {
                     prefix: server?.prefix || '.',
                     left_channel: server?.leave_channel || '0',
                     join_channel: server?.welcome_channel || '0',
