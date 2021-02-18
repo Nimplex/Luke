@@ -3,14 +3,18 @@ import mongoose, { Schema, Document } from 'mongoose'
 export interface Guild extends Document {
     prefix: string
     welcome_channel: string
-    leave_channel: string,
-    gid: string,
-    wenabled: boolean,
-    lenabled: boolean,
-    welcome_id: string,
-    welcome_token: string,
-    leave_id: string,
+    leave_channel: string
+    gid: string
+    wenabled: boolean
+    lenabled: boolean
+    welcome_id: string
+    welcome_token: string
+    leave_id: string
     leave_token: string
+    lmessages: []
+    wmessages: []
+    wmenabled: boolean
+    lmenabled: boolean
 }
 
 const GuildSchema: Schema = new Schema({
@@ -23,7 +27,11 @@ const GuildSchema: Schema = new Schema({
     welcome_id: { type: String, required: false },
     welcome_token: { type: String, required: false },
     leave_id: { type: String, required: false },
-    leave_token: { type: String, required: false }
+    leave_token: { type: String, required: false },
+    lmessages: { type: [], required: false },
+    wmessages: { type: [], required: false },
+    rmenabled: { type: Boolean, required: false },
+    lmenabled: { type: Boolean, required: false },
 }, { timestamps: true })
 
 export default mongoose.model<Guild>('guilds', GuildSchema)

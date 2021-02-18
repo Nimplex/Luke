@@ -1,5 +1,5 @@
 import guildManager from '../database/guildManager'
-import { Channel, Permissions } from 'discord.js'
+import { Channel, Permissions, TextChannel } from 'discord.js'
 import { Application } from 'express'
 import FormData from 'form-data'
 import fetch from 'node-fetch'
@@ -31,8 +31,9 @@ export = (app: Application) => {
             res.render('dashboard', { user: req.session?.user, guilds: req.session?.guilds || [] })
         }
     })
-    app.get('/dashboard/:id', async(req, res) => {
+    app.get('/dashboard/:id/:cat', async(req, res) => {
         const id = req.params.id
+        const cat = req.params.cat
 
         if (!req.session || !req.session.code || !req.session.user || !req.session.guilds || !id)
             return res.redirect('/')
@@ -52,20 +53,38 @@ export = (app: Application) => {
         })
 
         const perms = new Permissions(guild.g.permissions)
-        perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ?
-            res.render('basic', {
-                guild: guild,
-                user: req.session.user,
-                data: {
-                    prefix: server?.prefix || '.',
-                    left_channel: server?.leave_channel || '0',
-                    join_channel: server?.welcome_channel || '0',
-                    lenabled: server?.lenabled,
-                    wenabled: server?.wenabled
-                },
-                channels: channels,
-            }) :
-            res.redirect('/401')
+        if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
+            if (!cat) 
+                res.render('basic', {
+                    guild: guild,
+                    user: req.session.user,
+                    data: {
+                        prefix: server?.prefix || '.',
+                        left_channel: server?.leave_channel || '0',
+                        join_channel: server?.welcome_channel || '0',
+                        lenabled: server?.lenabled,
+                        wenabled: server?.wenabled
+                    },
+                    channels: channels,
+                })
+            else if (cat == 'welcomer')
+                res.render('welcomer', {
+                    guild: guild,
+                    user: req.session.user,
+                    data: {
+                        prefix: server?.prefix || '.',
+                        left_channel: server?.leave_channel || '0',
+                        join_channel: server?.welcome_channel || '0',
+                        lenabled: server?.lenabled,
+                        wenabled: server?.wenabled,
+                        wmessages: server?.wmessages,
+                        lmessages: server?.lmessages,
+                        wmenabled: server?.wmenabled,
+                        lmenabled: server?.lmenabled
+                    },
+                    channels: channels,
+                })
+        } else res.redirect('/401')
     })
 
     // API
@@ -136,10 +155,15 @@ export = (app: Application) => {
             const lchannel: any = channels.get(req.body.lchannel)
             const wenabled = req.body.wenabled == true ? true : false
             const lenabled = req.body.lenabled == true ? true : false
-            const wchnhook = wenabled ? await wchannel.createWebhook('Luke', { avatar: 'https://lukebot.xyz/img/waving-hand.png' }) : null
-            const lchnhook = lenabled ? await lchannel.createWebhook('Luke', { avatar: 'https://lukebot.xyz/img/waving-hand.png' }) : null
             const server = await guildManager.get(guild.g.id)
+            const welcome_webhooks = (await (wchannel as TextChannel).fetchWebhooks()).filter(webhook => webhook.name == 'Luke welcome').first()
+            const leave_webhooks = (await (lchannel as TextChannel).fetchWebhooks()).filter(webhook => webhook.name == 'Luke leave').first()
             
+            console.log(welcome_webhooks, leave_webhooks)
+
+            const wchnhook = (wenabled || !welcome_webhooks == undefined) ? await wchannel.createWebhook('Luke welcome', { avatar: 'https://lukebot.xyz/img/waving-hand.png' }) : null
+            const lchnhook = (lenabled || !leave_webhooks == undefined) ? await lchannel.createWebhook('Luke leave', { avatar: 'https://lukebot.xyz/img/waving-hand.png' }) : null
+
             await server.updateOne({
                 prefix: req.body.prefix,
                 wenabled: wenabled,

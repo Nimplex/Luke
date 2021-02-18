@@ -1,0 +1,63 @@
+extends guild-template.pug
+
+append head
+    link(rel="stylesheet", href="/css/welcomer.css")
+
+append guild-name
+    h1#menu-title #{guild.g.name}
+
+append content
+    #data(data-id=guild.g.id)
+    #center
+        #welcomer-content
+            .opt
+                p.ctitle Welcome message
+                .center
+                    if data.wenabled == true
+                        input.ichk#wenabled(type="checkbox" name="" checked)
+                    else
+                        input.ichk#wenabled(type="checkbox" name="")
+                    select.intext.stext#welcome-channel(name="Welcome-channel")
+                        each channel, index in channels
+                            if data.join_channel == channel.id
+                                option(value=channel.id selected) #{channel.n}
+                            else
+                                option(value=channel.id) #{channel.n}
+                #wmessages.messages
+                    .center
+                        if data.wmenabled == true
+                            input.ichk#wmessagesrenabled(type="checkbox" name="" checked)
+                        else
+                            input.ichk#wmessagesrenabled(type="checkbox" name="")
+                        p.ctitle Random join message?
+                    //- each message, index in wmessages
+                    //-     .message
+                    //-         input(type="text" value=message)
+                    input.intext.wmessage(type="text" placeholder='Welcome message...')
+            .opt
+                p.ctitle Leave message
+                .center
+                    if data.lenabled == true
+                        input.ichk#lenabled(type="checkbox" name="" checked)
+                    else
+                        input.ichk#lenabled(type="checkbox" name="")
+                    select.stext#leave-channel(name="Leave-channel")
+                        each channel, index in channels
+                            if data.left_channel == channel.id
+                                option(value=channel.id selected) #{channel.n}
+                            else
+                                option(value=channel.id) #{channel.n}
+                #lmessages.messages
+                    .center
+                        if data.lmenabled == true
+                            input.ichk#lmessagesrenabled(type="checkbox" name="" checked)
+                        else
+                            input.ichk#lmessagesrenabled(type="checkbox" name="")
+                        p.ctitle Random leave message?
+                    //- each message, index in lmessages
+                    //-     .message
+                    //-         input(type="text" value=message)
+                    input.intext.lmessage(type="text" placeholder='Leave message...')
+
+append scripts
+    script(src="/js/welcomer.js")

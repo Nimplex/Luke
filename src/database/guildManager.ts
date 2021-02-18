@@ -12,7 +12,11 @@ export async function create(id: string): Promise<Guild> {
             leave_id: '',
             leave_token: '',
             welcome_id: '',
-            welcome_token: ''
+            welcome_token: '',
+            wmenabled: false,
+            lmenabled: false,
+            wmessages: [],
+            lmessages: []
         }); guild.save()
 
     return guild
