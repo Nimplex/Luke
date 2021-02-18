@@ -12,8 +12,9 @@ export async function create(id: string): Promise<Guild> {
     return guild
 }
 
-export async function get(id: string): Promise<Guild | undefined> {
-    const guild = await guildModel.findOne({ gid: id }) || undefined
+export async function get(id: string): Promise<Guild> {
+    let guild = await guildModel.findOne({ gid: id }) || undefined
+    if (!guild) guild = await create(id)
     return guild
 }
 

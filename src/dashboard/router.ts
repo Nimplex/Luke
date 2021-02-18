@@ -43,10 +43,7 @@ export = (app: Application) => {
         
         if (!guild) return res.redirect('/401')
 
-        let server = await guildManager.get(guild.g.id)
-        if (!server) await guildManager.create(guild.g.id)
-            server = await guildManager.get(guild.g.id)
-        if (!server) return res.redirect('/500')
+        const server = await guildManager.get(guild.g.id)
 
         const perms = new Permissions(guild.g.permissions)
         perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ?
@@ -114,8 +111,7 @@ export = (app: Application) => {
 
         const perms = new Permissions(guild.g.permissions)
         if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
-            let server = await guildManager.get(guild.g.id)
-            if (!server) server = await guildManager.create(guild.g.id)
+            const server = await guildManager.get(guild.g.id)
             await server.updateOne({ prefix: req.body.prefix })
 
             res.json({ status: 1 })

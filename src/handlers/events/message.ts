@@ -28,10 +28,7 @@ export function error(name: string, message: message, Luke: Luke, command: Comma
 module.exports = async (Luke: Luke, message: message) => {
     if (message.author.bot || !message.guild) return
 
-    let guild = await guildManager.get(message.guild.id)
-    if (!guild) await guildManager.create(message.guild.id)
-        guild = await guildManager.get(message.guild.id)
-    if (!guild) return
+    const guild = await guildManager.get(message.guild.id)
     
     if (!message.content.startsWith(guild.prefix || bot.prefix)) return
 
