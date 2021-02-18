@@ -3,7 +3,7 @@ import { Command } from '../../../types'
 const command: Command = {
     triggers: ['serverinfo', 'server'],
     description: 'Shows informations about server.',
-    permissions: { 
+    permissions: {
         bot: ['MANAGE_GUILD']
     },
     execute: async(message, Luke, ...args) => {
