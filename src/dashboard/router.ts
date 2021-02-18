@@ -1,4 +1,4 @@
-import guildManager from '@/database/guildManager'
+import guildManager from '../database/guildManager'
 import { Permissions } from 'discord.js'
 import { Application } from 'express'
 import FormData from 'form-data'
