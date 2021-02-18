@@ -6,7 +6,9 @@ export async function create(id: string): Promise<Guild> {
             prefix: '.',
             welcome_channel: '',
             leave_channel: '',
-            gid: id
+            gid: id,
+            lenabled: false,
+            wenabled: false
         }); guild.save()
 
     return guild

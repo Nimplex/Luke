@@ -9,7 +9,7 @@
   "private": false,
   "scripts": {
     "start": "node .",
-    "start:dev": "nodemon .",
+    "start:dev": "nodemon --ignore public . dev",
     "build:ts": "tsc",
     "build:sass": "sass public/scss/:public/css/"
   },

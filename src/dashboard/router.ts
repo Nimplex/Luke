@@ -1,5 +1,5 @@
 import guildManager from '../database/guildManager'
-import { Permissions } from 'discord.js'
+import { Channel, Permissions } from 'discord.js'
 import { Application } from 'express'
 import FormData from 'form-data'
 import fetch from 'node-fetch'
@@ -47,15 +47,26 @@ export = (app: Application) => {
         const cacheChannels = Luke.guilds.cache.get(guild.g.id)?.channels.cache || []
         const channels: any[] = []
 
-        cacheChannels.forEach((channel: any) => {
-            channels.push({ n: channel.name, id: channel.id })
+        cacheChannels.forEach((channel: Channel) => {
+            !['category', 'voice'].includes(channel.type) ? channels.push({ n: (channel as any).name, id: channel.id }) : null
         })
 
         console.log(channels)
 
         const perms = new Permissions(guild.g.permissions)
         perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG']) ?
-            res.render('guild', { guild: guild, user: req.session.user, data: { prefix: server?.prefix || '.', token: req.session.token || '0' }, channels: channels }) :
+            res.render('basic', { 
+                guild: guild,
+                user: req.session.user,
+                data: { 
+                    prefix: server?.prefix || '.',
+                    left_channel: server?.leave_channel || '0',
+                    join_channel: server?.welcome_channel || '0',
+                    lenabled: server?.lenabled,
+                    wenabled: server?.wenabled
+                },
+                channels: channels,
+            }) :
             res.redirect('/401')
     })
 
@@ -112,15 +123,26 @@ export = (app: Application) => {
         const id = req.params.id
         if (!id) return res.json({ status: 0, msg: 'Invalid ID' })
         if (!req.session?.user) return res.json({ status: 0, msg: 'Session is dead' })
-        if (!req.body.prefix) return res.json({ status: 0, msg: 'Invalid body' })
+        console.log(req.body)
+        if (!req.body.prefix || !req.body.wchannel || !req.body.lchannel) return res.json({ status: 0, msg: 'Invalid body' })
         
         const guild = req.session?.guilds.find((guild: any) => guild.g.id == id)
         if (!guild) return res.json({ status: 0 })
 
+        const channels = Luke.guilds.cache.get(guild.g.id)?.channels.cache
+        if (!channels?.get(req.body.wchannel)) return res.json({ status: 0, msg: 'Nie wolno tak <3' })
+        if (!channels?.get(req.body.lchannel)) return res.json({ status: 0, msg: 'Nie wolno tak <3' })
+
         const perms = new Permissions(guild.g.permissions)
         if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
             const server = await guildManager.get(guild.g.id)
-            await server.updateOne({ prefix: req.body.prefix })
+            await server.update({
+                prefix: req.body.prefix,
+                wenabled: req.body.wenabled == true ? true : false,
+                lenabled: req.body.lenabled == true ? true : false,
+                welcome_channel: req.body.wchannel,
+                leave_channel: req.body.lchannel
+            })
 
             res.json({ status: 1 })
         } else
