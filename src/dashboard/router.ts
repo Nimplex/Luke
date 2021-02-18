@@ -132,15 +132,26 @@ export = (app: Application) => {
 
         const perms = new Permissions(guild.g.permissions)
         if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
+            const wchannel: any = channels.get(req.body.wchannel)
+            const lchannel: any = channels.get(req.body.lchannel)
+            const wenabled = req.body.wenabled == true ? true : false
+            const lenabled = req.body.lenabled == true ? true : false
+            const wchnhook = wenabled ? await wchannel.createWebhook('Luke', { avatar: 'https://lukebot.xyz/img/waving-hand.png' }) : null
+            const lchnhook = lenabled ? await lchannel.createWebhook('Luke', { avatar: 'https://lukebot.xyz/img/waving-hand.png' }) : null
             const server = await guildManager.get(guild.g.id)
-            await server.update({
+            
+            await server.updateOne({
                 prefix: req.body.prefix,
-                wenabled: req.body.wenabled == true ? true : false,
-                lenabled: req.body.lenabled == true ? true : false,
+                wenabled: wenabled,
+                lenabled: lenabled,
                 welcome_channel: req.body.wchannel,
-                leave_channel: req.body.lchannel
+                leave_channel: req.body.lchannel,
+                welcome_id: wchnhook.id,
+                leave_id: lchnhook.id,
+                welcome_token: wchnhook.token,
+                leave_token: lchnhook.token,
             })
-
+            
             res.json({ status: 1 })
         } else
             res.json({ status: 0, msg: 'Invalid permissions.' })

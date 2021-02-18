@@ -43,3 +43,5 @@ export interface Embed {
 export interface message extends Message {
     channel: TextChannel | NewsChannel
 }
+
+export type channel = TextChannel | NewsChannel

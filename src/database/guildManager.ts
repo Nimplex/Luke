@@ -8,7 +8,11 @@ export async function create(id: string): Promise<Guild> {
             leave_channel: '',
             gid: id,
             lenabled: false,
-            wenabled: false
+            wenabled: false,
+            leave_id: '',
+            leave_token: '',
+            welcome_id: '',
+            welcome_token: ''
         }); guild.save()
 
     return guild

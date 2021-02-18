@@ -22,10 +22,10 @@ append content
                         input.ichk#wenabled(type="checkbox" name="")
                     select.intext.stext#welcome-channel(name="Welcome-channel")
                         each channel, index in channels
-                            if join_channel == channel.id
+                            if data.join_channel == channel.id
                                 option(value=channel.id selected) #{channel.n}
                             else
-                                option(value=channel.id selected) #{channel.n}
+                                option(value=channel.id) #{channel.n}
             .opt
                 p.ctitle Leave message
                 .center
@@ -35,9 +35,9 @@ append content
                         input.ichk#lenabled(type="checkbox" name="")
                     select.stext#leave-channel(name="Leave-channel")
                         each channel, index in channels
-                            if left_channel == channel.id
+                            if data.left_channel == channel.id
                                 option(value=channel.id selected) #{channel.n}
                             else
-                                option(value=channel.id selected) #{channel.n}
+                                option(value=channel.id) #{channel.n}
 append scripts
     script(src="/js/basic.js")

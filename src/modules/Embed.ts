@@ -3,7 +3,7 @@ import { MessageEmbed } from 'discord.js'
 
 const colors = require('../../files/colors.json')
 
-export default function(options: Embed) {
+export default function(options: Embed): MessageEmbed {
     const embed = new MessageEmbed()
     
     options.title ? embed.setTitle(options.title) : false
@@ -22,6 +22,8 @@ export default function(options: Embed) {
         embed.addField(field[0], secondField, field[2] || false)
     })
 
-    if (options.object) options.object.channel.send(embed)
-    else return embed
+    if (options.object) {
+        options.object.channel.send(embed)
+        return embed
+    } else return embed
 }

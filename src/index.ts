@@ -16,7 +16,8 @@ mongoose.connect(
         useUnifiedTopology: true,
         authSource: tokens.mongo.authDatabase,
         user: tokens.mongo.username,
-        pass: tokens.mongo.password
+        pass: tokens.mongo.password,
+        useCreateIndex: true
     }
 ).then(() => {
     Console.ready('MongoDB connected')
