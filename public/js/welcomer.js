@@ -1,82 +1,74 @@
 const save = document.getElementById('save')
-const wchannel = document.getElementById('welcome-channel')
-const wenabled = document.getElementById('wenabled')
-const lchannel = document.getElementById('leave-channel')
-const lenabled = document.getElementById('lenabled')
 const data = document.getElementById('data')
-const wmessages = document.getElementById('wmessages')
-const welcomemessages = document.getElementsByClassName('wmessage')
-const lmessages = document.getElementById('lmessages')
-const leavemessages = document.getElementsByClassName('lmessage')
 
-const createChild = () => {
+const welcome_channel = document.getElementById('welcome_channel')
+const welcome_enabled = document.getElementById('welcome_enabled')
+const welcome_random_message_enabled = document.getElementById('random_message_enabled')
+const welcome_random_messages = document.getElementsByClassName('wmessage')
+const welcome_random_message = document.getElementById('welcome_random_messages')
+
+const goodbye_enabled = document.getElementById('goodbye_enabled')
+const goodbye_channel = document.getElementById('goodbye_channel')
+const goodbye_random_message_enabled = document.getElementById('random_leave_message_enabled')
+const goodbye_random_messages = document.getElementsByClassName('lmessage')
+const goodbye_random_message = document.getElementById('goodbye_random_messages')
+
+const createChild = (what = 'Welcome', par = 'welcome_random_messages', m = 'wmessage') => {
+    const parent = document.getElementById(par)
     const child = document.createElement('input')
+
     child.type = 'text'
-    child.classList.add('intext', 'wmessage')
-    child.placeholder = 'Welcome message...'
+    child.placeholder = `${what} message...`
+    child.classList.add('intext', m)
     child.addEventListener('keydown', e => {
-        if (e.key == 'Enter') {
-            createChild()
-        }
-        if (e.key == 'Backspace' && child.value.length == 0) {
-            child.remove()
-        }
+        if (e.key == 'Enter') createChild(what, par, m)
+        if (e.key == 'Backspace' && child.value.length == 0) child.remove()
     })
-    wmessages.appendChild(child)
+
+    parent.appendChild(child)
     child.focus()
 }
 
-const createChild2 = () => {
-    const child = document.createElement('input')
-    child.type = 'text'
-    child.classList.add('intext', 'wmessage')
-    child.placeholder = 'Leave message...'
-    child.addEventListener('keydown', e => {
-        if (e.key == 'Enter') {
-            createChild2()
+save.addEventListener('click', () => {
+    if (!data.dataset.id) return alert('Failed to fetch data, refresh dashboard')
+
+    const goodybe_messages = []
+    const welcome_messages = []
+    Object.values(goodbye_random_messages).forEach(elem => elem.value.length !== 0 ? goodybe_messages.push(elem.value) : null)
+    Object.values(welcome_random_messages).forEach(elem => elem.value.length !== 0 ? welcome_messages.push(elem.value) : null)
+
+    fetch(`/api/guild/${data.dataset.id}`, {
+        method: 'POST',
+        body: JSON.stringify({
+            welcomer: {
+                welcome: {
+                    enabled: welcome_enabled.checked || false,
+                    channel: {
+                        id: welcome_channel[welcome_channel.selectedIndex].value || '0'
+                    },
+                    random_message: {
+                        enabled: welcome_random_message_enabled.checked || false,
+                        messages: welcome_messages || []
+                    }
+                },
+                goodbye: {
+                    enabled: goodbye_enabled.checked || false,
+                    channel: {
+                        id: goodbye_channel[goodbye_channel.selectedIndex].value || '0'
+                    },
+                    random_message: {
+                        enabled: goodbye_random_message_enabled.checked || false,
+                        messages: goodybe_messages || []
+                    }
+                }
+            }
+        }),
+        headers: {
+            'Content-Type': 'application/json'
         }
-        if (e.key == 'Backspace' && child.value.length == 0) {
-            child.remove()
-        }
+    }).then(res => res.json()).then(json => {
+        console.log(json)
+        if (json.status == 0) return alert('Failed to save')
+        else if (json.status == 1) return alert('Saved')
     })
-    lmessages.appendChild(child)
-    child.focus()
-}
-
-for (let i = 0; i < welcomemessages.length; i++) {
-    console.log(welcomemessages[i])
-    welcomemessages[i].addEventListener('keydown', e => {
-        if (e.key == 'Enter') {
-            createChild()
-        }
-    })
-}
-
-for (let i = 0; i < leavemessages.length; i++) {
-    leavemessages[i].addEventListener('keydown', e => {
-        if (e.key == 'Enter') {
-            createChild2()
-        }
-    })
-}
-
-// save.addEventListener('click', () => {
-//     if (!data.dataset.id) return alert('Failed to fetch data, refresh dashboard')
-
-//     fetch(`/api/guild/${data.dataset.id}`, {
-//         method: 'POST',
-//         body: JSON.stringify({
-//             wchannel: wchannel.selectedOptions[0].value,
-//             lchannel: lchannel.selectedOptions[0].value,
-//             wenabled: wenabled.checked,
-//             lenabled: lenabled.checked
-//         }),
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     }).then(res => res.json()).then(json => {
-//         console.log(json)
-//         if (json.status == 0) return alert('Failed to save')
-//         else if (json.status == 1) return alert('Saved')
-//     })
-// })
+})

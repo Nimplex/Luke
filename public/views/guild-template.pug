@@ -15,13 +15,14 @@ append content
     #settings
         block guild-name
         #options
-            p.option Basics
-            p.option Soon
-            p.option Soon
-            p.option Soon
-            p.option Soon
+            p.option(data-id="basic") Basics
+            p.option(data-id="welcomer") Welcomer
+            p.option(data-id="basic") Soon
+            p.option(data-id="basic") Soon
+            p.option(data-id="basic") Soon
             p.option#save(style="background: #0698cd; border: none") Save
         #content
             #cnt
                 block content
+    script(src="/js/guild.js") 
     block scripts

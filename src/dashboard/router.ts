@@ -1,5 +1,5 @@
 import guildManager from '../database/guildManager'
-import { Channel, Permissions, TextChannel } from 'discord.js'
+import { Channel, NewsChannel, Permissions, TextChannel } from 'discord.js'
 import { Application } from 'express'
 import FormData from 'form-data'
 import fetch from 'node-fetch'
@@ -54,35 +54,19 @@ export = (app: Application) => {
 
         const perms = new Permissions(guild.g.permissions)
         if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
-            if (!cat) 
+            if (cat == 'basic') 
                 res.render('basic', {
                     guild: guild,
                     user: req.session.user,
-                    data: {
-                        prefix: server?.prefix || '.',
-                        left_channel: server?.leave_channel || '0',
-                        join_channel: server?.welcome_channel || '0',
-                        lenabled: server?.lenabled,
-                        wenabled: server?.wenabled
-                    },
-                    channels: channels,
+                    data: server,
+                    channels: channels
                 })
             else if (cat == 'welcomer')
                 res.render('welcomer', {
                     guild: guild,
                     user: req.session.user,
-                    data: {
-                        prefix: server?.prefix || '.',
-                        left_channel: server?.leave_channel || '0',
-                        join_channel: server?.welcome_channel || '0',
-                        lenabled: server?.lenabled,
-                        wenabled: server?.wenabled,
-                        wmessages: server?.wmessages,
-                        lmessages: server?.lmessages,
-                        wmenabled: server?.wmenabled,
-                        lmenabled: server?.lmenabled
-                    },
-                    channels: channels,
+                    data: server,
+                    channels: channels
                 })
         } else res.redirect('/401')
     })
@@ -139,42 +123,79 @@ export = (app: Application) => {
     app.post('/api/guild/:id', async(req, res) => {
         const id = req.params.id
         if (!id) return res.json({ status: 0, msg: 'Invalid ID' })
-        if (!req.session?.user) return res.json({ status: 0, msg: 'Session is dead' })
-        if (!req.body.prefix || !req.body.wchannel || !req.body.lchannel) return res.json({ status: 0, msg: 'Invalid body' })
-        
-        const guild = req.session?.guilds.find((guild: any) => guild.g.id == id)
-        if (!guild) return res.json({ status: 0 })
+        if (!req.body || !req.session || !req.session.guilds || !req.session.user) return res.json({ status: 0, msg: 'Invalid body' })
 
-        const channels = Luke.guilds.cache.get(guild.g.id)?.channels.cache
-        if (!channels?.get(req.body.wchannel)) return res.json({ status: 0, msg: 'Nie wolno tak <3' })
-        if (!channels?.get(req.body.lchannel)) return res.json({ status: 0, msg: 'Nie wolno tak <3' })
+        const guild = req.session?.guilds.find((guild: any) => guild.g.id == id)
 
         const perms = new Permissions(guild.g.permissions)
         if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
-            const wchannel: any = channels.get(req.body.wchannel)
-            const lchannel: any = channels.get(req.body.lchannel)
-            const wenabled = req.body.wenabled == true ? true : false
-            const lenabled = req.body.lenabled == true ? true : false
-            const server = await guildManager.get(guild.g.id)
-            const welcome_webhooks = (await (wchannel as TextChannel).fetchWebhooks()).filter(webhook => webhook.name == 'Luke welcome').first()
-            const leave_webhooks = (await (lchannel as TextChannel).fetchWebhooks()).filter(webhook => webhook.name == 'Luke leave').first()
+            const server = await guildManager.get(id)
+            let data = Object.assign(server, req.body)
+            let welcome_webhook
+            let goodbye_webhook
+            const goodybe_messages: string[] = []
+            const welcome_messages: string[] = []
+
+            Object.values(data.welcomer.goodbye.random_message.messages || []).forEach((elem: any) => elem.length !== 0 ? goodybe_messages.push(elem) : null)
+            Object.values(data.welcomer.welcome.random_message.messages || []).forEach((elem: any) => elem.length !== 0 ? welcome_messages.push(elem) : null)
             
-            console.log(welcome_webhooks, leave_webhooks)
+            if (req.body.welcomer && req.body.welcomer.welcome.enabled) {
+                const welcome_channel = Luke.guilds.cache.get(id)?.channels.cache.get(req.body.welcomer.welcome.channel.id)
 
-            const wchnhook = (wenabled || !welcome_webhooks == undefined) ? await wchannel.createWebhook('Luke welcome', { avatar: 'https://lukebot.xyz/img/waving-hand.png' }) : null
-            const lchnhook = (lenabled || !leave_webhooks == undefined) ? await lchannel.createWebhook('Luke leave', { avatar: 'https://lukebot.xyz/img/waving-hand.png' }) : null
+                if (!welcome_channel || welcome_channel.type == 'category' || welcome_channel.type == 'voice') return res.json({ status: 0, msg: 'Invalid body' }) 
+                if (!(await (welcome_channel as TextChannel).fetchWebhooks()).find(webhook => webhook.name == 'Welcome'))
+                    welcome_webhook = await (welcome_channel as TextChannel || NewsChannel).createWebhook('Welcome', { avatar: 'https://lukebot.xyz/img/waving-hand.png' })
+                else welcome_webhook = (await ((welcome_channel as TextChannel || NewsChannel).fetchWebhooks())).find(webhook => webhook.name == 'Welcome')
+            }
+            if (req.body.welcomer && req.body.welcomer.goodbye.enabled) {
+                const goodbye_channel = Luke.guilds.cache.get(id)?.channels.cache.get(req.body.welcomer.goodbye.channel.id)
 
-            await server.updateOne({
-                prefix: req.body.prefix,
-                wenabled: wenabled,
-                lenabled: lenabled,
-                welcome_channel: req.body.wchannel,
-                leave_channel: req.body.lchannel,
-                welcome_id: wchnhook.id,
-                leave_id: lchnhook.id,
-                welcome_token: wchnhook.token,
-                leave_token: lchnhook.token,
+                if (!goodbye_channel || goodbye_channel.type == 'category' || goodbye_channel.type == 'voice') return res.json({ status: 0, msg: 'Invalid body' }) 
+                if (!(await (goodbye_channel as TextChannel).fetchWebhooks()).find(webhook => webhook.name == 'Goodbye'))
+                    goodbye_webhook = await (goodbye_channel as TextChannel || NewsChannel).createWebhook('Goodbye', { avatar: 'https://lukebot.xyz/img/waving-hand.png' })
+                else goodbye_webhook = (await ((goodbye_channel as TextChannel || NewsChannel).fetchWebhooks())).find(webhook => webhook.name == 'Goodbye')
+            }
+
+            console.log(server, data)
+            
+            const data2 = Object.assign(server, {
+                prefix: req.body.prefix || server.prefix,
+                welcomer: {
+                    welcome: {
+                        enabled: data.welcomer.welcome.enabled || false,
+                        channel: {
+                            id: data.welcomer.welcome.channel.id || '0',
+                            webhook: {
+                                token: welcome_webhook?.token || '',
+                                id: welcome_webhook?.id || ''
+                            }
+                        },
+                        message: data.welcomer.welcome.message || server.welcomer.welcome.message,
+                        random_message: {
+                            enabled: data.welcomer.welcome.random_message.enabled || false,
+                            messages: welcome_messages
+                        }
+                    },
+                    goodbye: {
+                        enabled: data.welcomer.goodbye.enabled || false,
+                        channel: {
+                            id: data.welcomer.goodbye.channel.id || '0',
+                            webhook: {
+                                token: goodbye_webhook?.token || '',
+                                id: goodbye_webhook?.id || ''
+                            }
+                        },
+                        message: data.welcomer.goodbye.message || server.welcomer.goodbye.message,
+                        random_message: {
+                            enabled: data.welcomer.goodbye.random_message.enabled || false,
+                            messages: goodybe_messages
+                        }
+                    }
+                }
             })
+            
+            console.log(server, data, data2)
+            await server.updateOne(data2)
             
             res.json({ status: 1 })
         } else

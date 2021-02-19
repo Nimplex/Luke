@@ -1,28 +1,48 @@
 import guildModel, { Guild } from '../models/guild.model'
 
-export async function create(id: string): Promise<Guild> {
+export const create = async(id: string): Promise<Guild> => {
     const guild =
         await guildModel.create({
-            prefix: '.',
-            welcome_channel: '',
-            leave_channel: '',
             gid: id,
-            lenabled: false,
-            wenabled: false,
-            leave_id: '',
-            leave_token: '',
-            welcome_id: '',
-            welcome_token: '',
-            wmenabled: false,
-            lmenabled: false,
-            wmessages: [],
-            lmessages: []
+            prefix: '.',
+            welcomer: {
+                welcome: {
+                    enabled: false,
+                    channel: {
+                        id: '',
+                        webhook: {
+                            id: '',
+                            token: ''
+                        }
+                    },
+                    message: 'Welcome **{user.name}** to **{guild.name}',
+                    random_message: {
+                        enabled: false,
+                        messages: []
+                    }
+                },
+                goodbye: {
+                    enabled: false,
+                    channel: {
+                        id: '',
+                        webhook: {
+                            id: '',
+                            token: ''
+                        }
+                    },
+                    message: 'Goodbye **{user.name}**',
+                    random_message: {
+                        enabled: false,
+                        messages: []
+                    }
+                }
+            }
         }); guild.save()
 
     return guild
 }
 
-export async function get(id: string): Promise<Guild> {
+export const get = async(id: string): Promise<Guild> => {
     let guild = await guildModel.findOne({ gid: id }) || undefined
     if (!guild) guild = await create(id)
     return guild

@@ -22,7 +22,7 @@ append content
                 p.guild-name #{name}
                 .bottom
                     if guild.b
-                        a(href=`/dashboard/${guild.g.id}`)
+                        a(href=`/dashboard/${guild.g.id}/basic`)
                             p.text Manage Guild
                     else
                         p.text.no.inv(data-id=guild.g.id) Invite bot

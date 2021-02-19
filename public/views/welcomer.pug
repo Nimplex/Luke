@@ -13,51 +13,49 @@ append content
             .opt
                 p.ctitle Welcome message
                 .center
-                    if data.wenabled == true
-                        input.ichk#wenabled(type="checkbox" name="" checked)
+                    if data.welcomer.welcome.enabled == true
+                        input.ichk#welcome_enabled(type="checkbox" checked)
                     else
-                        input.ichk#wenabled(type="checkbox" name="")
-                    select.intext.stext#welcome-channel(name="Welcome-channel")
+                        input.ichk#welcome_enabled(type="checkbox")
+                    select.intext.stext#welcome_channel
                         each channel, index in channels
-                            if data.join_channel == channel.id
+                            if data.welcomer.welcome.channel.id == channel.id
                                 option(value=channel.id selected) #{channel.n}
                             else
                                 option(value=channel.id) #{channel.n}
-                #wmessages.messages
+                #welcome_random_messages.messages
                     .center
-                        if data.wmenabled == true
-                            input.ichk#wmessagesrenabled(type="checkbox" name="" checked)
+                        if data.welcomer.welcome.random_message.enabled == true
+                            input.ichk#random_message_enabled(type="checkbox" checked)
                         else
-                            input.ichk#wmessagesrenabled(type="checkbox" name="")
+                            input.ichk#random_message_enabled(type="checkbox")
                         p.ctitle Random join message?
-                    //- each message, index in wmessages
-                    //-     .message
-                    //-         input(type="text" value=message)
-                    input.intext.wmessage(type="text" placeholder='Welcome message...')
+                    each message, index in data.welcomer.welcome.random_message.messages
+                        input.intext.wmessage(type="text" onkeydown="if(event.key == 'Backspace' && this.value.length == 0) this.destroy(); if(event.key == 'Enter'){createChild('Welcome', 'welcome_random_messages', 'wmessage')}" value=message placeholder='Welcome message...')
+                    input.intext.wmessage(type="text" onkeydown="if(event.keyCode == 13){createChild('Welcome', 'welcome_random_messages', 'wmessage')}" placeholder='Welcome message...')
             .opt
                 p.ctitle Leave message
                 .center
-                    if data.lenabled == true
-                        input.ichk#lenabled(type="checkbox" name="" checked)
+                    if data.welcomer.goodbye.enabled == true
+                        input.ichk#goodbye_enabled(type="checkbox" checked)
                     else
-                        input.ichk#lenabled(type="checkbox" name="")
-                    select.stext#leave-channel(name="Leave-channel")
+                        input.ichk#goodbye_enabled(type="checkbox")
+                    select.stext#goodbye_channel
                         each channel, index in channels
                             if data.left_channel == channel.id
                                 option(value=channel.id selected) #{channel.n}
                             else
                                 option(value=channel.id) #{channel.n}
-                #lmessages.messages
+                #goodbye_random_messages.messages
                     .center
-                        if data.lmenabled == true
-                            input.ichk#lmessagesrenabled(type="checkbox" name="" checked)
+                        if data.welcomer.goodbye.random_message.enabled == true
+                            input.ichk#random_leave_message_enabled(type="checkbox" checked)
                         else
-                            input.ichk#lmessagesrenabled(type="checkbox" name="")
+                            input.ichk#random_leave_message_enabled(type="checkbox")
                         p.ctitle Random leave message?
-                    //- each message, index in lmessages
-                    //-     .message
-                    //-         input(type="text" value=message)
-                    input.intext.lmessage(type="text" placeholder='Leave message...')
+                    each message, index in data.welcomer.goodbye.random_message.messages
+                        input.intext.lmessage(type="text" onkeydown="if(event.key == 'Backspace' && this.value.length == 0) this.destroy(); if(event.key == 'Enter'){createChild('Goodbye', 'goodbye_random_messages', 'lmessage')}" value=message placeholder='Goodbye message...')
+                    input.intext.lmessage(type="text" onkeydown="if(event.key == 'Enter'){createChild('Goodbye', 'goodbye_random_messages', 'lmessage')}" placeholder='Goodbye message...')
 
 append scripts
     script(src="/js/welcomer.js")

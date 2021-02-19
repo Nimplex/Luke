@@ -13,31 +13,5 @@ append content
             .opt
                 p.ctitle Prefix
                 input.intext#prefix(type="text" name="prefix" placeholder="prefix..." value=data.prefix)
-            .opt
-                p.ctitle Welcome message
-                .center
-                    if data.wenabled == true
-                        input.ichk#wenabled(type="checkbox" name="" checked)
-                    else
-                        input.ichk#wenabled(type="checkbox" name="")
-                    select.intext.stext#welcome-channel(name="Welcome-channel")
-                        each channel, index in channels
-                            if data.join_channel == channel.id
-                                option(value=channel.id selected) #{channel.n}
-                            else
-                                option(value=channel.id) #{channel.n}
-            .opt
-                p.ctitle Leave message
-                .center
-                    if data.lenabled == true
-                        input.ichk#lenabled(type="checkbox" name="" checked)
-                    else
-                        input.ichk#lenabled(type="checkbox" name="")
-                    select.stext#leave-channel(name="Leave-channel")
-                        each channel, index in channels
-                            if data.left_channel == channel.id
-                                option(value=channel.id selected) #{channel.n}
-                            else
-                                option(value=channel.id) #{channel.n}
 append scripts
     script(src="/js/basic.js")
