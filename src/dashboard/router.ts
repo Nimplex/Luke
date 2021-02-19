@@ -194,7 +194,6 @@ export = (app: Application) => {
                 }
             })
             
-            console.log(server, data, data2)
             await server.updateOne(data2)
             
             res.json({ status: 1 })
