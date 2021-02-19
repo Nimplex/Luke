@@ -15,7 +15,7 @@ export const create = async(id: string): Promise<Guild> => {
                             token: ''
                         }
                     },
-                    message: 'Welcome **{user.name}** to **{guild.name}',
+                    message: 'Welcome **{user.name}** to **{guild.name}**',
                     random_message: {
                         enabled: false,
                         messages: []

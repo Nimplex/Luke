@@ -1,4 +1,4 @@
-import { ColorResolvable, FileOptions, Message, MessageAttachment, MessageEmbedAuthor, MessageEmbedFooter, MessageEmbedImage, MessageEmbedProvider, MessageEmbedThumbnail, NewsChannel, PermissionResolvable, TextChannel } from 'discord.js'
+import { ColorResolvable, FileOptions, Message, MessageAttachment, MessageEmbedAuthor,  NewsChannel, PermissionResolvable, TextChannel } from 'discord.js'
 import { Luke } from './index'
 
 export type arg = { name: string, type: string, required?: boolean }
@@ -30,7 +30,7 @@ export interface Embed {
     description?: string
     fields?: Field[]
     files?: Array<FileOptions | string | MessageAttachment>
-    footer?: MessageEmbedFooter
+    footer?: string
     image?: string
     thumbnail?: string | null | undefined
     timestamp?: number

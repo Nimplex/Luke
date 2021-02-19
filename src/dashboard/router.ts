@@ -155,8 +155,6 @@ export = (app: Application) => {
                     goodbye_webhook = await (goodbye_channel as TextChannel || NewsChannel).createWebhook('Goodbye', { avatar: 'https://lukebot.xyz/img/waving-hand.png' })
                 else goodbye_webhook = (await ((goodbye_channel as TextChannel || NewsChannel).fetchWebhooks())).find(webhook => webhook.name == 'Goodbye')
             }
-
-            console.log(server, data)
             
             const data2 = Object.assign(server, {
                 prefix: req.body.prefix || server.prefix,

@@ -6,12 +6,14 @@ const welcome_enabled = document.getElementById('welcome_enabled')
 const welcome_random_message_enabled = document.getElementById('random_message_enabled')
 const welcome_random_messages = document.getElementsByClassName('wmessage')
 const welcome_random_message = document.getElementById('welcome_random_messages')
+const welcome_message = document.getElementById('welcome_message')
 
 const goodbye_enabled = document.getElementById('goodbye_enabled')
 const goodbye_channel = document.getElementById('goodbye_channel')
 const goodbye_random_message_enabled = document.getElementById('random_leave_message_enabled')
 const goodbye_random_messages = document.getElementsByClassName('lmessage')
 const goodbye_random_message = document.getElementById('goodbye_random_messages')
+const goodbye_message = document.getElementById('goodbye_message')
 
 const createChild = (what = 'Welcome', par = 'welcome_random_messages', m = 'wmessage') => {
     const parent = document.getElementById(par)
@@ -49,7 +51,8 @@ save.addEventListener('click', () => {
                     random_message: {
                         enabled: welcome_random_message_enabled.checked || false,
                         messages: welcome_messages || []
-                    }
+                    },
+                    message: welcome_message.value || 'Welcome **{user.name}** to **{guild.name}**'
                 },
                 goodbye: {
                     enabled: goodbye_enabled.checked || false,
@@ -59,7 +62,8 @@ save.addEventListener('click', () => {
                     random_message: {
                         enabled: goodbye_random_message_enabled.checked || false,
                         messages: goodybe_messages || []
-                    }
+                    },
+                    message: goodbye_message.value || 'Goodbye **{user.name}**'
                 }
             }
         }),

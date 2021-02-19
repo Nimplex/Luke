@@ -23,6 +23,7 @@ append content
                                 option(value=channel.id selected) #{channel.n}
                             else
                                 option(value=channel.id) #{channel.n}
+                input.intext#welcome_message.message(type="text" placeholder="Welcome message..." value=data.welcomer.welcome.message)
                 #welcome_random_messages.messages
                     .center
                         if data.welcomer.welcome.random_message.enabled == true
@@ -46,6 +47,7 @@ append content
                                 option(value=channel.id selected) #{channel.n}
                             else
                                 option(value=channel.id) #{channel.n}
+                input.intext#goodbye_message.message(type="text" placeholder="Goodbye message..." value=data.welcomer.goodbye.message)
                 #goodbye_random_messages.messages
                     .center
                         if data.welcomer.goodbye.random_message.enabled == true
