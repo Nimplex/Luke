@@ -40,7 +40,8 @@
         text-align: center;
         font-size: 19px;
         transition: border-color .25s ease-out;
-
+        padding: 0 5px;
+        
         &:focus {
             border-color: grey;
             transition: border-color .25s ease-out;
