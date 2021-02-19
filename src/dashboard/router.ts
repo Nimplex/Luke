@@ -122,8 +122,8 @@ export = (app: Application) => {
     })
     app.post('/api/guild/:id', async(req, res) => {
         const id = req.params.id
-        if (!id) return res.json({ status: 0, msg: 'Invalid ID' })
-        if (!req.body || !req.session || !req.session.guilds || !req.session.user) return res.json({ status: 0, msg: 'Invalid body' })
+        if (!id) return res.status(400).json({ status: 0, msg: 'Invalid ID' })
+        if (!req.body || !req.session || !req.session.guilds || !req.session.user) return res.status(400).json({ status: 0, msg: 'Invalid body' })
 
         const guild = req.session?.guilds.find((guild: any) => guild.g.id == id)
 
@@ -142,7 +142,7 @@ export = (app: Application) => {
             if (req.body.welcomer && req.body.welcomer.welcome.enabled) {
                 const welcome_channel = Luke.guilds.cache.get(id)?.channels.cache.get(req.body.welcomer.welcome.channel.id)
 
-                if (!welcome_channel || welcome_channel.type == 'category' || welcome_channel.type == 'voice') return res.json({ status: 0, msg: 'Invalid body' }) 
+                if (!welcome_channel || welcome_channel.type == 'category' || welcome_channel.type == 'voice') return res.status(400).json({ status: 0, msg: 'Invalid body' }) 
                 if (!(await (welcome_channel as TextChannel).fetchWebhooks()).find(webhook => webhook.name == 'Welcome'))
                     welcome_webhook = await (welcome_channel as TextChannel || NewsChannel).createWebhook('Welcome', { avatar: 'https://lukebot.xyz/img/waving-hand.png' })
                 else welcome_webhook = (await ((welcome_channel as TextChannel || NewsChannel).fetchWebhooks())).find(webhook => webhook.name == 'Welcome')
@@ -150,7 +150,7 @@ export = (app: Application) => {
             if (req.body.welcomer && req.body.welcomer.goodbye.enabled) {
                 const goodbye_channel = Luke.guilds.cache.get(id)?.channels.cache.get(req.body.welcomer.goodbye.channel.id)
 
-                if (!goodbye_channel || goodbye_channel.type == 'category' || goodbye_channel.type == 'voice') return res.json({ status: 0, msg: 'Invalid body' }) 
+                if (!goodbye_channel || goodbye_channel.type == 'category' || goodbye_channel.type == 'voice') return res.status(400).json({ status: 0, msg: 'Invalid body' }) 
                 if (!(await (goodbye_channel as TextChannel).fetchWebhooks()).find(webhook => webhook.name == 'Goodbye'))
                     goodbye_webhook = await (goodbye_channel as TextChannel || NewsChannel).createWebhook('Goodbye', { avatar: 'https://lukebot.xyz/img/waving-hand.png' })
                 else goodbye_webhook = (await ((goodbye_channel as TextChannel || NewsChannel).fetchWebhooks())).find(webhook => webhook.name == 'Goodbye')
@@ -194,9 +194,9 @@ export = (app: Application) => {
             
             await server.updateOne(data2)
             
-            res.json({ status: 1 })
+            res.status(200).json({ status: 1 })
         } else
-            res.json({ status: 0, msg: 'Invalid permissions.' })
+            res.status(400).json({ status: 0, msg: 'Invalid permissions.' })
     })
 
     // Errors
