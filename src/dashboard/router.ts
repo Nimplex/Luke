@@ -54,7 +54,7 @@ export = (app: Application) => {
 
         const perms = new Permissions(guild.g.permissions)
         if (perms.has(['MANAGE_GUILD', 'MANAGE_MESSAGES', 'VIEW_AUDIT_LOG'])) {
-            if (cat == 'basic') 
+            if (cat == 'basic')
                 res.render('basic', {
                     guild: guild,
                     user: req.session.user,
@@ -142,7 +142,7 @@ export = (app: Application) => {
             if (req.body.welcomer && req.body.welcomer.welcome.enabled) {
                 const welcome_channel = Luke.guilds.cache.get(id)?.channels.cache.get(req.body.welcomer.welcome.channel.id)
 
-                if (!welcome_channel || welcome_channel.type == 'category' || welcome_channel.type == 'voice') return res.status(400).json({ status: 0, msg: 'Invalid body' }) 
+                if (!welcome_channel || welcome_channel.type == 'category' || welcome_channel.type == 'voice') return res.status(400).json({ status: 0, msg: 'Invalid body' })
                 if (!(await (welcome_channel as TextChannel).fetchWebhooks()).find(webhook => webhook.name == 'Welcome'))
                     welcome_webhook = await (welcome_channel as TextChannel || NewsChannel).createWebhook('Welcome', { avatar: 'https://lukebot.xyz/img/waving-hand.png' })
                 else welcome_webhook = (await ((welcome_channel as TextChannel || NewsChannel).fetchWebhooks())).find(webhook => webhook.name == 'Welcome')
@@ -150,7 +150,7 @@ export = (app: Application) => {
             if (req.body.welcomer && req.body.welcomer.goodbye.enabled) {
                 const goodbye_channel = Luke.guilds.cache.get(id)?.channels.cache.get(req.body.welcomer.goodbye.channel.id)
 
-                if (!goodbye_channel || goodbye_channel.type == 'category' || goodbye_channel.type == 'voice') return res.status(400).json({ status: 0, msg: 'Invalid body' }) 
+                if (!goodbye_channel || goodbye_channel.type == 'category' || goodbye_channel.type == 'voice') return res.status(400).json({ status: 0, msg: 'Invalid body' })
                 if (!(await (goodbye_channel as TextChannel).fetchWebhooks()).find(webhook => webhook.name == 'Goodbye'))
                     goodbye_webhook = await (goodbye_channel as TextChannel || NewsChannel).createWebhook('Goodbye', { avatar: 'https://lukebot.xyz/img/waving-hand.png' })
                 else goodbye_webhook = (await ((goodbye_channel as TextChannel || NewsChannel).fetchWebhooks())).find(webhook => webhook.name == 'Goodbye')
