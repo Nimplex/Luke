@@ -42,7 +42,7 @@ append content
                         input.ichk#goodbye_enabled(type="checkbox")
                     select.stext#goodbye_channel
                         each channel, index in channels
-                            if data.left_channel == channel.id
+                            if data.welcomer.goodbye.channel.id == channel.id
                                 option(value=channel.id selected) #{channel.n}
                             else
                                 option(value=channel.id) #{channel.n}
