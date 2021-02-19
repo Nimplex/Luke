@@ -39,6 +39,8 @@ save.addEventListener('click', () => {
     Object.values(goodbye_random_messages).forEach(elem => elem.value.length !== 0 ? goodybe_messages.push(elem.value) : null)
     Object.values(welcome_random_messages).forEach(elem => elem.value.length !== 0 ? welcome_messages.push(elem.value) : null)
 
+    alert('Please wait...')
+
     fetch(`/api/guild/${data.dataset.id}`, {
         method: 'POST',
         body: JSON.stringify({
@@ -71,8 +73,8 @@ save.addEventListener('click', () => {
             'Content-Type': 'application/json'
         }
     }).then(res => res.json()).then(json => {
-        console.log(json)
-        if (json.status == 0) return alert('Failed to save')
-        else if (json.status == 1) return alert('Saved')
+        if (json.status == 0) alert('Failed to save')
+        else if (json.status == 1) alert('Saved')
+        else alert('An server error occurred')
     })
 })

@@ -24,6 +24,7 @@ append content
                             else
                                 option(value=channel.id) #{channel.n}
                 input.intext#welcome_message.message(type="text" placeholder="Welcome message..." value=data.welcomer.welcome.message)
+                input.intext.message(type="text" placeholder="" value="{guild.name}, {user.name}" disabled)
                 #welcome_random_messages.messages
                     .center
                         if data.welcomer.welcome.random_message.enabled == true
@@ -48,6 +49,7 @@ append content
                             else
                                 option(value=channel.id) #{channel.n}
                 input.intext#goodbye_message.message(type="text" placeholder="Goodbye message..." value=data.welcomer.goodbye.message)
+                input.intext.message(type="text" placeholder="" value="{guild.name}, {user.name}" disabled)
                 #goodbye_random_messages.messages
                     .center
                         if data.welcomer.goodbye.random_message.enabled == true
