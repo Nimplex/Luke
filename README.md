@@ -1,6 +1,6 @@
 <h1 align="center"> Luke </h1>
 <br>
-<h3 align="center"><a href="https://nimplex.xyz">Website</a> | <a href="https://nimplex.xyz/contact">Contact</a></h3>
+<h3 align="center"><a href="https://lukebot.xyz">Website</a> | <a href="https://nimplex.xyz/contact">Contact</a></h3>
 <p align="center">(Several things in the code were copied from <a href="https://badosz.com">badosz's bot and Mike</a>)</p>
 <br>
 <h1 align="center">Installation</h1>
