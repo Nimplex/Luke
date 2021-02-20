@@ -11,11 +11,11 @@ const command: Command = {
         }
     ],
     execute: async(message, Luke, ...args) => {
-        const randomizeCase = (word: string) => word.split('').map(c => c.toLowerCase()).join('')
-        const text = args.map(randomizeCase).join(':clap:')
+        const text = args.join('').split('').join(':clap:')
         Luke.embed({
             object: message,
-            description: text
+            description: text,
+            disableDescriptionCodeBlock: true
         })
     }
 }
