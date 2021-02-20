@@ -1,5 +1,5 @@
 module.exports = {
-    name: ':scroll: Basic',
+    name: ':abcd: Basic',
     id: 'basic',
     commands: require('fs')
         .readdirSync(`${__dirname}/commands/`)

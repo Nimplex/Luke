@@ -1,6 +1,6 @@
 module.exports = {
-    name: ':anchor: Utility',
-    id: 'utility',
+    name: ':smile: Fun',
+    id: 'fun',
     commands: require('fs')
         .readdirSync(`${__dirname}/commands/`)
         .map((file: string) => require(`${__dirname}/commands/${file}`))
