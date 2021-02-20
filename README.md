@@ -16,7 +16,16 @@ yarn build
 Create `tokens.json` file inside `files` directory, and put this code into this file:
 ```json
 {
-    "discord": "discord.bot.token"
+    "discord": "discord-token",
+    "secret": "client-secret",
+    "session_secret": "session-secret (for example: asdasdasdasdasd)",
+    "mongo": {
+        "ip": "mongodb_database_address",
+        "database": "Luke",
+        "username": "mongodb_username",
+        "password": "mongodb_password",
+        "authDatabase": "admin"
+    }
 }
 ```
 Start bot:
