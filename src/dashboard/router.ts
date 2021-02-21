@@ -31,6 +31,10 @@ export = (app: Application) => {
             res.render('dashboard', { user: req.session?.user, guilds: req.session?.guilds || [] })
         }
     })
+    app.get('/dashboard/:id', (req, res) => {
+        const id = req.params.id
+        res.redirect(`/dashboard/${id}/basic`)
+    })
     app.get('/dashboard/:id/:cat', async(req, res) => {
         const id = req.params.id
         const cat = req.params.cat

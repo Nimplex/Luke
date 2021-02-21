@@ -6,7 +6,7 @@ const command: Command = {
     execute: async(message, Luke, ...args) => {
         Luke.embed({
             object: message,
-            description: `https://lukebot.xyz/dashboard/${message.guild?.id}`
+            description: `https://lukebot.xyz/dashboard/${message.guild?.id}/basic`
         })
     }
 }
