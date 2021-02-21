@@ -161,7 +161,7 @@ export = (app: Application) => {
             }
             
             const data2 = Object.assign(server, {
-                prefix: req.body.prefix || server.prefix,
+                prefix: req.body.prefix || server.prefix || '.',
                 welcomer: {
                     welcome: {
                         enabled: data.welcomer.welcome.enabled || false,

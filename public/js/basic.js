@@ -4,6 +4,7 @@ const save = document.getElementById('save')
 
 save.addEventListener('click', () => {
     if (!data.dataset.id) return alert('Failed to fetch data, refresh dashboard')
+    if (!prefix.value) return alert('You cant have empty prefix')
 
     alert('Please wait...')
 
