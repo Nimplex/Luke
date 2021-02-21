@@ -25,7 +25,8 @@ Create `tokens.json` file inside `files` directory, and put this code into this 
         "username": "mongodb_username",
         "password": "mongodb_password",
         "authDatabase": "admin"
-    }
+    },
+	"obrazium": "https://obrazium.com"
 }
 ```
 Start bot:
