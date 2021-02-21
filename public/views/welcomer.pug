@@ -1,15 +1,12 @@
 extends guild-template.pug
 
-append head
-    link(rel="stylesheet", href="/css/welcomer.css")
-
 append guild-name
     h1#menu-title #{guild.g.name}
 
 append content
     #data(data-id=guild.g.id)
     #center
-        #welcomer-content
+        #view
             .opt
                 p.ctitle Welcome message
                 .center
@@ -25,7 +22,7 @@ append content
                                 option(value=channel.id) #{channel.n}
                 input.intext#welcome_message.message(type="text" placeholder="Welcome message..." value=data.welcomer.welcome.message)
                 input.intext.message(type="text" placeholder="" value="{user.name} - username (a#0000)" disabled)
-                #welcome_random_messages.messages
+                #welcome_random_messages.menu
                     .center
                         if data.welcomer.welcome.random_message.enabled == true
                             input.ichk#random_message_enabled(type="checkbox" checked)
@@ -50,7 +47,7 @@ append content
                                 option(value=channel.id) #{channel.n}
                 input.intext#goodbye_message.message(type="text" placeholder="Goodbye message..." value=data.welcomer.goodbye.message)
                 input.intext.message(type="text" placeholder="" value="{guild.name} - guild name" disabled)
-                #goodbye_random_messages.messages
+                #goodbye_random_messages.menu
                     .center
                         if data.welcomer.goodbye.random_message.enabled == true
                             input.ichk#random_leave_message_enabled(type="checkbox" checked)

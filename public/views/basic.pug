@@ -1,17 +1,15 @@
 extends guild-template.pug
 
-append head
-    link(rel="stylesheet", href="/css/basic.css")
-
 append guild-name
     h1#menu-title #{guild.g.name}
 
 append content
     #data(data-id=guild.g.id)
     #center
-        #basic-content
+        #view
             .opt
                 p.ctitle Prefix
                 input.intext#prefix(type="text" name="prefix" placeholder="prefix..." value=data.prefix)
+
 append scripts
     script(src="/js/basic.js")
