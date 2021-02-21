@@ -23,7 +23,7 @@ const command: Command = {
 
         Luke.embed({
             object: message,
-            description: `Channel topic changed to:\n${topic || 'none'}`,
+            description: `Channel topic changed to:\n**${topic || 'none'}**`,
         })
     }
 }

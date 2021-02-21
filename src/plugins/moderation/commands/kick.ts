@@ -37,11 +37,14 @@ const command: Command = {
             }
         }
         else {
-            if (!member.kickable) Luke.embed({
-                object: message,
-                description: 'You can\'t kick this member.',
-                color: colors.error
-            })
+            if (!member.kickable) {
+                Luke.embed({
+                    object: message,
+                    description: 'You can\'t kick this member.',
+                    color: colors.error
+                })
+                return
+            }
 
             reason ? member.kick(`${message.author.tag} (${message.author.id}): ${reason}`) : member.kick()
             

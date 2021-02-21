@@ -37,11 +37,14 @@ const command: Command = {
             }
         }
         else {
-            if (!member.bannable) Luke.embed({
-                object: message,
-                description: 'You can\'t ban this member.',
-                color: colors.error
-            })
+            if (!member.bannable) {
+                Luke.embed({
+                    object: message,
+                    description: 'You can\'t ban this member.',
+                    color: colors.error
+                })
+                return
+            }
 
             reason ? member.ban({ reason: `${message.author.tag} (${message.author.id}): ${reason}`, days: 7 }) : member.ban()
             

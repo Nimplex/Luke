@@ -13,7 +13,7 @@ const command: Command = {
         const thing = message.mentions.members?.first() || args.join(' ') || message.member
         Luke.embed({
             object: message,
-            description: `:bulb: ${thing} has ${Math.floor(Math.random() * 200)} iq.`,
+            description: `:bulb: **${thing}** has ${Math.floor(Math.random() * 200)} iq.`,
             disableDescriptionCodeBlock: true
         })
     }
