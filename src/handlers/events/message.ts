@@ -31,11 +31,12 @@ module.exports = async (Luke: Luke, message: message) => {
     const guild = await guildManager.get(message.guild.id)
     
     if (!message.content.startsWith(guild.prefix || bot.prefix)) return
-
+    
     const [commandName, ...args] = message.content.slice(guild.prefix.length || bot.prefix).split(/ +/g)
     const command = Luke.CommandHandler.get(commandName)
 
     if (!command) return
+    if (command.dev && !bot.developers.includes(message.author.id)) return
     if (!message.member?.permissions.has(command.permissions?.user || [])) return error('permissions_user', message, Luke, command)
     if (!message.guild.me?.permissions.has(command.permissions?.bot || [])) return error('permissions_bot', message, Luke, command)
 
