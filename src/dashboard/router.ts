@@ -72,6 +72,13 @@ export = (app: Application) => {
                     data: server,
                     channels: channels
                 })
+            else if (cat == 'automod')
+                res.render('automod', {
+                    guild: guild,
+                    user: req.session.user,
+                    data: server,
+                    channels: channels
+                })
         } else res.redirect('/401')
     })
 
