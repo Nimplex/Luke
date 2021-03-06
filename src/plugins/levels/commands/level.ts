@@ -14,10 +14,12 @@ const command: Command = {
         const member = message.mentions.members?.first()?.user || message.author
         const user = await Luke.LevelManager.get(member.id)
 
+        const xp = user.experience.toString().split('.')
+
         Luke.embed({
             object: message,
             title: `${member.username}'s stats`,
-            description: `${user.level} - Level\n${user.experience} - XP\n${user.messagesCount} - Messages`
+            description: `${user.level} - Level\n${xp[0]}.${xp[1].substr(0, 2)} - XP\n${user.messagesCount} - Messages`
         })
     }
 }
