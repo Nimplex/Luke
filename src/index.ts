@@ -2,6 +2,7 @@ import { Client, ClientOptions } from 'discord.js'
 import CommandHandler from './handlers/CommandHandler'
 import PluginHandler from './handlers/PluginHandler'
 import EventHandler from './handlers/EventHandler'
+import LevelManager from './database/levelManager'
 import Embed from './modules/Embed'
 import Console from './modules/Console'
 import dashboard from './dashboard/server'
@@ -33,6 +34,7 @@ export class Luke extends Client {
     EventHandler: EventHandler
     CommandHandler: CommandHandler
     PluginHandler: PluginHandler
+    LevelManager: LevelManager
 
     constructor(options?: ClientOptions) {
         super(options)
@@ -40,6 +42,7 @@ export class Luke extends Client {
         this.PluginHandler = new PluginHandler(this)
         this.CommandHandler = new CommandHandler(this)
         this.EventHandler = new EventHandler(this)
+        this.LevelManager = new LevelManager(this)
 
         this.login(tokens.discord)
     }
