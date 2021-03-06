@@ -9,6 +9,17 @@ append content
         #view
             .opt
                 p.ctitle Logs channel
-
+                select.intext.stext#welcome_channel
+                    each channel, index in channels
+                        if data.welcomer.welcome.channel.id == channel.id
+                            option(value=channel.id selected) #{channel.n}
+                        else
+                            option(value=channel.id) #{channel.n}
+            .opt
+                p.ctitle Auto moderator
+                #automod.menu
+                    .center
+                        input.ichk(type="checkbox")
+                        p.ctitle Delete invites
 append scripts
     

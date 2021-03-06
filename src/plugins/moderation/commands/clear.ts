@@ -22,10 +22,19 @@ const command: Command = {
         
         try {
             const messages = await message.channel.messages.fetch({ limit: amount })
+            const authors: string[] = []
+
+            messages.forEach(message => authors.includes(message.author.tag) ? null : authors.push(message.author.tag))
+
             await message.channel?.bulkDelete(messages)
+
             Luke.embed({
                 object: message,
-                description: `:broom: Deleted ${amount} message(s).`,
+                title: `:broom: Luke the cleaner`,
+                description: `Deleted ${amount} message(s).`,
+                fields: [
+                    ['Authors', authors.join('\n')]
+                ],
                 color: colors.done
             })
         } catch (err) {
