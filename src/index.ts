@@ -45,4 +45,4 @@ export class Luke extends Client {
     }
 }
 
-export default new Luke({ partials: ['MESSAGE', 'USER', 'GUILD_MEMBER'] })
+export default new Luke()
