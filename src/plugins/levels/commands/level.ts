@@ -19,7 +19,7 @@ const command: Command = {
         Luke.embed({
             object: message,
             title: `${member.username}'s stats`,
-            description: `${user.level} - Level\n${xp[0]}${xp[1] ? `.${xp[1].substr(0, 2)}`: ''} - XP\n${user.messagesCount} - Messages`
+            description: `${user.level} Level\n${xp[0]}${xp[1] ? `.${xp[1]?.substr(0, 2)}`: ''} XP\n${user.messagesCount} Messages`
         })
     }
 }
