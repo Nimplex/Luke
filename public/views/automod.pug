@@ -21,10 +21,16 @@ append content
                 p.ctitle Auto moderator
                 #automod.menu
                     .center
-                        input.ichk#delete_invites(type="checkbox")
+                        if data.automoderator.invites == true
+                            input.ichk#delete_invites(type="checkbox" checked)
+                        else
+                            input.ichk#delete_invites(type="checkbox")
                         p.ctitle Delete invites
                     .center
-                        input.ichk#delete_spam(type="checkbox")
+                        if data.automoderator.spam == true
+                            input.ichk#delete_spam(type="checkbox" checked)
+                        else
+                            input.ichk#delete_spam(type="checkbox")
                         p.ctitle Delete much @mentions
 append scripts
     script(src="/js/automod.js")
