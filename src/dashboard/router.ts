@@ -200,6 +200,10 @@ export = (app: Application) => {
                             messages: goodybe_messages
                         }
                     }
+                },
+                automoderator: {
+                    invites: data.automoderator.invites || server.automoderator.invites,
+                    spam: data.automoderator.spam || server.automoderator.spam
                 }
             })
             
