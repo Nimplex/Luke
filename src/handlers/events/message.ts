@@ -28,8 +28,9 @@ export function error(name: string, message: message, Luke: Luke, command: Comma
 module.exports = async (Luke: Luke, message: message) => {
     if (message.author.bot || !message.guild) return
 
+    Luke.LevelManager.increase(message.author.id, message.content.length / 15, message)
     const guild = await guildManager.get(message.guild.id)
-    
+
     if (!message.content.startsWith(guild.prefix || bot.prefix)) return
     
     const [commandName, ...args] = message.content.slice(guild.prefix.length || bot.prefix).split(/ +/g)
