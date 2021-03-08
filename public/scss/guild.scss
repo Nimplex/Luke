@@ -69,11 +69,19 @@
     justify-content: center;
 }
 
+// .center {
+//     // display: inline-flex;
+//     // flex-direction: row;
+//     // justify-content: space-between;
+//     // align-items: center;
+// }
+
 .center {
+    width: 280px;
     display: inline-flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
 }
 
 #view {
