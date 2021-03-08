@@ -69,11 +69,19 @@
     justify-content: center;
 }
 
+// .center {
+//     // display: inline-flex;
+//     // flex-direction: row;
+//     // justify-content: space-between;
+//     // align-items: center;
+// }
+
 .center {
+    width: 280px;
     display: inline-flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
 }
 
 #view {
@@ -160,7 +168,7 @@
         background: #212121;
 
         .ichk {
-            background: #262626;
+            background: #ffffff;
 
             &:checked {
                 background: rgb(52, 157, 255);

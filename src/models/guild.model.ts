@@ -63,10 +63,14 @@ export interface Guild extends Document {
             }
             message: string
             random_message: {
-                enabled: boolean,
+                enabled: boolean
                 messages: string[]
             }
         }
+    }
+    automoderator: {
+        spam: boolean,
+        invites: boolean
     }
 }
 
@@ -104,6 +108,10 @@ const GuildSchema: Schema = new Schema({
                 messages: []
             }
         }
+    },
+    automoderator: {
+        spam: Boolean,
+        invites: Boolean
     }
 }, { timestamps: true })
 

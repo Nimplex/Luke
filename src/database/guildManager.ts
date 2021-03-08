@@ -36,6 +36,10 @@ export const create = async(id: string): Promise<Guild> => {
                         messages: []
                     }
                 }
+            },
+            automoderator: {
+                spam: false,
+                invites: false
             }
         }); guild.save()
 

@@ -31,6 +31,15 @@ module.exports = async (Luke: Luke, message: message) => {
     Luke.LevelManager.increase(message.author.id, message.content.length / 15, message)
     const guild = await guildManager.get(message.guild.id)
 
+    if ((!message.member?.permissions.has('MANAGE_MESSAGES') && guild.automoderator.spam) && message.mentions.members && message.mentions.members?.size >= 3) {
+        message.delete()
+        message.reply('Don\'t spam!')
+    }
+    if ((!message.member?.permissions.has('MANAGE_MESSAGES') && guild.automoderator.invites) && message.content.includes('discord.gg')) {
+        message.delete()
+        message.reply('Don\'t send invites!')
+    }
+
     if (!message.content.startsWith(guild.prefix || bot.prefix)) return
     
     const [commandName, ...args] = message.content.slice(guild.prefix.length || bot.prefix).split(/ +/g)

@@ -20,7 +20,7 @@ export = (app: Application) => {
         if (!req.session || !req.session.code || !req.session.user || !req.session.guilds)
             return res.redirect(`https://discord.com/oauth2/authorize?client_id=${server.id}&redirect_uri=${process.argv[2] ? server.dev_uri : server.redirect_uri}&response_type=code&scope=identify%20guilds`)
         else {
-            const guilds = req.session?.guilds
+            const guilds = req.session?.guilds || []
 
             req.session.guilds = []
 
@@ -200,6 +200,10 @@ export = (app: Application) => {
                             messages: goodybe_messages
                         }
                     }
+                },
+                automoderator: {
+                    invites: data.automoderator.invites || server.automoderator.invites,
+                    spam: data.automoderator.spam || server.automoderator.spam
                 }
             })
             

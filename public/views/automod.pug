@@ -9,17 +9,28 @@ append content
         #view
             .opt
                 p.ctitle Logs channel
-                select.intext.stext#welcome_channel
-                    each channel, index in channels
-                        if data.welcomer.welcome.channel.id == channel.id
-                            option(value=channel.id selected) #{channel.n}
-                        else
-                            option(value=channel.id) #{channel.n}
+                .center
+                    input.ichk#logs_enabled(type="checkbox" disabled)
+                    select.intext.stext#logs_channel
+                        each channel, index in channels
+                            if data.welcomer.welcome.channel.id == channel.id
+                                option(value=channel.id selected) #{channel.n}
+                            else
+                                option(value=channel.id) #{channel.n}
             .opt
                 p.ctitle Auto moderator
                 #automod.menu
                     .center
-                        input.ichk(type="checkbox")
+                        if data.automoderator.invites == true
+                            input.ichk#delete_invites(type="checkbox" checked)
+                        else
+                            input.ichk#delete_invites(type="checkbox")
                         p.ctitle Delete invites
+                    .center
+                        if data.automoderator.spam == true
+                            input.ichk#delete_spam(type="checkbox" checked)
+                        else
+                            input.ichk#delete_spam(type="checkbox")
+                        p.ctitle Delete much @mentions
 append scripts
-    
+    script(src="/js/automod.js")
