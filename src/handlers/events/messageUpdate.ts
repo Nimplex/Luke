@@ -1,4 +1,4 @@
-import guildManager from '@/database/guildManager'
+import guildManager from '../../database/guildManager'
 import { Luke } from '@/index'
 import { message } from '@/types'
 
