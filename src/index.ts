@@ -53,9 +53,9 @@ export class Luke extends Client {
         serverline.on('line', (line: string) => {
             try {
                 const result = eval(line)
-                Console.log(result)
+                this.console.log(result)
             } catch (err) {
-                Console.error(err)
+                this.console.error(err)
             }
         })
     }
