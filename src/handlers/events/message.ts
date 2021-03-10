@@ -35,9 +35,12 @@ module.exports = async (Luke: Luke, message: message) => {
         message.delete()
         message.reply('Don\'t spam!')
     }
-    if ((!message.member?.permissions.has('MANAGE_MESSAGES') && guild.automoderator.invites) && message.content.includes('discord.gg')) {
-        message.delete()
-        message.reply('Don\'t send invites!')
+    if (!message.member?.permissions.has('MANAGE_MESSAGES') && guild.automoderator.invites) {
+        let invite = /(https:\/\/)?(www\.)?(discord\.gg|discord\.me|discordapp\.com\/invite|discord\.com\/invite)\/([a-z0-9-.]+)?/i;
+        if (invite.test(message.content)) {
+            message.delete()
+            message.reply('Don\'t send invites!')
+        }
     }
 
     if (!message.content.startsWith(guild.prefix || bot.prefix)) return
