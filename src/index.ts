@@ -7,6 +7,8 @@ import Embed from './modules/Embed'
 import Console from './modules/Console'
 import dashboard from './dashboard/server'
 import mongoose from 'mongoose'
+// @ts-ignore
+import serverline from 'serverline'
 
 const tokens = require('../files/tokens.json')
 
@@ -45,6 +47,17 @@ export class Luke extends Client {
         this.LevelManager = new LevelManager(this)
 
         this.login(tokens.discord)
+
+        serverline.init()
+        serverline.setPrompt('CMD > ')
+        serverline.on('line', (line: string) => {
+            try {
+                const result = eval(line)
+                Console.log(result)
+            } catch (err) {
+                Console.error(err)
+            }
+        })
     }
 }
 
