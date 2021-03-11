@@ -36,8 +36,8 @@ import mongoose, { Schema, Document } from 'mongoose'
 export interface Guild extends Document {
     prefix: string
     gid: string
-    welcomer: {
-        welcome: {
+    welcomer?: {
+        welcome?: {
             enabled: boolean
             channel: {
                 id: string
@@ -52,7 +52,7 @@ export interface Guild extends Document {
                 messages: string[]
             }
         },
-        goodbye: {
+        goodbye?: {
             enabled: boolean
             channel: {
                 id: string
@@ -68,9 +68,10 @@ export interface Guild extends Document {
             }
         }
     }
-    automoderator: {
+    automoderator?: {
         spam: boolean,
-        invites: boolean
+        invites: boolean,
+        blacklist: string[]
     }
 }
 
@@ -111,7 +112,8 @@ const GuildSchema: Schema = new Schema({
     },
     automoderator: {
         spam: Boolean,
-        invites: Boolean
+        invites: Boolean,
+        blacklist: Object
     }
 }, { timestamps: true })
 

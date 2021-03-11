@@ -32,5 +32,9 @@ append content
                         else
                             input.ichk#delete_spam(type="checkbox")
                         p.ctitle Delete much @mentions
+                    p.ctitle Word blacklist
+                    each word, index in data.automoderator.blacklist || []
+                        input.intext.lmessage(type="text" onkeydown="if(event.key == 'Backspace' && this.value.length == 0) this.destroy(); if(event.key == 'Enter'){createChild()}" value=word placeholder='Word...')
+                    input.intext.wmessage(type="text" onkeydown="if(event.keyCode == 13){createChild()}" placeholder='Word...')
 append scripts
     script(src="/js/automod.js")

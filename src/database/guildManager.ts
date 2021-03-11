@@ -39,7 +39,8 @@ export const create = async(id: string): Promise<Guild> => {
             },
             automoderator: {
                 spam: false,
-                invites: false
+                invites: false,
+                blacklist: []
             }
         }); guild.save()
 
@@ -50,6 +51,10 @@ export const get = async(id: string): Promise<Guild> => {
     let guild = await guildModel.findOne({ gid: id }) || undefined
     if (!guild) guild = await create(id)
     return guild
+}
+
+export const addFields = async(where: Guild, data: Guild) => {
+    guildModel.updateMany(where, data)
 }
 
 export default {

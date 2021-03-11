@@ -179,10 +179,10 @@ export = (app: Application) => {
                                 id: welcome_webhook?.id || ''
                             }
                         },
-                        message: data.welcomer.welcome.message || server.welcomer.welcome.message,
+                        message: data.welcomer.welcome.message || server.welcomer?.welcome?.message || '',
                         random_message: {
                             enabled: data.welcomer.welcome.random_message.enabled || false,
-                            messages: welcome_messages
+                            messages: welcome_messages || []
                         }
                     },
                     goodbye: {
@@ -194,16 +194,17 @@ export = (app: Application) => {
                                 id: goodbye_webhook?.id || ''
                             }
                         },
-                        message: data.welcomer.goodbye.message || server.welcomer.goodbye.message,
+                        message: data.welcomer.goodbye.message || server.welcomer?.goodbye?.message || '',
                         random_message: {
                             enabled: data.welcomer.goodbye.random_message.enabled || false,
-                            messages: goodybe_messages
+                            messages: goodybe_messages || []
                         }
                     }
                 },
                 automoderator: {
-                    invites: data.automoderator.invites || server.automoderator.invites,
-                    spam: data.automoderator.spam || server.automoderator.spam
+                    invites: data.automoderator.invites || server.automoderator?.invites || false,
+                    spam: data.automoderator.spam || server.automoderator?.spam || false,
+                    blacklist: data.automoderator.blacklist || server.automoderator?.blacklist || []
                 }
             })
             

@@ -54,7 +54,7 @@ append content
                         else
                             input.ichk#random_leave_message_enabled(type="checkbox")
                         p.ctitle Random leave message?
-                    each message, index in data.welcomer.goodbye.random_message.messages
+                    each message, index in data.welcomer.goodbye.random_message.messages || []
                         input.intext.lmessage(type="text" onkeydown="if(event.key == 'Backspace' && this.value.length == 0) this.destroy(); if(event.key == 'Enter'){createChild('Goodbye', 'goodbye_random_messages', 'lmessage')}" value=message placeholder='Goodbye message...')
                     input.intext.lmessage(type="text" onkeydown="if(event.key == 'Enter'){createChild('Goodbye', 'goodbye_random_messages', 'lmessage')}" placeholder='Goodbye message...')
 
