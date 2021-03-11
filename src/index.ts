@@ -48,12 +48,11 @@ export class Luke extends Client {
 
         this.login(tokens.discord)
 
-        serverline.init()
-        serverline.setPrompt('CMD > ')
-        serverline.on('line', (line: string) => {
+        serverline.init({ colorMode: true, prompt: '> ' })
+        serverline.on('line', async(line: string) => {
             try {
-                const result = eval(line)
-                this.console.log(result)
+                const result = await eval(line)
+                console.log(result)
             } catch (err) {
                 this.console.error(err)
             }
