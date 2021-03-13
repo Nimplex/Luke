@@ -14,7 +14,7 @@ export = (app: Application) => {
         let logged = true
         if (!req.session || !req.session.code || !req.session.user || !req.session.guilds) logged = false
 
-        res.render('index', { logged: logged || false, user: req.session?.user || [] })
+        res.render('index', { logged: logged || false, user: req.session?.user || [], guilds: Luke.guilds.cache.size })
     })
     app.get('/dashboard', (req, res) => {
         if (!req.session || !req.session.code || !req.session.user || !req.session.guilds)
