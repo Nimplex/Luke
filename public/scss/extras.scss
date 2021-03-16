@@ -2,3 +2,34 @@ $yellow: #FECBA1;
 $light-gray: #CED4DA;
 $white: white;
 $dark: #212529;
+$dark-gray: #343A40;
+
+.preload * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+}
+::-webkit-scrollbar-thumb {
+    background: #e1e1e1;
+    border: 0 none #ffffff;
+    border-radius: 50px;
+}
+::-webkit-scrollbar-track {
+    background: #666666;
+    border: 0 none #ffffff;
+    border-radius: 50px;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}

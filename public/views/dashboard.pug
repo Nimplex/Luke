@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Luke
+        link(rel="stylesheet", href="/css/dashboard.css")
+        link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css")
+        script(src="/bootstrap/js/bootstrap.min.js") 
+    body
+        section#main
+            #navbar
+                a.link(href="https://discord.gg/VFHgtc4")
+                    i.bi.bi-server
+                    | Support
+                .right
+                    a.link(href="/dashboard")
+                        i.bi.bi-kanban
+                        | Dashboard
+                    a.link(href="/api/logout")
+                        i.bi.bi-door-open
+                        | Logout
+            #title
+                for guild of guilds
+                    .guild
+                        - let name = guild.g.name
+                        - if (name.length > 11) name = `${name.substr(0, 11)}...`
+                        img(height=100 width=100 onerror="this.src = '/img/dc-icon.jpg'" src=`https://cdn.discordapp.com/icons/${guild.g.id}/${guild.g.icon}.webp?size=640`)
+                        if !guild.b
+                            button.name.btn.btn-outline-light(type="button" onclick="location.href = 'https://discord.com/api/oauth2/authorize?client_id=576478552158109716&permissions=8&redirect_uri=https%3A%2F%2Flukebot.xyz%2Fapi%2Flogin&response_type=code&scope=bot%20email%20identify%20guilds'")
+                                | Invite
+                        else
+                            button.name.btn.btn-warning(type="button" onclick=`location.href = '/dashboard/${guild.g.id}/basic'`)
+                                | Manage
+            #footer
+                p Made with
+                    span.text-danger(style="padding: 0 5px") ♥
+                    | by
+                    a(style="padding: 0 5px" href="https://github.com/Nimplex") Nimplex
