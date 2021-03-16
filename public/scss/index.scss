@@ -1,0 +1,26 @@
+body {
+    #main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+        background: #212529;
+        .fs-1 {font-size: 96px !important; color: white}
+        .fs-4 {font-size: 36px !important; color: #CED4DA}
+        #title {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            .center {
+                display: inline-flex;
+                margin: 20px 0;
+                * {
+                    width: 120px;
+                    margin: 0 10px;
+                }
+            }
+        }
+    }
+}
