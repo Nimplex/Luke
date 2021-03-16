@@ -8,9 +8,16 @@ html(lang="en")
         link(rel="stylesheet", href="/css/dashboard.css")
         link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
         link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css")
-        script(src="/bootstrap/js/bootstrap.min.js") 
+        script(src="/bootstrap/js/bootstrap.min.js")
     body
         section#main
+            .position-fixed.bottom-0.end-0.p-3(style='z-index: 5')
+                #liveToast.toast(role="alert" aria-live="assertive" aria-atomic="true")
+                    .d-flex
+                        .toast-body(style="color: black")
+                            | Ten serwis wykorzystuje pliki cookies. Korzystanie z witryny oznacza zgodę na ich zapis lub odczyt wg ustawień przeglądarki.
+                        button#closeCookies.btn-close.me-2.m-auto(type="button" data-bs-dismiss="toast" aria-label="Close")
+                    
             #navbar
                 a.link(href="https://discord.gg/VFHgtc4")
                     i.bi.bi-server
@@ -39,3 +46,4 @@ html(lang="en")
                     span.text-danger(style="padding: 0 5px") ♥
                     | by
                     a(style="padding: 0 5px" href="https://github.com/Nimplex") Nimplex
+        script(src="/js/toast.js")
