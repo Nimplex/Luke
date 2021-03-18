@@ -49,8 +49,6 @@ html(lang="en")
 
                     .card.text-white.bg-dark.mb-3(style='max-width: 18rem; background: #343A40 !important;')
                         .card-header.text-white-50 ID: #{guild.g.id}
-                            br
-                            | Owner?: #{guild.g.owner ? 'yes' : 'no'}
                         .card-body
                             h5.card-title(style="margin-right: 20px;") #{guild.g.name}
                             p.card-text
@@ -72,8 +70,6 @@ html(lang="en")
                     - for (let i = 0; i < 9-guilds.length; i++)
                         .card.text-muted.bg-dark.mb-3(style='max-width: 18rem; background: #152536 !important;')
                                 .card-header.text-white-50 ID: 000000000000000000
-                                    br
-                                    | Owner?: no
                                 .card-body
                                     h5.card-title(style="margin-right: 20px;") Example guild
                                     p.card-text

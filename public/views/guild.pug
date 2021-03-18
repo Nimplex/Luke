@@ -5,7 +5,7 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Luke - #{guild.g.name}
-        link(rel="stylesheet", href="/css/dashboard.css")
+        link(rel="stylesheet", href="/css/guild.css")
         link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
         link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css")
         script(src="/bootstrap/js/bootstrap.min.js")
@@ -29,7 +29,46 @@ html(lang="en")
                         i.bi.bi-door-open
                         | Logout
             #title
-    
+                //- button.name.btn.btn-outline-primary#save(type="button")
+                //-     i.bi.bi-save(style="margin-right: 5px;")
+                //-     | Save
+                .column
+                    p.fs-5.fw-lighter Prefix
+                    input.form-control#prefix(type="text" placeholder="prefix" value=data.prefix)
+                .column
+                    p.fs-5.fw-lighter Welcome
+                    .center
+                        input.form-check-input#welcome_enabled(type="checkbox" value="")
+                        select.form-select#welcome_channel(aria-label="Select channel")
+                            for channel of channels
+                                if data.welcomer.welcome.channel.id == channel.id
+                                    option(value=channel.id selected) #{channel.n}
+                                else
+                                    option(value=channel.id) #{channel.n}
+                    input.form-control#welcome_message(type="text" placeholder="prefix" value=data.welcomer.welcome.message)
+                .column
+                    p.fs-5.fw-lighter Goodbye
+                    .center
+                        input.form-check-input#goodbye_enabled(type="checkbox" value="")
+                        select.form-select#goodbye_channel(aria-label="Select channel")
+                            for channel of channels
+                                if data.welcomer.goodbye.channel.id == channel.id
+                                    option(value=channel.id selected) #{channel.n}
+                                else
+                                    option(value=channel.id) #{channel.n}
+                    input.form-control#goodbye_message(type="text" placeholder="prefix" value=data.welcomer.goodbye.message)
+                .column
+                    p.fs-5.fw-lighter Auto moderator
+                    .center
+                        p.fs-5 Delete invites
+                        input.form-check-input#delete_invites(type="checkbox" value="")
+                    .center
+                        p.fs-5 Mass mentions
+                        input.form-check-input#delete_mass_mentions(type="checkbox" value="")
+                    .column
+                        p.fs-5.fw-lighter Word blacklist (separate using ,)
+                        - const val = data.automoderator.blacklist.join(', ')
+                        input.form-control#word_blacklist(type="text" placeholder="blacklist" value=val)
             #footer
                 p Made with
                     span.text-danger(style="padding: 0 5px") ♥
