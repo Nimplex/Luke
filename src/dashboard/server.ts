@@ -20,7 +20,7 @@ export default class Server {
             saveUninitialized: true,
             cookie: { secure: argv[2] ? false : true }
         }))
-        this.app.use(helmet())
+        this.app.use(helmet({ contentSecurityPolicy: false }))
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: true }))
         this.app.use(express.static(join(__dirname, '..', '..', 'public')))
