@@ -1,29 +1,83 @@
-extends template.pug
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Luke - Choose guild
+        link(rel="stylesheet", href="/css/dashboard.css")
+        link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css")
+        script(src="/bootstrap/js/bootstrap.min.js")
+    body
+        section#main
+            .position-fixed.bottom-0.end-0.p-3(style='z-index: 5')
+                #liveToast.toast(role="alert" aria-live="assertive" aria-atomic="true")
+                    .d-flex
+                        .toast-body(style="color: black")
+                            | This website uses cookies. We use cookies to ensure that we give you the best experience on our website.
+                        button#closeCookies.btn-close.me-2.m-auto(type="button" data-bs-dismiss="toast" aria-label="Close")
+            #navbar
+                a.link(href="https://discord.gg/VFHgtc4")
+                    i.bi.bi-server
+                    | Support
+                .right
+                    a.link(href="/dashboard")
+                        i.bi.bi-kanban
+                        | Dashboard
+                    a.link(href="/api/logout")
+                        i.bi.bi-door-open
+                        | Logout
+            #title
+                for guild of guilds
+                    - let name = guild.g.name
+                    - if (name.length > 11) name = `${name.substr(0, 11)}...`
+                    //- .col.text-dark
+                    //-     .card.h-100
+                    //-         img.card-img-top(onerror="this.src = '/img/dc-icon.jpg'" src=`https://cdn.discordapp.com/icons/${guild.g.id}/${guild.g.icon}.webp?size=640`)
+                    //-         .card-body
+                    //-             h5.card-title #{name}
+                    //-             p.card-text
+                    //-                 if !guild.b
+                    //-                     button.name.btn.btn-outline-light(type="button" onclick="location.href = 'https://discord.com/api/oauth2/authorize?client_id=576478552158109716&permissions=8&redirect_uri=https%3A%2F%2Flukebot.xyz%2Fapi%2Flogin&response_type=code&scope=bot%20email%20identify%20guilds'")
+                    //-                         | Invite
+                    //-                 else
+                    //-                     button.name.btn.btn-dark(type="button" onclick=`location.href = '/dashboard/${guild.g.id}/basic'`)
+                    //-                         | Manage
+                    //-         .card-footer
+                    //-             small.text-muted ID: #{guild.g.id}
 
-append head
-    title Luke - Dashboard
-    link(rel="stylesheet", href="/css/dashboard.css")
+                    .card.text-white.bg-dark.mb-3(style='max-width: 18rem; background: #343A40 !important;')
+                        .card-header.text-white-50 ID: #{guild.g.id}
+                        .card-body
+                            h5.card-title(style="margin-right: 20px;") #{guild.g.name}
+                            p.card-text
+                                if !guild.b
+                                    button.name.btn.btn-outline-light(data-bs-toggle="tooltip" data-bs-placement="bottom" title="Invite Luke to your server!" type="button" onclick="location.href = 'https://discord.com/api/oauth2/authorize?client_id=576478552158109716&permissions=8&redirect_uri=https%3A%2F%2Flukebot.xyz%2Fapi%2Flogin&response_type=code&scope=bot%20email%20identify%20guilds'")
+                                        | Invite
+                                else
+                                    button.name.btn.btn-outline-warning(type="button" onclick=`location.href = '/dashboard/${guild.g.id}/basic'`)
+                                        | Manage
 
-append navbar-content
-    a(href="/dashboard")
-        | Dashboard
-    a(href="/api/logout")
-        | Logout
-
-append content
-    #guilds
-        for guild of guilds
-            // | #{JSON.stringify(guild)}
-            .guild
-                .guild-img
-                    img(height=100 width=100 onerror="this.src = '/img/dc-icon.jpg'" src=`https://cdn.discordapp.com/icons/${guild.g.id}/${guild.g.icon}.webp?size=640`)
-                - let name = guild.g.name
-                - if (name.length > 11) name = `${name.substr(0, 11)}...`
-                p.guild-name #{name}
-                .bottom
-                    if guild.b
-                        a(href=`/dashboard/${guild.g.id}/basic`)
-                            p.text Manage Guild
-                    else
-                        p.text.no.inv(data-id=guild.g.id) Invite bot
-    script(src="/js/invite.js") 
+                        //- img(height=100 width=100 onerror="this.src = '/img/dc-icon.jpg'" src=`https://cdn.discordapp.com/icons/${guild.g.id}/${guild.g.icon}.webp?size=640`)
+                        //- if !guild.b
+                        //-     button.name.btn.btn-outline-light(type="button" onclick="location.href = 'https://discord.com/api/oauth2/authorize?client_id=576478552158109716&permissions=8&redirect_uri=https%3A%2F%2Flukebot.xyz%2Fapi%2Flogin&response_type=code&scope=bot%20email%20identify%20guilds'")
+                        //-         | Invite
+                        //- else
+                        //-     button.name.btn.btn-warning(type="button" onclick=`location.href = '/dashboard/${guild.g.id}/basic'`)
+                        //-         | Manage
+                if guilds.length < 6
+                    - for (let i = 0; i < 9-guilds.length; i++)
+                        .card.text-muted.bg-dark.mb-3(style='max-width: 18rem; background: #152536 !important;')
+                                .card-header.text-white-50 ID: 000000000000000000
+                                .card-body
+                                    h5.card-title(style="margin-right: 20px;") Example guild
+                                    p.card-text
+                                        button.name.btn.btn-outline-primary(type="button" onclick=`location.href = 'https://discord.gg/VFHgtc4'` disabled)
+                                            | Manage
+            #footer
+                p Made with
+                    span.text-danger(style="padding: 0 5px") ♥
+                    | by
+                    a(style="padding: 0 5px" href="https://github.com/Nimplex") Nimplex
+        script(src="/js/toast.js")

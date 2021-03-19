@@ -1,0 +1,86 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Luke - #{guild.g.name}
+        link(rel="stylesheet", href="/css/guild.css")
+        link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css")
+        script(src="/bootstrap/js/bootstrap.min.js")
+    body
+        p#data(style="display: none" data-id=data.gid)
+        section#main
+            .position-fixed.bottom-0.end-0.p-3(style='z-index: 5')
+                #liveToast.toast(role="alert" aria-live="assertive" aria-atomic="true")
+                    .d-flex
+                        .toast-body(style="color: black")
+                        button.btn-close.me-2.m-auto(type="button" data-bs-dismiss="toast" aria-label="Close")
+            #navbar
+                button.name.btn.btn-outline-primary#save(type="button")
+                        i.bi.bi-save(style="margin-right: 5px;")
+                        | Save
+                .right
+                    a.link(href="/dashboard")
+                        i.bi.bi-kanban
+                        | Dashboard
+                    a.link(href="/api/logout")
+                        i.bi.bi-door-open
+                        | Logout
+            #title
+                .column
+                    p.fs-5.fw-lighter Prefix
+                    input.form-control#prefix(type="text" placeholder="prefix" value=data.prefix)
+                .column
+                    p.fs-5.fw-lighter Welcome
+                    .center
+                        if data.welcomer.welcome.enabled
+                            input.form-check-input#welcome_enabled(type="checkbox" value="" checked)
+                        else
+                            input.form-check-input#welcome_enabled(type="checkbox" value="")
+                        select.form-select#welcome_channel(aria-label="Select channel")
+                            for channel of channels
+                                if data.welcomer.welcome.channel.id == channel.id
+                                    option(value=channel.id selected) #{channel.n}
+                                else
+                                    option(value=channel.id) #{channel.n}
+                    input.form-control#welcome_message(type="text" placeholder="welcome message" value=data.welcomer.welcome.message)
+                .column
+                    p.fs-5.fw-lighter Goodbye
+                    .center
+                        if data.welcomer.goodbye.enabled
+                            input.form-check-input#goodbye_enabled(type="checkbox" value="" checked)
+                        else
+                            input.form-check-input#goodbye_enabled(type="checkbox" value="")
+                        select.form-select#goodbye_channel(aria-label="Select channel")
+                            for channel of channels
+                                if data.welcomer.goodbye.channel.id == channel.id
+                                    option(value=channel.id selected) #{channel.n}
+                                else
+                                    option(value=channel.id) #{channel.n}
+                    input.form-control#goodbye_message(type="text" placeholder="goodbye message" value=data.welcomer.goodbye.message)
+                .column
+                    p.fs-5.fw-lighter Auto moderator
+                    .center
+                        p.fs-5 Delete invites
+                        if data.automoderator.invites
+                            input.form-check-input#delete_invites(type="checkbox" value="" checked)
+                        else
+                            input.form-check-input#delete_invites(type="checkbox" value="")
+                    .center
+                        p.fs-5 Mass mentions
+                        if data.automoderator.spam
+                            input.form-check-input#delete_mass_mentions(type="checkbox" value="" checked)
+                        else
+                            input.form-check-input#delete_mass_mentions(type="checkbox" value="")
+                    .column
+                        p.fs-5.fw-lighter Word blacklist (separate using ,)
+                        - const val = data.automoderator.blacklist.join(', ')
+                        input.form-control#word_blacklist(type="text" placeholder="blacklist" value=val)
+            #footer
+                p Made with
+                    span.text-danger(style="padding: 0 5px") ♥
+                    | by
+                    a(style="padding: 0 5px" href="https://github.com/Nimplex") Nimplex
+        script(src="/js/guild.js")

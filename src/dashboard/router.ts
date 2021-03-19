@@ -46,23 +46,7 @@ export = (app: Application) => {
 
         switch (cat) {
             case 'basic':
-                res.render('basic', {
-                    guild: guild,
-                    user: req.session.user,
-                    data: server,
-                    channels: channels
-                })
-                break;
-            case 'welcomer':
-                res.render('welcomer', {
-                    guild: guild,
-                    user: req.session.user,
-                    data: server,
-                    channels: channels
-                })
-                break;
-            case 'automod':
-                res.render('automod', {
+                res.render('guild', {
                     guild: guild,
                     user: req.session.user,
                     data: server,
@@ -70,12 +54,7 @@ export = (app: Application) => {
                 })
                 break;
             default:
-                res.render('basic', {
-                    guild: guild,
-                    user: req.session.user,
-                    data: server,
-                    channels: channels
-                })
+                res.redirect(`/${id}/basic`)
                 break;
         }
     })
@@ -195,7 +174,7 @@ export = (app: Application) => {
             automoderator: {
                 invites: data.automoderator.invites || server.automoderator?.invites || false,
                 spam: data.automoderator.spam || server.automoderator?.spam || false,
-                blacklist: data.automoderator.blacklist || server.automoderator?.blacklist || []
+                blacklist: data.automoderator.blacklist?.map((val: string) => val.startsWith(' ') ? val.replace(' ', '') : val).map((val: string) => val.endsWith(' ') ? val.slice(0, -1) : val) || [] || server.automoderator?.blacklist || []
             }
         }))
         res.status(200).json({ status: 1 })   
@@ -204,5 +183,5 @@ export = (app: Application) => {
     // Errors
     app.get('/401', (req, res) => res.status(401).render('401'))
     app.get('/404', (req, res) => res.status(404).render('404'))
-    app.get('/*', (req, res) => res.redirect('/404'))
+    // app.get('/*', (req, res) => res.redirect('/404'))
 }

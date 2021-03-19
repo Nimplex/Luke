@@ -1,18 +1,50 @@
-extends template.pug
-
-append head
-    title Luke - Home
-    link(rel="stylesheet", href="/css/navbar.css")
-    link(rel="stylesheet", href="/css/index.css")
-
-append navbar-content
-    if logged == true
-        a(href="/dashboard")
-            | Dashboard
-        a(href="/api/logout")
-            | Logout
-    else
-        a(href="/dashboard") Login
-
-append content
-    h1(style="font-size: 20px;") I'm on #{guilds} servers!
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Luke - Home
+        link(rel="stylesheet", href="/css/index.css")
+        link(rel="stylesheet", href="/bootstrap/css/bootstrap.min.css")
+        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css")
+        script(src="/bootstrap/js/bootstrap.min.js") 
+    body
+        section#main
+            .position-fixed.bottom-0.end-0.p-3(style='z-index: 5')
+                #liveToast.toast(role="alert" aria-live="assertive" aria-atomic="true")
+                    .d-flex
+                        .toast-body(style="color: black")
+                            | This website uses cookies. We use cookies to ensure that we give you the best experience on our website.
+                        button#closeCookies.btn-close.me-2.m-auto(type="button" data-bs-dismiss="toast" aria-label="Close")
+            #navbar
+                a.link(href="https://discord.gg/VFHgtc4")
+                    i.bi.bi-server
+                    | Support
+                .right
+                    if (logged)
+                        a.link(href="/dashboard")
+                            i.bi.bi-kanban
+                            | Dashboard
+                        a.link(href="/api/logout")
+                            i.bi.bi-door-open
+                            | Logout
+                if (!logged)
+                    a.link(href="/dashboard")
+                        i.bi.bi-door-closed
+                        | Login
+            #title
+                h1.fs-1.fw-lighter Luke
+                h1.fs-4.fw-lighter Leveling, moderation.
+                h1.fs-4.fw-lighter Try it yourself!
+                .center
+                    button.btn.btn-outline-light(type="button" onclick="location.href = 'https://discord.com/api/oauth2/authorize?client_id=576478552158109716&permissions=8&redirect_uri=https%3A%2F%2Flukebot.xyz%2Fapi%2Flogin&response_type=code&scope=bot%20email%20identify%20guilds'")
+                        | Invite
+                    button.btn.btn-light(type="button" onclick="location.href = '/dashboard'")
+                        | Dashboard
+            #footer
+                p Made with
+                    span.text-danger(style="padding: 0 5px") ♥
+                    | by
+                    a(style="padding: 0 5px" href="https://github.com/Nimplex") Nimplex
+        script(src="/js/toast.js")
