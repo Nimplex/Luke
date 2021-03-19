@@ -12,6 +12,7 @@ module.exports = async (Luke: Luke, message: message) => {
         message.reply('Don\'t spam!')
     }
     guild.automoderator?.blacklist.forEach(word => {
+        if (word == '') return
         if (message.content.includes(word)) {
             message.delete()
             message.reply('This word isn\'t allowed on this guild!')
