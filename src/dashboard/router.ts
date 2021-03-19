@@ -181,7 +181,7 @@ export = (app: Application) => {
     })
 
     // Errors
-    app.get('/401', (req, res) => res.status(401).render('401', { code: 401 }))
-    app.get('/404', (req, res) => res.status(404).render('404', { code: 404 }))
+    app.get('/401', (req, res) => res.status(401).render('error', { code: 401 }))
+    app.get('/404', (req, res) => res.status(404).render('error', { code: 404 }))
     app.get('/*', (req, res) => res.redirect('/404'))
 }
