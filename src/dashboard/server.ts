@@ -3,6 +3,7 @@ import express from 'express'
 import session from'express-session'
 import { join } from 'path'
 import { argv } from 'process'
+import helmet from 'helmet'
 
 const { server } = require('../../files/config.json')
 const tokens = require('../../files/tokens.json')
@@ -19,6 +20,7 @@ export default class Server {
             saveUninitialized: true,
             cookie: { secure: argv[2] ? false : true }
         }))
+        this.app.use(helmet())
         this.app.use(express.json())
         this.app.use(express.urlencoded({ extended: true }))
         this.app.use(express.static(join(__dirname, '..', '..', 'public')))
