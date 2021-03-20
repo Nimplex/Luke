@@ -5,11 +5,11 @@ const command: Command = {
     description: 'Chooses random item.',
     usage: [
         {
-            name: 'item',
+            name: 'item,',
             type: 'text'
         },
         {
-            name: 'item',
+            name: 'item,',
             type: 'text'
         },
         {
