@@ -26,6 +26,7 @@ Create `tokens.json` file inside `files` directory, and put this code into this 
         "password": "mongodb_password",
         "authDatabase": "admin"
     },
+    "dlist": "dlist-token",
 	"obrazium": "https://obrazium.com"
 }
 ```
