@@ -18,7 +18,7 @@ const command: Command = {
         }
     ],
     execute: async(message, Luke, ...args) => {
-        const items = args.join('').split(',')
+        const items = args.join(' ').split(',')
         if (!items[1]) return false
         message.channel.send(items[Math.floor(Math.random() * items.length)])
     }
