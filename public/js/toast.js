@@ -1,5 +1,4 @@
 const toastElem = document.getElementById('liveToast')
-const toastBody = document.getElementsByClassName('toast-body')[0]
 const closeCookies = document.getElementById('closeCookies')
 
 window.onload = () => {
