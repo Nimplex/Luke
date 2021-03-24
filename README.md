@@ -11,7 +11,8 @@ yarn
 ```
 Compile source code:
 ```sh
-yarn build
+yarn build:ts
+yarn build:sass
 ```
 Create `tokens.json` file inside `files` directory, and put this code into this file:
 ```json
