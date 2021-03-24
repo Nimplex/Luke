@@ -1,41 +1,44 @@
 {
-  "name": "luke",
-  "version": "3.0.0",
-  "description": "Luke, multipurpose Discord bot.",
-  "main": "dist/index.js",
-  "repository": "https://github.com/Nimplex/Luke.git",
-  "author": "Nimplex",
-  "license": "GPL-3.0",
-  "private": false,
-  "scripts": {
-    "start": "node .",
-    "start:dev": "nodemon --ignore public . dev",
-    "build:ts": "tsc",
-    "build:sass": "sass public/scss/:public/css/"
-  },
-  "dependencies": {
-    "chalk": "^4.1.0",
-    "discord.js": "^12.5.1",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "form-data": "^4.0.0",
-    "helmet": "^4.4.1",
-    "mongoose": "5.10.14",
-    "node-fetch": "^2.6.1",
-    "pug": "^3.0.0",
-    "serverline": "^1.5.0"
-  },
-  "devDependencies": {
-    "@types/chalk": "^2.2.0",
-    "@types/express": "^4.17.11",
-    "@types/express-session": "1.17.0",
-    "@types/form-data": "^2.5.0",
-    "@types/helmet": "^4.0.0",
-    "@types/mongoose": "5.10.1",
-    "@types/node": "^14.14.27",
-    "@types/node-fetch": "^2.5.8",
-    "@types/ws": "^7.4.0",
-    "nodemon": "^2.0.7",
-    "typescript": "^4.1.5"
-  }
+    "name": "luke",
+    "version": "3.0.0",
+    "description": "Luke, multipurpose Discord bot.",
+    "main": "dist/index.js",
+    "repository": "https://github.com/Nimplex/Luke.git",
+    "author": "Nimplex",
+    "license": "GPL-3.0",
+    "private": false,
+    "scripts": {
+        "start": "node .",
+        "start:dev": "nodemon --ignore public . dev",
+        "build:ts": "tsc",
+        "build:sass": "sass public/scss/:public/css/"
+    },
+    "dependencies": {
+        "bufferutil": "^4.0.3",
+        "chalk": "^4.1.0",
+        "dayjs": "^1.10.4",
+        "discord.js": "^12.5.1",
+        "express": "^4.17.1",
+        "express-session": "^1.17.1",
+        "form-data": "^4.0.0",
+        "helmet": "^4.4.1",
+        "mongoose": "5.10.14",
+        "node-fetch": "^2.6.1",
+        "pug": "^3.0.0",
+        "serverline": "^1.5.0",
+        "utf-8-validate": "^5.0.4"
+    },
+    "devDependencies": {
+        "@types/chalk": "^2.2.0",
+        "@types/express": "^4.17.11",
+        "@types/express-session": "1.17.0",
+        "@types/form-data": "^2.5.0",
+        "@types/helmet": "^4.0.0",
+        "@types/mongoose": "5.10.1",
+        "@types/node": "^14.14.27",
+        "@types/node-fetch": "^2.5.8",
+        "@types/ws": "^7.4.0",
+        "nodemon": "^2.0.7",
+        "typescript": "^4.1.5"
+    }
 }
