@@ -10,8 +10,14 @@ body {
         justify-content: center;
         color: $white;
         background: $dark;
-        .fs-1 {font-size: 96px !important; color: $white}
-        .fs-4 {font-size: 30px !important; color: $light-gray}
+        .fs-1 {
+            font-size: 96px !important;
+            color: $white;
+        }
+        .fs-4 {
+            font-size: 30px !important;
+            color: $light-gray;
+        }
         #navbar {
             display: inline-flex;
             align-items: center;

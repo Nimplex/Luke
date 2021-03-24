@@ -1,7 +1,16 @@
-import { ColorResolvable, FileOptions, Message, MessageAttachment, MessageEmbedAuthor,  NewsChannel, PermissionResolvable, TextChannel } from 'discord.js'
+import {
+    ColorResolvable,
+    FileOptions,
+    Message,
+    MessageAttachment,
+    MessageEmbedAuthor,
+    NewsChannel,
+    PermissionResolvable,
+    TextChannel,
+} from 'discord.js'
 import { Luke } from './index'
 
-export type arg = { name: string, type: string, required?: boolean }
+export type arg = { name: string; type: string; required?: boolean }
 export type Field = [string, any, boolean?]
 
 export interface Plugin {
@@ -19,8 +28,12 @@ export interface Command {
     hide?: boolean
     nsfw?: boolean
     dev?: boolean
-    permissions?: { bot?: PermissionResolvable, user?: PermissionResolvable }
-    execute: (message: message, Luke: Luke, ...args: any[]) => Promise<boolean | void | undefined>
+    permissions?: { bot?: PermissionResolvable; user?: PermissionResolvable }
+    execute: (
+        message: message,
+        Luke: Luke,
+        ...args: any[]
+    ) => Promise<boolean | void | undefined>
 }
 
 export interface Embed {

@@ -3,5 +3,5 @@ module.exports = {
     id: 'fun',
     commands: require('fs')
         .readdirSync(`${__dirname}/commands/`)
-        .map((file: string) => require(`${__dirname}/commands/${file}`))
+        .map((file: string) => require(`${__dirname}/commands/${file}`)),
 }
