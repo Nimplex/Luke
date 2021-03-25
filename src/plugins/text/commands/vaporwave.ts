@@ -7,26 +7,20 @@ const command: Command = {
         {
             name: 'text',
             type: 'text',
-            required: true,
-        },
+            required: true
+        }
     ],
-    execute: async (message, Luke, ...args) => {
-        const text = args
-            .join(' ')
-            .split('')
-            .map((char) => {
-                const code = char.charCodeAt(0)
-                return code >= 33 && code <= 126
-                    ? String.fromCharCode(code - 33 + 65281)
-                    : char
-            })
-            .join('')
+    execute: async(message, Luke, ...args) => {
+        const text = args.join(' ').split('').map(char => {
+            const code = char.charCodeAt(0);
+            return code >= 33 && code <= 126 ? String.fromCharCode((code - 33) + 65281) : char
+        }).join('')
 
         Luke.embed({
             object: message,
-            description: text,
+            description: text
         })
-    },
+    }
 }
 
 module.exports = command

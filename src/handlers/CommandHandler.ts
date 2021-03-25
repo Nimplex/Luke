@@ -10,11 +10,9 @@ export default class CommandHandler {
 
     get(trigger: string): Command | undefined {
         let command: Command | undefined
-        this.Luke.PluginHandler.plugins.forEach((plugin) => {
-            const cmd = plugin.commands.find((command) =>
-                command.triggers.includes(trigger)
-            )
-            if (cmd) return (command = cmd)
+        this.Luke.PluginHandler.plugins.forEach(plugin => {
+            const cmd = plugin.commands.find(command => command.triggers.includes(trigger))
+            if (cmd) return command = cmd
         })
         return command
     }

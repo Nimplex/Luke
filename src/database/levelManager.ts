@@ -14,7 +14,7 @@ export default class LevelManager {
             uid: id,
             messagesCount: 0,
             level: 0,
-            experience: 0,
+            experience: 0
         })
         return user
     }
@@ -39,10 +39,7 @@ export default class LevelManager {
         user.messagesCount += 1
         await user.save()
         const currentLevel = await this.getLevel(id)
-        if (user.level != currentLevel)
-            message.channel.send(
-                `Congratulations ${message.author}, you leveled up!\n Your current level is ${currentLevel}`
-            )
+        if (user.level != currentLevel) message.channel.send(`Congratulations ${message.author}, you leveled up!\n Your current level is ${currentLevel}`)
         return user
     }
 }

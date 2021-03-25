@@ -7,12 +7,12 @@ const command: Command = {
         {
             name: 'question',
             type: 'text',
-            required: true,
-        },
+            required: true
+        }
     ],
-    execute: async (message, Luke, ...args) => {
+    execute: async(message, Luke, ...args) => {
         const answers = [
-            "It's decidedly so",
+            'It\'s decidedly so',
             'Yes definitely',
             'As I see it, yes',
             'Most likely',
@@ -22,18 +22,18 @@ const command: Command = {
             'Better not tell you now',
             'Cannot predict now',
             'Concentrate and ask again',
-            "Don't count on it",
+            'Don\'t count on it',
             'My reply is no',
             'My sources say no',
             'Outlook not so good',
             'Very doubtful',
-            'No',
+            'No'
         ]
         Luke.embed({
             object: message,
-            description: answers[Math.floor(Math.random() * answers.length)],
+            description: answers[Math.floor(Math.random() * answers.length)]
         })
-    },
+    }
 }
 
 module.exports = command

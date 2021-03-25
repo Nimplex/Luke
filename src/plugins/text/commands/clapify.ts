@@ -7,17 +7,17 @@ const command: Command = {
         {
             name: 'text',
             type: 'text',
-            required: true,
-        },
+            required: true
+        }
     ],
-    execute: async (message, Luke, ...args) => {
+    execute: async(message, Luke, ...args) => {
         const text = args.join('').split('').join(':clap:')
         Luke.embed({
             object: message,
             description: text,
-            disableDescriptionCodeBlock: true,
+            disableDescriptionCodeBlock: true
         })
-    },
+    }
 }
 
 module.exports = command

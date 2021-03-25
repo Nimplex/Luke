@@ -11,7 +11,7 @@ export default class PluginHandler {
         readdir(join(__dirname, '..', 'plugins'), (err, dirs) => {
             if (err) return Luke.console.error(err)
             else {
-                dirs.forEach((dir) => {
+                dirs.forEach(dir => {
                     const plugin: Plugin = require(`../plugins/${dir}`)
                     this.plugins.push(plugin)
                 })

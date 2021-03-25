@@ -7,16 +7,16 @@ const command: Command = {
         {
             name: 'text',
             type: 'text',
-            required: true,
-        },
+            required: true
+        }
     ],
-    execute: async (message, Luke, ...args) => {
+    execute: async(message, Luke, ...args) => {
         const text = Buffer.from(args.join(' ')).toString('hex')
         Luke.embed({
             object: message,
-            description: text,
+            description: text
         })
-    },
+    }
 }
 
 module.exports = command

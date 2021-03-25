@@ -1,63 +1,63 @@
 import guildModel, { Guild } from '../models/guild.model'
 
-export const create = async (id: string): Promise<Guild> => {
-    const guild = await guildModel.create({
-        gid: id,
-        prefix: '.',
-        welcomer: {
-            welcome: {
-                enabled: false,
-                channel: {
-                    id: '',
-                    webhook: {
-                        id: '',
-                        token: '',
-                    },
-                },
-                message: 'Welcome **{user.name}** to **{guild.name}**',
-                random_message: {
+export const create = async(id: string): Promise<Guild> => {
+    const guild =
+        await guildModel.create({
+            gid: id,
+            prefix: '.',
+            welcomer: {
+                welcome: {
                     enabled: false,
-                    messages: [],
-                },
-            },
-            goodbye: {
-                enabled: false,
-                channel: {
-                    id: '',
-                    webhook: {
+                    channel: {
                         id: '',
-                        token: '',
+                        webhook: {
+                            id: '',
+                            token: ''
+                        }
                     },
+                    message: 'Welcome **{user.name}** to **{guild.name}**',
+                    random_message: {
+                        enabled: false,
+                        messages: []
+                    }
                 },
-                message: 'Goodbye **{user.name}**',
-                random_message: {
+                goodbye: {
                     enabled: false,
-                    messages: [],
-                },
+                    channel: {
+                        id: '',
+                        webhook: {
+                            id: '',
+                            token: ''
+                        }
+                    },
+                    message: 'Goodbye **{user.name}**',
+                    random_message: {
+                        enabled: false,
+                        messages: []
+                    }
+                }
             },
-        },
-        automoderator: {
-            spam: false,
-            invites: false,
-            blacklist: [],
-        },
-    })
-    guild.save()
+            automoderator: {
+                spam: false,
+                invites: false,
+                blacklist: []
+            }
+        }); guild.save()
 
     return guild
 }
 
-export const get = async (id: string): Promise<Guild> => {
-    let guild = (await guildModel.findOne({ gid: id })) || undefined
+export const get = async(id: string): Promise<Guild> => {
+    let guild = await guildModel.findOne({ gid: id }) || undefined
     if (!guild) guild = await create(id)
     return guild
 }
 
-export const addFields = async (where: Guild, data: Guild) => {
+export const addFields = async(where: Guild, data: Guild) => {
     guildModel.updateMany(where, data)
 }
 
 export default {
     create: create,
-    get: get,
+    get: get
 }
