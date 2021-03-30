@@ -3,9 +3,9 @@ import { Command } from '../../../types'
 const command: Command = {
     triggers: ['serverinfo', 'server'],
     description: 'Shows informations about server.',
-    permissions: {
-        bot: ['MANAGE_GUILD']
-    },
+    // permissions: {
+    //     bot: ['MANAGE_GUILD']
+    // },
     execute: async(message, Luke, ...args) => {
         const { guild } = message
         const bots = message.guild?.members.cache.map(member => member.user.bot).length
