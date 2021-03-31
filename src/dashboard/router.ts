@@ -21,7 +21,10 @@ export = (app: Application) => {
         else {
             const guilds = req.session?.guilds || []
             req.session.guilds = []
-            guilds.forEach((guild: { g: any, b: any }) => req.session!.guilds.push({ g: guild.g, b: Luke.guilds.cache.get(guild.g.id) ? true : false }))
+
+            guilds.filter((guild: { g: { permissions: number } }) =>
+                new Permissions(guild.g.permissions).has(['MANAGE_MESSAGES', 'MANAGE_GUILD', 'VIEW_AUDIT_LOG'])
+            ).forEach((guild: { g: any, b: any }) => req.session!.guilds.push({ g: guild.g, b: Luke.guilds.cache.get(guild.g.id) ? true : false }))
 
             res.render('dashboard', { user: req.session?.user, guilds: req.session?.guilds || [] })
         }
