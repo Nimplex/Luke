@@ -25,6 +25,7 @@ export interface Command {
 
 export interface Embed {
     object?: message
+    attachment?: Buffer
     author?: MessageEmbedAuthor
     color?: ColorResolvable
     description?: string

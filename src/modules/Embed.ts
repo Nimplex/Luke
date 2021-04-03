@@ -1,11 +1,18 @@
 import { Embed } from '@/types'
-import { MessageEmbed } from 'discord.js'
+import { MessageAttachment, MessageEmbed } from 'discord.js'
+import imageType from 'image-type'
 
 const colors = require('../../files/colors.json')
 
 export default function(options: Embed): MessageEmbed {
     const embed = new MessageEmbed()
     
+    if (options.attachment && options.attachment.length > 0) {
+        const type = imageType(options.attachment);
+        const file = new MessageAttachment(options.attachment, `x.${type ? type.ext : 'png'}`);
+        embed.attachFiles([file]);
+        embed.setImage(`attachment://x.${type ? type.ext : 'png'}`);
+    }
     options.title ? embed.setTitle(options.title) : false
     options.description ? embed.setDescription(options.disableDescriptionCodeBlock == true ? options.description : `\`\`\`${options.description}\`\`\``) : false
     options.author ? embed.setAuthor(options.author) : false
