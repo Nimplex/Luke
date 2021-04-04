@@ -4,6 +4,7 @@ import fetch from 'node-fetch'
 import dashboard from '../../dashboard/server'
 
 const { dlist } = require('../../../files/tokens.json')
+const { bot } = require('../../../files/config.json')
 
 module.exports = (Luke: Luke) => {
     Luke.console.ready(`${Luke.user?.tag} is ready`)
@@ -13,7 +14,7 @@ module.exports = (Luke: Luke) => {
         Luke.console.log('Production version is running')
     if (dlist) {
         setInterval(() => {
-            Luke.console.log('Dlist request sent')
+            Luke.console.log('Dlist request sent.')
             fetch('https://api.dlist.top/v1/bots/stats', {
                 method: 'POST',
                 headers: {
@@ -24,4 +25,16 @@ module.exports = (Luke: Luke) => {
             })
         }, 120000)
     }
+    setInterval(() => {
+        Luke.console.log('Updated status.')
+        Luke.user?.setPresence({
+            status: 'idle',
+            afk: false,
+            activity: {
+                name: `${Luke.guilds.cache.size} guild(s)`,
+                type: 'WATCHING',
+                url: 'https://lukebot.xyz'
+            }
+        })
+    }, 120000)
 }
