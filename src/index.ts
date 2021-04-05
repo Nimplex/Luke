@@ -1,4 +1,5 @@
 import { Client, ClientOptions } from 'discord.js'
+import { Player } from './modules/MusicPlayer'
 import CommandHandler from './handlers/CommandHandler'
 import PluginHandler from './handlers/PluginHandler'
 import EventHandler from './handlers/EventHandler'
@@ -37,6 +38,7 @@ export class Luke extends Client {
     CommandHandler: CommandHandler
     PluginHandler: PluginHandler
     LevelManager: LevelManager
+    cache: Player[]
 
     constructor(options?: ClientOptions) {
         super(options)
@@ -45,6 +47,7 @@ export class Luke extends Client {
         this.CommandHandler = new CommandHandler(this)
         this.EventHandler = new EventHandler(this)
         this.LevelManager = new LevelManager(this)
+        this.cache = []
 
         this.login(tokens.discord)
 
