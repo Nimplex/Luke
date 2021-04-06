@@ -28,7 +28,8 @@
         "node-fetch": "^2.6.1",
         "pug": "^3.0.0",
         "serverline": "^1.5.0",
-        "utf-8-validate": "^5.0.4"
+        "utf-8-validate": "^5.0.4",
+        "ytdl-core": "^4.5.0"
     },
     "devDependencies": {
         "@types/chalk": "^2.2.0",

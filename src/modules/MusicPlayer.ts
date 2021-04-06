@@ -1,4 +1,5 @@
 import { VoiceConnection } from 'discord.js'
+import ytdl from 'ytdl-core'
 
 export type track = {
     requester: {
@@ -15,7 +16,6 @@ export type track = {
 
 export class Player {
     queue: track[]
-    currenctTrack?: track
     connection: VoiceConnection
     guildID: string
     channelID: string
@@ -37,9 +37,6 @@ export class Player {
         const track = this.queue.find(track => track.music.position === position)
         return track || null
     }
-    getCurrentTrack(): track | null {
-        return this.currenctTrack || null
-    }
     getPlayer(): VoiceConnection | null {
         return this.connection || null
     }
@@ -49,13 +46,15 @@ export class Player {
     addTrack(requester: track['requester'], track: { thumbnail: string, url: string, title: string }): track {
         const newTrack: track = {
             requester,
-            music: { thumbnail: track.thumbnail, url: track.thumbnail, title: track.title, position: this.queue.length }
+            music: { thumbnail: track.thumbnail, url: track.url, title: track.title, position: this.queue.length }
         }
         this.queue.push(newTrack)
         return newTrack
     }
-    nextTrack() {
-        
+    nextTrack(): track | undefined {
+        this.queue.shift()
+        this.playTrack()
+        return this.queue[0]
     }
     removeTrack(position: number): boolean {
         const index = this.queue.findIndex(track => track.music.position === position)
@@ -67,9 +66,6 @@ export class Player {
             })
         }
         return true
-    }
-    loopTrack() {
-
     }
 
     // -------------------------------------------- //
@@ -89,6 +85,10 @@ export class Player {
         this.connection.dispatcher.resume()
         this.paused = false
         return !this.paused
+    }
+    playTrack() {
+        this.connection.play(ytdl(this.queue[0].music.url, { filter: 'audioonly' }))
+        return true
     }
 
     // -------------------------------------------- //
