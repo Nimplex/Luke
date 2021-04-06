@@ -13,6 +13,7 @@ export type track = {
         title: string
         position: number
         thumbnail: string
+        loop: boolean
     }
 }
 
@@ -54,7 +55,8 @@ export class Player {
                 url: track.url,
                 title: videoDetails.title,
                 thumbnail: <any> videoDetails.thumbnails[0].url,
-                position: (this.queue[this.queue.length - 1]?.music.position + 1) || 1 
+                position: (this.queue[this.queue.length - 1]?.music.position + 1) || 1,
+                loop: false
             }
         }
         this.queue.push(newTrack)
@@ -69,6 +71,10 @@ export class Player {
         const index = this.queue.findIndex(track => track.music.position === position)
         delete this.queue[index]
         return true
+    }
+    loopTrack(): boolean {
+        this.queue[0].music.loop = !this.queue[0].music.loop
+        return this.queue[0].music.loop
     }
 
     // -------------------------------------------- //
@@ -107,8 +113,9 @@ export class Player {
             thumbnail: this.queue[0].music.thumbnail
         })
         this.connection.dispatcher.setVolume(this.volume)
-        this.playing.on('finish', () => {
+        this.connection.dispatcher.on('finish', () => {
             Embed({ object: message, title: ':x: Track ended' })
+            if (this.queue[0].music.loop == true) return this.playTrack(message)
             this.nextTrack(message)
         })
         return true
