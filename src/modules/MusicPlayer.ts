@@ -68,12 +68,6 @@ export class Player {
     removeTrack(position: number): boolean {
         const index = this.queue.findIndex(track => track.music.position === position)
         delete this.queue[index]
-        if (this.getTrack(index + 1) !== null) {
-            this.queue.forEach(track => {
-                const secondIndex = this.queue.findIndex(({ music }: track) => music.position === track.music.position)
-                if (track.music.position > index) this.queue[secondIndex].music.position -= 1
-            })
-        }
         return true
     }
 
@@ -96,7 +90,6 @@ export class Player {
         return !this.paused
     }
     playTrack(message: message) {
-        this.playing = this.connection.play(ytdl(this.queue[0].music.url, { filter: 'audioonly' }))
         if (this.queue.length == 0) {
             Embed({
                 object: message,
@@ -106,6 +99,7 @@ export class Player {
             // @ts-expect-error
             Luke.cache[message.guild.id] = undefined
         }
+        this.playing = this.connection.play(ytdl(this.queue[0].music.url, { filter: 'audioonly' }))
         Embed({
             object: message,
             title: `:notes: Now playing`,

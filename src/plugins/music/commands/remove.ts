@@ -1,24 +1,18 @@
+import Embed from '../../../modules/Embed'
 import { Command } from '@/types'
 
 const colors = require('../../../../files/colors.json')
 
 const command: Command = {
-    triggers: ['volume'],
-    description: 'Change volume of player.',
-    usage: [
-        {
-            type: 'number',
-            name: 'volume',
-            required: true
-        }
-    ],
+    triggers: ['remove'],
+    description: 'Remove track from queue.',
     execute: async(message, Luke, ...args) => {
         if (!args[0] || typeof parseInt(args[0]) !== 'number') return false
         if (!message.member?.voice.channel) {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: You\'re not connected to my voice channel!'
+                title: ':x: You\'re not connected to any voice channel!'
             })
             return
         }
@@ -27,6 +21,14 @@ const command: Command = {
                 object: message,
                 color: colors.error,
                 title: ':x: You\'re not connected to my voice channel!'
+            })
+            return
+        }
+        if (!message.guild?.me?.voice.channel) {
+            Luke.embed({
+                object: message,
+                color: colors.error,
+                title: ':x: I\'m not in use!'
             })
             return
         }
@@ -39,10 +41,13 @@ const command: Command = {
             })
             return
         }
-        const volume = cache.setVolume(parseInt(args[0]))
-        Luke.embed({
+        const track = cache.getTrack(parseInt(args[0]))
+        if (!track) return
+        cache.removeTrack(parseInt(args[0]))
+        Embed({
             object: message,
-            title: `:loudspeaker: Changed volume to: ${volume}`,
+            title: `:sparkles: Removed ${track.music.title} from queue.`,
+            thumbnail: track.music.thumbnail
         })
     }
 }

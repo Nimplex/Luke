@@ -54,6 +54,10 @@ const command: Command = {
             })
             return
         }
+        Luke.embed({
+            object: message,
+            title: ':mag: Fetching data...'
+        })
         const track = await cache.addTrack(
             { id: message.author.id, username: message.author.username },
             { url: args[0] }
