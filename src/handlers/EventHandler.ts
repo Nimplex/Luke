@@ -8,6 +8,7 @@ export default class EventHandler {
         Luke.on('ready', () => require('./events/ready')(Luke))
         Luke.on('message', message => require('./events/message')(Luke, message))
         Luke.on('messageUpdate', (oldMessage, newMessage) => require('./events/messageUpdate')(Luke, newMessage))
+        Luke.on('voiceStateUpdate', (oldState, newState) => require('./events/voiceStateUpdate')(oldState, newState))
         Luke.on('guildMemberAdd', async member => {
             const guild = await guildManager.get(member.guild.id)
             if (guild.welcomer?.welcome?.enabled == true && guild.welcomer?.welcome?.channel) {
