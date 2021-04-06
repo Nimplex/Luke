@@ -106,7 +106,7 @@ export class Player {
             Luke.cache[message.guild.id] = undefined
         }
         this.playing = this.connection.play(ytdl(this.queue[0].music.url, { filter: 'audioonly' }))
-        Embed({
+        if (!this.queue[0].music.loop) Embed({
             object: message,
             title: `:notes: Now playing`,
             description: `Title: ${this.queue[0].music.title}`,
@@ -114,8 +114,8 @@ export class Player {
         })
         this.connection.dispatcher.setVolume(this.volume)
         this.connection.dispatcher.on('finish', () => {
-            Embed({ object: message, title: ':x: Track ended' })
             if (this.queue[0].music.loop == true) return this.playTrack(message)
+            Embed({ object: message, title: ':x: Track ended' })
             this.nextTrack(message)
         })
         return true

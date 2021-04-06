@@ -36,7 +36,7 @@ const command: Command = {
 
         Luke.embed({
             object: message,
-            title: ':loop: Looped current track'
+            title: ':loop: (UN-)Looped current track'
         })
     }
 }
