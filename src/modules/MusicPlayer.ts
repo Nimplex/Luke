@@ -1,5 +1,7 @@
-import { VoiceConnection } from 'discord.js'
+import {  StreamDispatcher, VoiceConnection } from 'discord.js'
 import ytdl from 'ytdl-core'
+import Embed from './Embed'
+import { message } from '../types'
 
 export type track = {
     requester: {
@@ -9,8 +11,8 @@ export type track = {
     music: {
         url: string
         title: string
-        thumbnail: string
         position: number
+        thumbnail: string
     }
 }
 
@@ -21,6 +23,7 @@ export class Player {
     channelID: string
     paused: boolean = false
     volume: number = 100
+    playing?: StreamDispatcher
 
     constructor(guildID: string, channelID: string, connection: VoiceConnection) {
         this.queue = []
@@ -43,17 +46,23 @@ export class Player {
     getQueue(): track[] {
         return this.queue
     }
-    addTrack(requester: track['requester'], track: { thumbnail: string, url: string, title: string }): track {
+    async addTrack(requester: track['requester'], track: { url: string }): Promise<track> {
+        const { videoDetails } = await ytdl.getInfo(track.url)
         const newTrack: track = {
             requester,
-            music: { thumbnail: track.thumbnail, url: track.url, title: track.title, position: this.queue.length }
+            music: {
+                url: track.url,
+                title: videoDetails.title,
+                thumbnail: <any> videoDetails.thumbnails[0].url,
+                position: (this.queue[0]?.music.position + 1) || 1 
+            }
         }
         this.queue.push(newTrack)
         return newTrack
     }
-    nextTrack(): track | undefined {
+    nextTrack(message: message): track | undefined {
         this.queue.shift()
-        this.playTrack()
+        this.playTrack(message)
         return this.queue[0]
     }
     removeTrack(position: number): boolean {
@@ -86,8 +95,18 @@ export class Player {
         this.paused = false
         return !this.paused
     }
-    playTrack() {
-        this.connection.play(ytdl(this.queue[0].music.url, { filter: 'audioonly' }))
+    playTrack(message: message) {
+        this.playing = this.connection.play(ytdl(this.queue[0].music.url, { filter: 'audioonly' }))
+        Embed({
+            object: message,
+            title: `:notes: Now playing`,
+            description: `Title: ${this.queue[0].music.title}`,
+            thumbnail: this.queue[0].music.thumbnail
+        })
+        this.playing.on('finish', () => {
+            Embed({ object: message, title: ':x: Track ended' })
+            this.nextTrack(message)
+        })
         return true
     }
 
