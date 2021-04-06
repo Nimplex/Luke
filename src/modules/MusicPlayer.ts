@@ -23,7 +23,7 @@ export class Player {
     guildID: string
     channelID: string
     paused: boolean = false
-    volume: number = 20
+    volume: number = 0.2
     playing?: StreamDispatcher
 
     constructor(guildID: string, channelID: string, connection: VoiceConnection) {
