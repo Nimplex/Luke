@@ -22,7 +22,7 @@ export class Player {
     guildID: string
     channelID: string
     paused: boolean = false
-    volume: number = 100
+    volume: number = 20
     playing?: StreamDispatcher
 
     constructor(guildID: string, channelID: string, connection: VoiceConnection) {
@@ -106,6 +106,7 @@ export class Player {
             description: `Title: ${this.queue[0].music.title}`,
             thumbnail: this.queue[0].music.thumbnail
         })
+        this.connection.dispatcher.setVolume(this.volume)
         this.playing.on('finish', () => {
             Embed({ object: message, title: ':x: Track ended' })
             this.nextTrack(message)
