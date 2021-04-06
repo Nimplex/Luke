@@ -9,19 +9,11 @@ const command: Command = {
         bot: ['CONNECT'],
     },
     execute: async(message, Luke, ...args) => {
-        if (!message.member?.voice.channel) {
+        if (!message.member?.voice.channel || message.member.voice.channelID !== message.guild?.me?.voice.channelID) {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                description: 'You\'re not connected to my voice channel!'
-            })
-            return
-        }
-        if (!message.guild?.me?.voice.channel) {
-            Luke.embed({
-                object: message,
-                color: colors.error,
-                description: 'I\'m not in use!'
+                title: ':x: You\'re not connected to my voice channel!'
             })
             return
         }
@@ -31,7 +23,7 @@ const command: Command = {
         Luke.embed({
             object: message,
             color: colors.done,
-            description: 'Left voice channel.'
+            title: ':door: Left voice channel'
         })
     }
 }

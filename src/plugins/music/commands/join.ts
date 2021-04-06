@@ -14,7 +14,7 @@ const command: Command = {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                description: 'You\'re not connected to any voice channel!'
+                title: ':x: You\'re not connected to my voice channel!'
             })
             return
         }
@@ -22,7 +22,7 @@ const command: Command = {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                description: 'I\'m already in use!'
+                title: ':x: I\'m already in use!'
             })
             return
         }
@@ -31,7 +31,7 @@ const command: Command = {
         Luke.embed({
             object: message,
             color: colors.done,
-            description: 'Joined voice channel.'
+            title: ':wave: Joined voice channel'
         })
     }
 }
