@@ -54,7 +54,7 @@ export class Player {
                 url: track.url,
                 title: videoDetails.title,
                 thumbnail: <any> videoDetails.thumbnails[0].url,
-                position: (this.queue[0]?.music.position + 1) || 1 
+                position: (this.queue[this.queue.length - 1]?.music.position + 1) || 1 
             }
         }
         this.queue.push(newTrack)
@@ -97,6 +97,15 @@ export class Player {
     }
     playTrack(message: message) {
         this.playing = this.connection.play(ytdl(this.queue[0].music.url, { filter: 'audioonly' }))
+        if (this.queue.length == 0) {
+            Embed({
+                object: message,
+                title: ':wave: Queue is empty, leaving voice channel.'
+            })
+            message.member?.voice.channel?.leave()
+            // @ts-expect-error
+            Luke.cache[message.guild.id] = undefined
+        }
         Embed({
             object: message,
             title: `:notes: Now playing`,

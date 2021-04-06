@@ -5,7 +5,7 @@ import { validateURL } from 'ytdl-core'
 const colors = require('../../../../files/colors.json')
 
 const command: Command = {
-    triggers: ['play'],
+    triggers: ['play', 'p'],
     description: 'Play music on voice channel.',
     permissions: {
         bot: ['CONNECT', 'SPEAK'],

@@ -3,14 +3,22 @@ import { Command } from '@/types'
 const colors = require('../../../../files/colors.json')
 
 const command: Command = {
-    triggers: ['queue', 'q'],
-    description: 'Display queue.',
+    triggers: ['resume'],
+    description: 'Resume current track.',
     execute: async(message, Luke, ...args) => {
-        if (!message.guild?.me?.voice.channel) {
+        if (!message.member?.voice.channel) {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: I\'m not in use!'
+                title: ':x: You\'re not connected to any voice channel!'
+            })
+            return
+        }
+        if (!message.member?.voice.channel || message.member.voice.channelID !== message.guild?.me?.voice.channelID) {
+            Luke.embed({
+                object: message,
+                color: colors.error,
+                title: ':x: You\'re not connected to my voice channel!'
             })
             return
         }
@@ -23,11 +31,10 @@ const command: Command = {
             })
             return
         }
+        cache.resumePlayer()
         Luke.embed({
             object: message,
-            title: `:1234: Queue for: ${message.guild.name}`,
-            thumbnail: message.guild.iconURL({ dynamic: true }),
-            description: cache.getQueue().map(track => `${track.music.position}. ${track.music.title} (${track.requester.username})`).join('\n')
+            title: ':play_pause: Resumed player'
         })
     }
 }
