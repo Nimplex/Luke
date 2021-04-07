@@ -1,10 +1,10 @@
-import { Embed } from '@/types'
+import { Embed, message } from '@/types'
 import { MessageAttachment, MessageEmbed } from 'discord.js'
 import imageType from 'image-type'
 
 const colors = require('../../files/colors.json')
 
-export default function(options: Embed): MessageEmbed {
+export default function(options: Embed): Promise<message> | MessageEmbed {
     const embed = new MessageEmbed()
     
     if (options.attachment && options.attachment.length > 0) {
@@ -30,7 +30,7 @@ export default function(options: Embed): MessageEmbed {
     })
 
     if (options.object) {
-        options.object.channel.send(embed)
-        return embed
+        const msg = options.object.channel.send(embed)
+        return <any> msg
     } else return embed
 }

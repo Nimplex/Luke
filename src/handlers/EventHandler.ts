@@ -1,6 +1,6 @@
 import guildManager from '../database/guildManager'
 import { Luke } from '@/index'
-import { WebhookClient } from 'discord.js'
+import { MessageEmbed, WebhookClient } from 'discord.js'
 import Embed from '../modules/Embed'
 
 export default class EventHandler {
@@ -17,7 +17,7 @@ export default class EventHandler {
                 else {
                     let message = guild.welcomer.welcome?.message
                     if (guild.welcomer?.welcome?.random_message.enabled) message = guild.welcomer?.welcome?.random_message.messages[Math.floor(Math.random()*guild.welcomer.welcome.random_message.messages.length)]
-                    wClient.send(Embed({
+                    wClient.send(<MessageEmbed> Embed({
                         title: 'Welcome',
                         description: message.replace(/{user.name}/gm, member.user?.tag || 'X').replace(/{guild.name}/gm, member.guild.name || 'X'),
                         thumbnail: member.user.avatarURL({ dynamic: true }),
@@ -35,7 +35,7 @@ export default class EventHandler {
                 else {
                     let message = guild.welcomer?.goodbye?.message
                     if (guild.welcomer?.goodbye?.random_message.enabled) message = guild.welcomer?.goodbye?.random_message.messages[Math.floor(Math.random()*guild.welcomer.goodbye.random_message.messages.length)]
-                    lClient.send(Embed({
+                    lClient.send(<MessageEmbed> Embed({
                         title: 'Goodbye',
                         description: message.replace(/{user.name}/gm, member.user?.tag || 'X').replace(/{guild.name}/gm, member.guild.name || 'X'),
                         thumbnail: member.user?.avatarURL({ dynamic: true }),

@@ -1,7 +1,8 @@
-import {  StreamDispatcher, VoiceConnection } from 'discord.js'
+import { MessageEmbed, StreamDispatcher, VoiceConnection } from 'discord.js'
+import { message } from '../types'
 import ytdl from 'ytdl-core'
 import Embed from './Embed'
-import { message } from '../types'
+import Luke from '../index'
 
 export type track = {
     requester: {
@@ -64,7 +65,7 @@ export class Player {
     }
     nextTrack(message: message): track | undefined {
         this.queue.shift()
-        this.playTrack(message)
+        this.playTrack(message, true)
         return this.queue[0]
     }
     removeTrack(position: number): boolean {
@@ -95,27 +96,34 @@ export class Player {
         this.paused = false
         return !this.paused
     }
-    playTrack(message: message) {
+    playTrack(message: message, edit?: boolean) {
         if (this.queue.length == 0) {
-            Embed({
-                object: message,
+            message.channel.send(<MessageEmbed> Embed({
                 title: ':wave: Queue is empty, leaving voice channel.'
-            })
+            }))
             message.member?.voice.channel?.leave()
             // @ts-expect-error
             Luke.cache[message.guild.id] = undefined
+            return
         }
         this.playing = this.connection.play(ytdl(this.queue[0].music.url, { filter: 'audioonly' }))
-        if (!this.queue[0].music.loop) Embed({
-            object: message,
-            title: `:notes: Now playing`,
-            description: `Title: ${this.queue[0].music.title}`,
-            thumbnail: this.queue[0].music.thumbnail
-        })
+        if (!this.queue[0].music.loop) {
+            if (edit) message.edit(<MessageEmbed> Embed({
+                title: `:notes: Now playing`,
+                description: `Title: ${this.queue[0].music.title}`,
+                thumbnail: this.queue[0].music.thumbnail
+            }))
+            else Embed({
+                object: message,
+                title: `:notes: Now playing`,
+                description: `Title: ${this.queue[0].music.title}`,
+                thumbnail: this.queue[0].music.thumbnail
+            })
+        }
         this.connection.dispatcher.setVolume(this.volume)
         this.connection.dispatcher.on('finish', () => {
-            if (this.queue[0].music.loop == true) return this.playTrack(message)
-            Embed({ object: message, title: ':x: Track ended' })
+            if (this.queue[0].music.loop == true) return this.playTrack(message, true)
+            message.channel.send(<MessageEmbed> Embed({ title: ':x: Track ended' }))
             this.nextTrack(message)
         })
         return true
