@@ -65,7 +65,7 @@ export class Player {
     }
     nextTrack(message: message): track | undefined {
         this.queue.shift()
-        this.playTrack(message, true)
+        this.playTrack(message)
         return this.queue[0]
     }
     removeTrack(position: number): boolean {
