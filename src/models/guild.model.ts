@@ -51,7 +51,7 @@ export interface Guild extends Document {
                 enabled: boolean
                 messages: string[]
             }
-        },
+        }
         goodbye?: {
             enabled: boolean
             channel: {
@@ -69,52 +69,55 @@ export interface Guild extends Document {
         }
     }
     automoderator?: {
-        spam: boolean,
-        invites: boolean,
+        spam: boolean
+        invites: boolean
         blacklist: string[]
     }
 }
 
-const GuildSchema: Schema = new Schema({
-    prefix: String,
-    gid: { type: String, unique: true },
-    welcomer: {
-        welcome: {
-            enabled: Boolean,
-            channel: {
-                id: String,
-                webhook: {
-                    token: String,
-                    id: String
-                }
-            },
-            message: String,
-            random_message: {
+const GuildSchema: Schema = new Schema(
+    {
+        prefix: String,
+        gid: { type: String, unique: true },
+        welcomer: {
+            welcome: {
                 enabled: Boolean,
-                messages: []
-            }
+                channel: {
+                    id: String,
+                    webhook: {
+                        token: String,
+                        id: String,
+                    },
+                },
+                message: String,
+                random_message: {
+                    enabled: Boolean,
+                    messages: [],
+                },
+            },
+            goodbye: {
+                enabled: Boolean,
+                channel: {
+                    id: String,
+                    webhook: {
+                        token: String,
+                        id: String,
+                    },
+                },
+                message: String,
+                random_message: {
+                    enabled: Boolean,
+                    messages: [],
+                },
+            },
         },
-        goodbye: {
-            enabled: Boolean,
-            channel: {
-                id: String,
-                webhook: {
-                    token: String,
-                    id: String
-                }
-            },
-            message: String,
-            random_message: {
-                enabled: Boolean,
-                messages: []
-            }
-        }
+        automoderator: {
+            spam: Boolean,
+            invites: Boolean,
+            blacklist: Object,
+        },
     },
-    automoderator: {
-        spam: Boolean,
-        invites: Boolean,
-        blacklist: Object
-    }
-}, { timestamps: true })
+    { timestamps: true }
+)
 
 export default mongoose.model<Guild>('guilds', GuildSchema)

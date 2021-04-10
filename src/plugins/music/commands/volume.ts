@@ -9,33 +9,37 @@ const command: Command = {
         {
             type: 'number',
             name: 'volume',
-            required: true
-        }
+            required: true,
+        },
     ],
-    execute: async(message, Luke, ...args) => {
+    execute: async (message, Luke, ...args) => {
         if (!args[0] || typeof parseInt(args[0]) !== 'number') return false
         if (!message.member?.voice.channel) {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: You\'re not connected to my voice channel!'
+                title: ":x: You're not connected to my voice channel!",
             })
             return
         }
-        if (message.guild?.me?.voice.channelID !== message.member.voice.channelID) {
+        if (
+            message.guild?.me?.voice.channelID !==
+            message.member.voice.channelID
+        ) {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: You\'re not connected to my voice channel!'
+                title: ":x: You're not connected to my voice channel!",
             })
             return
         }
-        const cache = Luke.cache[(<any> message.guild?.id)]
+        const cache = Luke.cache[<any>message.guild?.id]
         if (!cache) {
             Luke.embed({
                 object: message,
-                title: ':x: I cannot fetch cache (please disconnect bot and connect again)!',
-                color: colors.error
+                title:
+                    ':x: I cannot fetch cache (please disconnect bot and connect again)!',
+                color: colors.error,
             })
             return
         }
@@ -44,7 +48,7 @@ const command: Command = {
             object: message,
             title: `:loudspeaker: Changed volume to: ${volume}`,
         })
-    }
+    },
 }
 
 module.exports = command

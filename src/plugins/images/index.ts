@@ -31,13 +31,13 @@ for (const image of images) {
     const command: Command = {
         triggers: [image],
         description: `Get image of ${image}.`,
-        execute: async(message, Luke, ...args) => {
+        execute: async (message, Luke, ...args) => {
             Luke.embed({
                 object: message,
                 attachment: await (await makeRequest(image)).buffer(),
-                footer: 'Image from https://obrazium.com'
+                footer: 'Image from https://obrazium.com',
             })
-        }
+        },
     }
     commands.push(command)
 }
@@ -45,5 +45,5 @@ for (const image of images) {
 module.exports = {
     name: ':frame_photo: Images',
     id: 'images',
-    commands: commands
+    commands: commands,
 }

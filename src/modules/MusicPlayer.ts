@@ -27,7 +27,11 @@ export class Player {
     volume: number = 0.2
     playing?: StreamDispatcher
 
-    constructor(guildID: string, channelID: string, connection: VoiceConnection) {
+    constructor(
+        guildID: string,
+        channelID: string,
+        connection: VoiceConnection
+    ) {
         this.queue = []
         this.guildID = guildID
         this.channelID = channelID
@@ -35,11 +39,17 @@ export class Player {
     }
 
     // -------------------------------------------- //
-    
-    getPaused(): boolean { return this.paused }
-    getVolume(): number { return this.volume }
+
+    getPaused(): boolean {
+        return this.paused
+    }
+    getVolume(): number {
+        return this.volume
+    }
     getTrack(position: number): track | null {
-        const track = this.queue.find(track => track.music.position === position)
+        const track = this.queue.find(
+            (track) => track.music.position === position
+        )
         return track || null
     }
     getPlayer(): VoiceConnection | null {
@@ -48,17 +58,21 @@ export class Player {
     getQueue(): track[] {
         return this.queue
     }
-    async addTrack(requester: track['requester'], track: { url: string }): Promise<track> {
+    async addTrack(
+        requester: track['requester'],
+        track: { url: string }
+    ): Promise<track> {
         const { videoDetails } = await ytdl.getInfo(track.url)
         const newTrack: track = {
             requester,
             music: {
                 url: track.url,
                 title: videoDetails.title,
-                thumbnail: <any> videoDetails.thumbnails[0].url,
-                position: (this.queue[this.queue.length - 1]?.music.position + 1) || 1,
-                loop: false
-            }
+                thumbnail: <any>videoDetails.thumbnails[0].url,
+                position:
+                    this.queue[this.queue.length - 1]?.music.position + 1 || 1,
+                loop: false,
+            },
         }
         this.queue.push(newTrack)
         return newTrack
@@ -69,7 +83,9 @@ export class Player {
         return this.queue[0]
     }
     removeTrack(position: number): boolean {
-        const index = this.queue.findIndex(track => track.music.position === position)
+        const index = this.queue.findIndex(
+            (track) => track.music.position === position
+        )
         delete this.queue[index]
         return true
     }
@@ -98,32 +114,43 @@ export class Player {
     }
     playTrack(message: message, edit?: boolean) {
         if (this.queue.length == 0) {
-            message.channel.send(<MessageEmbed> Embed({
-                title: ':wave: Queue is empty, leaving voice channel.'
-            }))
+            message.channel.send(
+                <MessageEmbed>Embed({
+                    title: ':wave: Queue is empty, leaving voice channel.',
+                })
+            )
             message.member?.voice.channel?.leave()
             // @ts-expect-error
             Luke.cache[message.guild.id] = undefined
             return
         }
-        this.playing = this.connection.play(ytdl(this.queue[0].music.url, { filter: 'audioonly' }))
+        this.playing = this.connection.play(
+            ytdl(this.queue[0].music.url, { filter: 'audioonly' })
+        )
         if (!this.queue[0].music.loop) {
-            if (edit) message.edit(<MessageEmbed> Embed({
-                title: `:notes: Now playing`,
-                description: `Title: ${this.queue[0].music.title}`,
-                thumbnail: this.queue[0].music.thumbnail
-            }))
-            else Embed({
-                object: message,
-                title: `:notes: Now playing`,
-                description: `Title: ${this.queue[0].music.title}`,
-                thumbnail: this.queue[0].music.thumbnail
-            })
+            if (edit)
+                message.edit(
+                    <MessageEmbed>Embed({
+                        title: `:notes: Now playing`,
+                        description: `Title: ${this.queue[0].music.title}`,
+                        thumbnail: this.queue[0].music.thumbnail,
+                    })
+                )
+            else
+                Embed({
+                    object: message,
+                    title: `:notes: Now playing`,
+                    description: `Title: ${this.queue[0].music.title}`,
+                    thumbnail: this.queue[0].music.thumbnail,
+                })
         }
         this.connection.dispatcher.setVolume(this.volume)
         this.connection.dispatcher.on('finish', () => {
-            if (this.queue[0].music.loop == true) return this.playTrack(message, true)
-            message.channel.send(<MessageEmbed> Embed({ title: ':x: Track ended' }))
+            if (this.queue[0].music.loop == true)
+                return this.playTrack(message, true)
+            message.channel.send(
+                <MessageEmbed>Embed({ title: ':x: Track ended' })
+            )
             this.nextTrack(message)
         })
         return true

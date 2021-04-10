@@ -14,13 +14,15 @@ const command: Command = {
             name: 'test'
         }
     ],*/
-    execute: async(message, Luke, ...args) => {
+    execute: async (message, Luke, ...args) => {
         Luke.embed({
             object: message,
             title: ':ping_pong: Pong',
-            description: `API: ${Math.floor(Luke.ws.ping)}ms\nMessage: ${Date.now() - message.createdTimestamp}ms`
+            description: `API: ${Math.floor(Luke.ws.ping)}ms\nMessage: ${
+                Date.now() - message.createdTimestamp
+            }ms`,
         })
-    }
+    },
 }
 
 module.exports = command

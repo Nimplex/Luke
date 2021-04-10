@@ -9,12 +9,12 @@ const command: Command = {
     permissions: {
         bot: ['CONNECT'],
     },
-    execute: async(message, Luke, ...args) => {
+    execute: async (message, Luke, ...args) => {
         if (!message.member?.voice.channel) {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: You\'re not connected to my voice channel!'
+                title: ":x: You're not connected to my voice channel!",
             })
             return
         }
@@ -22,18 +22,22 @@ const command: Command = {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: I\'m already in use!'
+                title: ":x: I'm already in use!",
             })
             return
         }
         const connection = await message.member.voice.channel?.join()
-        Luke.cache[(<any> message.guild?.id)] = new Player(message.guild?.id || '', connection.channel.id, connection)
+        Luke.cache[<any>message.guild?.id] = new Player(
+            message.guild?.id || '',
+            connection.channel.id,
+            connection
+        )
         Luke.embed({
             object: message,
             color: colors.done,
-            title: ':wave: Joined voice channel'
+            title: ':wave: Joined voice channel',
         })
-    }
+    },
 }
 
 module.exports = command

@@ -13,10 +13,10 @@ const command: Command = {
         {
             name: '@member',
             type: 'mention',
-            required: true
-        }
+            required: true,
+        },
     ],
-    execute: async(message, Luke, ...args) => {
+    execute: async (message, Luke, ...args) => {
         const member = message.mentions.members?.first()
         const reason = args.join(' ').replace(args[0], '').replace(' ', '')
 
@@ -25,25 +25,33 @@ const command: Command = {
         if (!member.kickable) {
             Luke.embed({
                 object: message,
-                description: 'You can\'t kick this member.',
-                color: colors.error
+                description: "You can't kick this member.",
+                color: colors.error,
             })
             return
         }
 
-        reason ? member.kick(`${message.author.tag} (${message.author.id}): ${reason}`) : member.kick()
-        
+        reason
+            ? member.kick(
+                  `${message.author.tag} (${message.author.id}): ${reason}`
+              )
+            : member.kick()
+
         Luke.embed({
             object: message,
             title: ':hammer: Member has been kicked.',
             fields: [
-                ['Moderator', `${message.author.tag} (${message.author.id})`, true],
+                [
+                    'Moderator',
+                    `${message.author.tag} (${message.author.id})`,
+                    true,
+                ],
                 ['Member', `${member.user.tag} (${member.user.id})`, true],
-                ['Reason', reason || 'none']
+                ['Reason', reason || 'none'],
             ],
-            color: colors.done
+            color: colors.done,
         })
-    }
+    },
 }
 
 module.exports = command

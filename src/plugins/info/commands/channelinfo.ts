@@ -4,17 +4,19 @@ const command: Command = {
     triggers: ['channel', 'channelinfo'],
     description: 'Shows informations about channel.',
     permissions: {
-        bot: ['MANAGE_CHANNELS']
+        bot: ['MANAGE_CHANNELS'],
     },
     usage: [
         {
             name: '#channel',
-            type: 'channel'
-        }
+            type: 'channel',
+        },
     ],
-    execute: async(message, Luke, ...args) => {
+    execute: async (message, Luke, ...args) => {
         const channel = message.mentions.channels.first() || message.channel
-        const firstMessage = (await channel.messages.fetch({ limit: 1, after: '1' })).first()
+        const firstMessage = (
+            await channel.messages.fetch({ limit: 1, after: '1' })
+        ).first()
 
         Luke.embed({
             object: message,
@@ -27,10 +29,13 @@ const command: Command = {
                 ['Viewable', channel.viewable == true ? 'yes' : 'no', true],
                 ['Type', channel.type, true],
                 ['Position', channel.position, true],
-                ['First message', `Content: ${firstMessage?.content}\nAuthor: ${firstMessage?.author.tag} (${firstMessage?.author.id})`]
-            ]
+                [
+                    'First message',
+                    `Content: ${firstMessage?.content}\nAuthor: ${firstMessage?.author.tag} (${firstMessage?.author.id})`,
+                ],
+            ],
         })
-    }
+    },
 }
 
 module.exports = command

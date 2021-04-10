@@ -7,11 +7,14 @@ export interface User extends Document {
     uid: string
 }
 
-const UserSchema: Schema = new Schema({
-    messagesCount: Number,
-    experience: Number,
-    level: Number,
-    uid: String
-}, { timestamps: true })
+const UserSchema: Schema = new Schema(
+    {
+        messagesCount: Number,
+        experience: Number,
+        level: Number,
+        uid: String,
+    },
+    { timestamps: true }
+)
 
 export default mongoose.model<User>('levels', UserSchema)

@@ -6,21 +6,24 @@ const colors = require('../../../../files/colors.json')
 const command: Command = {
     triggers: ['remove'],
     description: 'Remove track from queue.',
-    execute: async(message, Luke, ...args) => {
+    execute: async (message, Luke, ...args) => {
         if (!args[0] || typeof parseInt(args[0]) !== 'number') return false
         if (!message.member?.voice.channel) {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: You\'re not connected to any voice channel!'
+                title: ":x: You're not connected to any voice channel!",
             })
             return
         }
-        if (message.guild?.me?.voice.channelID !== message.member.voice.channelID) {
+        if (
+            message.guild?.me?.voice.channelID !==
+            message.member.voice.channelID
+        ) {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: You\'re not connected to my voice channel!'
+                title: ":x: You're not connected to my voice channel!",
             })
             return
         }
@@ -28,16 +31,17 @@ const command: Command = {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: I\'m not in use!'
+                title: ":x: I'm not in use!",
             })
             return
         }
-        const cache = Luke.cache[(<any> message.guild?.id)]
+        const cache = Luke.cache[<any>message.guild?.id]
         if (!cache) {
             Luke.embed({
                 object: message,
-                title: ':x: I cannot fetch cache (please disconnect bot and connect again)!',
-                color: colors.error
+                title:
+                    ':x: I cannot fetch cache (please disconnect bot and connect again)!',
+                color: colors.error,
             })
             return
         }
@@ -47,9 +51,9 @@ const command: Command = {
         Embed({
             object: message,
             title: `:sparkles: Removed ${track.music.title} from queue.`,
-            thumbnail: track.music.thumbnail
+            thumbnail: track.music.thumbnail,
         })
-    }
+    },
 }
 
 module.exports = command

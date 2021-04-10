@@ -13,22 +13,22 @@ import serverline from 'serverline'
 
 const tokens = require('../files/tokens.json')
 
-mongoose.connect(
-    `mongodb://${tokens.mongo.ip}/${tokens.mongo.database}`,
-    {
+mongoose
+    .connect(`mongodb://${tokens.mongo.ip}/${tokens.mongo.database}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         authSource: tokens.mongo.authDatabase,
         user: tokens.mongo.username,
         pass: tokens.mongo.password,
-        useCreateIndex: true
-    }
-).then(() => {
-    Console.ready('MongoDB connected')
-}).catch(err => {
-    Console.error(`MongoDB error: ${err}`)
-    process.exit()
-})
+        useCreateIndex: true,
+    })
+    .then(() => {
+        Console.ready('MongoDB connected')
+    })
+    .catch((err) => {
+        Console.error(`MongoDB error: ${err}`)
+        process.exit()
+    })
 
 export class Luke extends Client {
     dashboard!: dashboard
@@ -52,7 +52,7 @@ export class Luke extends Client {
         this.login(tokens.discord)
 
         serverline.init({ colorMode: true, prompt: '> ' })
-        serverline.on('line', async(line: string) => {
+        serverline.on('line', async (line: string) => {
             try {
                 const result = await eval(line)
                 console.log(result)

@@ -53,7 +53,9 @@ module.exports = async (Luke: Luke, message: message) => {
         if (word == '') return
         if (
             message.content.toLowerCase().includes(word.toLowerCase()) ||
-            message.content.toLowerCase().includes(Buffer.from(word.toLowerCase()).toString('base64'))
+            message.content
+                .toLowerCase()
+                .includes(Buffer.from(word.toLowerCase()).toString('base64'))
         ) {
             message.delete()
             message.reply("This word isn't allowed on this server!")

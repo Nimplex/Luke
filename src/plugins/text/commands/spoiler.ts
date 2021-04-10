@@ -7,18 +7,18 @@ const command: Command = {
         {
             name: 'text',
             type: 'text',
-            required: true
-        }
+            required: true,
+        },
     ],
-    execute: async(message, Luke, ...args) => {
+    execute: async (message, Luke, ...args) => {
         const ftext = args.join(' ')
         let text = ''
-        ftext.split('').forEach(t => text += `||${t}||`)
+        ftext.split('').forEach((t) => (text += `||${t}||`))
         Luke.embed({
             object: message,
-            description: text
+            description: text,
         })
-    }
+    },
 }
 
 module.exports = command

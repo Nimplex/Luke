@@ -13,9 +13,9 @@ const command: Command = {
         {
             name: 'topic',
             type: 'text',
-        }
+        },
     ],
-    execute: async(message, Luke, ...args) => {
+    execute: async (message, Luke, ...args) => {
         let channel = message.mentions.channels.first() || message.channel
         let topic = args.join(' ') || ''
 
@@ -25,7 +25,7 @@ const command: Command = {
             object: message,
             description: `Channel topic changed to:\n**${topic || 'none'}**`,
         })
-    }
+    },
 }
 
 module.exports = command

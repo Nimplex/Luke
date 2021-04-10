@@ -8,12 +8,16 @@ const command: Command = {
     permissions: {
         bot: ['CONNECT'],
     },
-    execute: async(message, Luke, ...args) => {
-        if (!message.member?.voice.channel || message.member.voice.channelID !== message.guild?.me?.voice.channelID) {
+    execute: async (message, Luke, ...args) => {
+        if (
+            !message.member?.voice.channel ||
+            message.member.voice.channelID !==
+                message.guild?.me?.voice.channelID
+        ) {
             Luke.embed({
                 object: message,
                 color: colors.error,
-                title: ':x: You\'re not connected to my voice channel!'
+                title: ":x: You're not connected to my voice channel!",
             })
             return
         }
@@ -23,9 +27,9 @@ const command: Command = {
         Luke.embed({
             object: message,
             color: colors.done,
-            title: ':door: Left voice channel'
+            title: ':door: Left voice channel',
         })
-    }
+    },
 }
 
 module.exports = command
