@@ -1,4 +1,4 @@
-import { Luke } from '@/index'
+import { Luke } from '@/client'
 import { Command, message } from '@/types'
 import ArgsHandler from '../ArgsHandler'
 import guildManager from '../../database/guildManager'

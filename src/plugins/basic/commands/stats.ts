@@ -1,35 +1,38 @@
 import { Command } from '@/types'
-import dayjs from 'dayjs'
 
 const command: Command = {
     triggers: ['stats'],
     description: 'Shows bot stats.',
     execute: async (message, Luke, ...args) => {
-        let days = 0
-        let week = 0
-        let uptime = ''
-        let totalSeconds = (Luke?.uptime || 0) / 1000
-        let hours = Math.floor(totalSeconds / 3600)
-        totalSeconds %= 3600
-        let minutes = Math.floor(totalSeconds / 60)
-        let seconds = Math.floor(totalSeconds % 60)
-        if (hours > 24) {
-            days = days + 1
-            hours = 0
-        }
-        if (week - 0) uptime += `${week} week, `
-        if (minutes > 60) minutes = 0
-        uptime += `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`
-
+        const memberCount = await Luke.shard?.broadcastEval(
+            'this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)'
+        )
+        const channelCount = await Luke.shard?.fetchClientValues(
+            'channels.cache.size'
+        )
+        const guildCount = await Luke.shard?.fetchClientValues(
+            'guilds.cache.size'
+        )
         Luke.embed({
             object: message,
-            fields: [
-                ['Guilds', Luke.guilds.cache.size, true],
-                ['Channels', Luke.channels.cache.size, true],
-                ['Members', Luke.users.cache.size, true],
-                ['Uptime', uptime, true],
-                ['Ping', `${Luke.ws.ping}ms`, true],
-            ],
+            description: `
+                <:online:830477901698170952> Total guilds: **${guildCount?.reduce(
+                    (a, b) => a + b,
+                    0
+                )}**
+                <:online:830477901698170952> Total members: **${memberCount?.reduce(
+                    (a, b) => a + b,
+                    0
+                )}**
+                <:online:830477901698170952> Total cached channels: **${channelCount?.reduce(
+                    (a, b) => a + b,
+                    0
+                )}**
+                <:BrugOkBro:830778463233114123> Total shards: **${
+                    Luke.shard?.count
+                }**
+            `,
+            disableDescriptionCodeBlock: true,
         })
     },
 }

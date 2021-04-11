@@ -1,5 +1,5 @@
 import guildManager from '../../database/guildManager'
-import { Luke } from '@/index'
+import { Luke } from '@/client'
 import { message } from '@/types'
 
 module.exports = async (Luke: Luke, message: message) => {

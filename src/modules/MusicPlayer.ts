@@ -2,7 +2,7 @@ import { MessageEmbed, StreamDispatcher, VoiceConnection } from 'discord.js'
 import { message } from '../types'
 import ytdl from 'ytdl-core'
 import Embed from './Embed'
-import Luke from '../index'
+import Luke from '../client'
 
 export type track = {
     requester: {

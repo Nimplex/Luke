@@ -1,5 +1,5 @@
 import { Command, message } from '@/types'
-import Luke from '..'
+import Luke from '../client'
 
 const { bot } = require('../../files/config.json')
 const colors = require('../../files/colors.json')

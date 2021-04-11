@@ -3,7 +3,7 @@ import { Channel, NewsChannel, Permissions, TextChannel } from 'discord.js'
 import { Application } from 'express'
 import FormData from 'form-data'
 import fetch from 'node-fetch'
-import Luke from '..'
+import Luke from '../client'
 
 const tokens = require('../../files/tokens.json')
 const { server } = require('../../files/config.json')

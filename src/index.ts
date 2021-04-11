@@ -1,66 +1,25 @@
-import { Client, ClientOptions } from 'discord.js'
-import { Player } from './modules/MusicPlayer'
-import CommandHandler from './handlers/CommandHandler'
-import PluginHandler from './handlers/PluginHandler'
-import EventHandler from './handlers/EventHandler'
-import LevelManager from './database/levelManager'
-import Embed from './modules/Embed'
-import Console from './modules/Console'
 import dashboard from './dashboard/server'
-import mongoose from 'mongoose'
-// @ts-ignore
-import serverline from 'serverline'
+import { ShardingManager } from 'discord.js'
+import { join } from 'path'
+import Console from './modules/Console'
 
 const tokens = require('../files/tokens.json')
 
-mongoose
-    .connect(`mongodb://${tokens.mongo.ip}/${tokens.mongo.database}`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        authSource: tokens.mongo.authDatabase,
-        user: tokens.mongo.username,
-        pass: tokens.mongo.password,
-        useCreateIndex: true,
-    })
-    .then(() => {
-        Console.ready('MongoDB connected')
-    })
-    .catch((err) => {
-        Console.error(`MongoDB error: ${err}`)
-        process.exit()
-    })
+const manager = new ShardingManager(join(__dirname, 'client.js'), {
+    totalShards: 'auto',
+    mode: 'process',
+    shardArgs: process.argv[2] ? ['dev'] : [],
+    token: tokens.discord,
+})
+manager.on('shardCreate', (shard) => {
+    shard.on('ready', () => Console.ready(`Shard ${shard.id} is ready!`))
+    shard.on('death', () => Console.error(`Shard ${shard.id} has died.`))
+    shard.on('error', (err) =>
+        Console.error(`Shard ${shard.id} has errored: ${err}.`)
+    )
+})
 
-export class Luke extends Client {
-    dashboard!: dashboard
-    embed = Embed
-    console = Console
-    EventHandler: EventHandler
-    CommandHandler: CommandHandler
-    PluginHandler: PluginHandler
-    LevelManager: LevelManager
-    cache: Player[]
+manager.spawn()
 
-    constructor(options?: ClientOptions) {
-        super(options)
-
-        this.PluginHandler = new PluginHandler(this)
-        this.CommandHandler = new CommandHandler(this)
-        this.EventHandler = new EventHandler(this)
-        this.LevelManager = new LevelManager(this)
-        this.cache = []
-
-        this.login(tokens.discord)
-
-        serverline.init({ colorMode: true, prompt: '> ' })
-        serverline.on('line', async (line: string) => {
-            try {
-                const result = await eval(line)
-                console.log(result)
-            } catch (err) {
-                this.console.error(err)
-            }
-        })
-    }
-}
-
-export default new Luke()
+export const dash = new dashboard()
+export default manager

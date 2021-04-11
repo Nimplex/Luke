@@ -1,5 +1,5 @@
 import guildManager from '../database/guildManager'
-import { Luke } from '@/index'
+import { Luke } from '@/client'
 import { MessageEmbed, WebhookClient } from 'discord.js'
 import Embed from '../modules/Embed'
 

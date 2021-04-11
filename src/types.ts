@@ -8,7 +8,7 @@ import {
     PermissionResolvable,
     TextChannel,
 } from 'discord.js'
-import { Luke } from './index'
+import { Luke } from './client'
 
 export type arg = { name: string; type: string; required?: boolean }
 export type Field = [string, any, boolean?]

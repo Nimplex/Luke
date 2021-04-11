@@ -1,4 +1,4 @@
-import { Luke } from '@/index'
+import { Luke } from '@/client'
 import { Plugin } from '@/types'
 import { readdir } from 'fs'
 import { join } from 'path'
@@ -15,7 +15,7 @@ export default class PluginHandler {
                     const plugin: Plugin = require(`../plugins/${dir}`)
                     this.plugins.push(plugin)
                 })
-                Luke.console.log(`Loaded ${this.plugins.length} plugin(s)`)
+                // Luke.console.log(`Loaded ${this.plugins.length} plugin(s)`)
             }
         })
     }

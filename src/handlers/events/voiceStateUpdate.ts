@@ -1,4 +1,4 @@
-import { Luke } from '@/index'
+import { Luke } from '@/client'
 import { VoiceState } from 'discord.js'
 
 module.exports = async (

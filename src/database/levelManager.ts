@@ -1,4 +1,4 @@
-import { Luke } from '@/index'
+import { Luke } from '@/client'
 import { Message } from 'discord.js'
 import userModel, { User } from '../models/user.model'
 

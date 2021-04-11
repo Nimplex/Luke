@@ -1,4 +1,4 @@
-import { Luke } from '@/index'
+import { Luke } from '@/client'
 import { Command } from '@/types'
 
 export default class CommandHandler {
