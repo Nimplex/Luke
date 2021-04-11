@@ -15,6 +15,7 @@ module.exports = async (Luke: Luke, message: message) => {
     ) {
         message.delete()
         message.reply("Don't spam!")
+        return
     }
     guild.automoderator?.blacklist.forEach((word) => {
         if (word == '') return
@@ -26,6 +27,7 @@ module.exports = async (Luke: Luke, message: message) => {
         ) {
             message.delete()
             message.reply("This word isn't allowed on this guild!")
+            return
         }
     })
     if (
@@ -36,6 +38,7 @@ module.exports = async (Luke: Luke, message: message) => {
         if (invite.test(message.content)) {
             message.delete()
             message.reply("Don't send invites!")
+            return
         }
     }
 }
