@@ -5,7 +5,7 @@
     },
     "server": {
         "port": 8283,
-        "id": "576478552158109716",
+        "id": "828717164005294160",
         "redirect_uri": "https://lukebot.xyz/api/login",
         "dev_uri": "http://localhost:8283/api/login"
     }

@@ -38,6 +38,7 @@ module.exports = async (Luke: Luke, message: message) => {
         message.content.length / 10,
         message
     )
+
     const guild = await guildManager.get(message.guild.id)
 
     if (

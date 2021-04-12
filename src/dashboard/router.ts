@@ -3,7 +3,7 @@ import { Channel, NewsChannel, Permissions, TextChannel } from 'discord.js'
 import { Application } from 'express'
 import FormData from 'form-data'
 import fetch from 'node-fetch'
-import Luke from '../client'
+import manager from '../index'
 
 const tokens = require('../../files/tokens.json')
 const { server } = require('../../files/config.json')
@@ -21,7 +21,6 @@ export = (app: Application) => {
         res.render('index', {
             logged: req.session?.logged,
             user: req.session?.user || [],
-            guilds: Luke.guilds.cache.size,
         })
     )
     app.get('/dashboard', (req, res) => {
@@ -34,27 +33,29 @@ export = (app: Application) => {
                 }&response_type=code&scope=identify%20guilds`
             )
         else {
-            const guilds = req.session?.guilds || []
-            req.session.guilds = []
+            const guilds = <any>req.session.guilds || []
 
             guilds
-                .filter((guild: { g: { permissions: number } }) =>
-                    new Permissions(guild.g.permissions).has([
+                .filter((guild: any) =>
+                    new Permissions(guild.permissions).has([
                         'MANAGE_MESSAGES',
                         'MANAGE_GUILD',
                         'VIEW_AUDIT_LOG',
                     ])
                 )
-                .forEach((guild: { g: any; b: any }) =>
-                    req.session!.guilds.push({
-                        g: guild.g,
-                        b: Luke.guilds.cache.get(guild.g.id) ? true : false,
+                .forEach(async (guild: any) => {
+                    const g = await manager.broadcastEval(
+                        `this.guilds.cache.get('${guild.id}')`
+                    )
+                    ;(<any>req.session).guilds.push({
+                        g: guild,
+                        b: g ? true : false,
                     })
-                )
+                })
 
             res.render('dashboard', {
                 user: req.session?.user,
-                guilds: req.session?.guilds || [],
+                guilds: req.session.guilds || [],
             })
         }
     })
@@ -64,7 +65,10 @@ export = (app: Application) => {
     app.get('/dashboard/:id/:cat', async (req, res) => {
         const { id, cat } = req.params
         if (!req.session?.logged || !id) return res.redirect('/')
-        if (!Luke.guilds.cache.get(id as string)) return res.redirect('/')
+        const g = await manager.broadcastEval(
+            `const g = this.guilds.cache.get('${id}'); g`
+        )
+        if (!g) return res.redirect('/')
 
         const guild = req.session?.guilds.find(
             (guild: any) => guild.g.id === id
@@ -72,8 +76,10 @@ export = (app: Application) => {
         if (!guild) return res.redirect('/401')
 
         const server = await guildManager.get(guild.g.id)
-        const cacheChannels =
-            Luke.guilds.cache.get(guild.g.id)?.channels.cache || []
+        const g2 = await manager.broadcastEval(
+            `const g = this.guilds.cache.get('${guild.g.id}').channels.cache; g`
+        )
+        const cacheChannels = g2 || []
         const channels: any[] = []
 
         cacheChannels.forEach((channel: Channel) =>
@@ -159,21 +165,19 @@ export = (app: Application) => {
                                 if (guilds.code == 0)
                                     return res.redirect('/401')
 
-                                req.session!.guilds = []
-                                guilds.forEach((guild: any) =>
-                                    new Permissions(guild.permissions).has([
+                                const glds: any[] = []
+                                ;(<any>req.session).guilds = []
+                                guilds.forEach(async (guild: any) => {
+                                    const permissions = new Permissions(
+                                        guild.permissions
+                                    ).has([
                                         'MANAGE_GUILD',
                                         'MANAGE_MESSAGES',
                                         'VIEW_AUDIT_LOG',
                                     ])
-                                        ? req.session!.guilds.push({
-                                              g: guild,
-                                              b: Luke.guilds.cache.get(guild.id)
-                                                  ? true
-                                                  : false,
-                                          })
-                                        : null
-                                )
+                                    if (permissions) glds.push(guild)
+                                })
+                                ;(<any>req.session).guilds = glds
 
                                 res.redirect('/dashboard')
                             })
@@ -221,9 +225,12 @@ export = (app: Application) => {
         )
 
         if (req.body.welcomer && req.body.welcomer.welcome.enabled) {
-            const welcome_channel = Luke.guilds.cache
-                .get(id)
-                ?.channels.cache.get(req.body.welcomer.welcome.channel.id)
+            const g = await manager.broadcastEval(
+                `const g = this.guilds.cache.get('${id}').channels.cache.get(${req.body.welcomer.welcome.channel.id}); g`
+            )
+
+            // @ts-expect-error
+            const welcome_channel: Channel = g
 
             if (
                 !welcome_channel ||
@@ -249,9 +256,12 @@ export = (app: Application) => {
                 ).find((webhook) => webhook.name == 'Welcome')
         }
         if (req.body.welcomer && req.body.welcomer.goodbye.enabled) {
-            const goodbye_channel = Luke.guilds.cache
-                .get(id)
-                ?.channels.cache.get(req.body.welcomer.goodbye.channel.id)
+            const g = await manager.broadcastEval(
+                `const g = this.guilds.cache.get('${id}').channels.cache.get(${req.body.welcomer.goodbye.channel.id}); g`
+            )
+
+            // @ts-expect-error
+            const goodbye_channel: Channel = g
 
             if (
                 !goodbye_channel ||

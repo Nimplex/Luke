@@ -4,6 +4,7 @@ yarn.lock
 
 # Errors / debug
 yarn-error.log
+tsconfig.tsbuildinfo
 
 # Sensitive files
 files/tokens.json
