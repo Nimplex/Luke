@@ -1,6 +1,7 @@
 # Dependencies lock files
 package-lock.json
 yarn.lock
+tsconfig.tsbuildinfo
 
 # Errors / debug
 yarn-error.log
