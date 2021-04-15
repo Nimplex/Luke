@@ -41,7 +41,7 @@ export default class LevelManager {
         const currentLevel = await this.getLevel(id)
         if (user.level != currentLevel)
             message.channel.send(
-                `Congratulations ${message.author}, you leveled up!\n Your current level is ${currentLevel}`
+                `Congratulations ${message.author}, you leveled up!\nYour current level is ${currentLevel}`
             )
         return user
     }
