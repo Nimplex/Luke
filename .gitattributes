@@ -1,1 +1,3 @@
-public/bootstrap/ linguist-vendored
+public/bootstrap/* linguist-vendored
+/public/bootstrap/* linguist-vendored
+./public/bootstrap/* linguist-vendored
