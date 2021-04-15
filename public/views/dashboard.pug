@@ -29,7 +29,13 @@ html(lang="en")
                         i.bi.bi-door-open
                         | Logout
             #title
-                #guilds
+                #guilds(
+                    style= "display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: center;
+                            flex-wrap: wrap;"
+                    )
                     for guild of guilds
                         - let name = guild.g.name
                         - if (name.length > 11) name = `${name.substr(0, 11)}...`
