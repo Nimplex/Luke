@@ -10,8 +10,14 @@ body {
         justify-content: center;
         color: $white;
         background: $dark;
-        .fs-1 {font-size: 96px !important; color: $white}
-        .fs-4 {font-size: 30px !important; color: $light-gray}
+        .fs-1 {
+            font-size: 96px !important;
+            color: $white;
+        }
+        .fs-4 {
+            font-size: 30px !important;
+            color: $light-gray;
+        }
         #navbar {
             display: inline-flex;
             align-items: center;
@@ -99,7 +105,7 @@ body {
                     flex-direction: row;
                     justify-content: space-between;
                     width: 308px;
-                    * { 
+                    * {
                         margin: 10px;
                     }
                 }
@@ -107,7 +113,7 @@ body {
                     display: flex;
                     align-items: center;
                     flex-direction: column;
-                    * { 
+                    * {
                         margin: 5px;
                     }
                 }

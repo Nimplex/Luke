@@ -14,14 +14,21 @@ body {
             font-size: 96px !important;
             font-family: 'Poppins', sans-serif;
             opacity: 90%;
-            background: #FFC48A;
-            background: -webkit-linear-gradient(to left, #FFC48A 0%, #D45F5F 100%);
-            background: -moz-linear-gradient(to left, #FFC48A 0%, #D45F5F 100%);
-            background: linear-gradient(to left, #FFC48A 0%, #D45F5F 100%);
+            background: #ffc48a;
+            background: -webkit-linear-gradient(
+                to left,
+                #ffc48a 0%,
+                #d45f5f 100%
+            );
+            background: -moz-linear-gradient(to left, #ffc48a 0%, #d45f5f 100%);
+            background: linear-gradient(to left, #ffc48a 0%, #d45f5f 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-		}
-        .fs-4 {font-size: 30px !important; color: $light-gray}
+        }
+        .fs-4 {
+            font-size: 30px !important;
+            color: $light-gray;
+        }
         #navbar {
             display: inline-flex;
             align-items: center;
