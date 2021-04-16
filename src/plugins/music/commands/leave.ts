@@ -44,6 +44,9 @@ const command: Command = {
         const cache = Luke.musicCache.get(<string>message.guild?.id)
         if (cache) {
             cache.leave()
+            cache.manager.queue.clear()
+            cache.manager.stop()
+            cache.manager.destroy()
         }
         Luke.musicCache.delete(<string>message.guild.id)
         Luke.musicCache.set(<string>message.guild.id, <any>undefined)
