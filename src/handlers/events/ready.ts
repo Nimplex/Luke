@@ -12,6 +12,7 @@ module.exports = (Luke: Luke) => {
     argv[2]
         ? Luke.console.warn('Development version is running')
         : Luke.console.log('Production version is running')
+    Luke.manager.init(Luke.user?.id)
     if (dlist) {
         setInterval(() => {
             Luke.console.log('Dlist request sent.')

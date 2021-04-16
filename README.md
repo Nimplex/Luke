@@ -6,15 +6,20 @@
 <h1 align="center">Installation</h1>
 
 Install all dependencies using:
+
 ```sh
 yarn
 ```
+
 Compile source code:
+
 ```sh
 yarn build:ts
 yarn build:sass
 ```
+
 Create `tokens.json` file inside `files` directory, and put this code into this file:
+
 ```json
 {
     "discord": "discord-token",
@@ -27,11 +32,18 @@ Create `tokens.json` file inside `files` directory, and put this code into this 
         "password": "mongodb_password",
         "authDatabase": "admin"
     },
+    "lavalink": {
+        "host": "0.0.0.0",
+        "port": 2333,
+        "password": "youshallnotpass"
+    },
     "dlist": "dlist-token",
-	"obrazium": "https://obrazium.com"
+    "obrazium": "https://obrazium.com"
 }
 ```
+
 Start bot:
+
 ```sh
 yarn start
 ```

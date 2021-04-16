@@ -15,6 +15,7 @@ export default class EventHandler {
         Luke.on('voiceStateUpdate', (oldState, newState) =>
             require('./events/voiceStateUpdate')(oldState, newState)
         )
+        Luke.on('raw', (d) => Luke.manager.updateVoiceState(d))
         Luke.on('guildMemberAdd', async (member) => {
             const guild = await guildManager.get(member.guild.id)
             if (

@@ -1,5 +1,6 @@
-import { Player } from '../../../modules/MusicPlayer'
+import { MusicPlayer } from '../../../modules/MusicPlayer'
 import { Command } from '@/types'
+import { MessageEmbed, TextChannel } from 'discord.js'
 
 const colors = require('../../../../files/colors.json')
 
@@ -10,33 +11,38 @@ const command: Command = {
         bot: ['CONNECT'],
     },
     execute: async (message, Luke, ...args) => {
-        if (!message.member?.voice.channel) {
-            Luke.embed({
-                object: message,
-                color: colors.error,
-                title: ":x: You're not connected to my voice channel!",
-            })
-            return
-        }
         if (message.guild?.me?.voice.channel) {
-            Luke.embed({
-                object: message,
-                color: colors.error,
-                title: ":x: I'm already in use!",
-            })
+            message.channel.send(
+                new MessageEmbed()
+                    .setTitle(":x: | I'm already in use!")
+                    .setColor(colors.error)
+                    .setTimestamp(new Date())
+            )
             return
         }
-        const connection = await message.member.voice.channel?.join()
-        Luke.cache[<any>message.guild?.id] = new Player(
-            message.guild?.id || '',
-            connection.channel.id,
-            connection
-        )
-        Luke.embed({
-            object: message,
-            color: colors.done,
-            title: ':wave: Joined voice channel',
-        })
+        if (!message.member?.voice.channel) {
+            message.channel.send(
+                new MessageEmbed()
+                    .setTitle(
+                        ":x: | You're not connected to any voice channel!"
+                    )
+                    .setColor(colors.error)
+                    .setTimestamp(new Date())
+            )
+            return
+        }
+        if (!Luke.musicCache.get(<string>message.guild?.id)) {
+            const player = new MusicPlayer(
+                <string>message.guild?.id,
+                <string>message.member?.voice.channelID,
+                <TextChannel>message.channel
+            )
+
+            Luke.musicCache.set(<string>message.guild?.id, player)
+            player.connect()
+        } else {
+            Luke.musicCache.get(<string>message.guild?.id)?.connect()
+        }
     },
 }
 

@@ -1,55 +1,26 @@
+import { MessageEmbed } from 'discord.js'
 import { Command } from '@/types'
-
-const colors = require('../../../../files/colors.json')
 
 const command: Command = {
     triggers: ['np', 'nowplaying'],
     description: 'Check current track.',
     execute: async (message, Luke, ...args) => {
-        if (!message.guild?.me?.voice.channel) {
-            Luke.embed({
-                object: message,
-                color: colors.error,
-                title: ":x: I'm not in use!",
-            })
-            return
+        const cache = Luke.musicCache.get(<string>message.guild?.id)
+        if (cache) {
+            const track = cache.nowplaying()
+            if (!track) return
+            cache.manager.setTextChannel(message.channel.id)
+            message.channel.send(
+                new MessageEmbed()
+                    .setTitle(':notes: | Now playing')
+                    .setThumbnail(<string>track?.thumbnail)
+                    .setDescription(
+                        `\`\`\`Title: ${track.title}\nAuthor: ${track.author}\`\`\``
+                    )
+                    .setColor('#efefef')
+                    .setTimestamp(new Date())
+            )
         }
-        if (!message.member?.voice.channel) {
-            Luke.embed({
-                object: message,
-                color: colors.error,
-                title: ":x: You're not connected to any voice channel!",
-            })
-            return
-        }
-        if (
-            message.guild?.me?.voice.channelID !==
-            message.member.voice.channelID
-        ) {
-            Luke.embed({
-                object: message,
-                color: colors.error,
-                title: ":x: You're not connected to my voice channel!",
-            })
-            return
-        }
-        const cache = Luke.cache[<any>message.guild?.id]
-        if (!cache) {
-            Luke.embed({
-                object: message,
-                title:
-                    ':x: I cannot fetch cache (please disconnect bot and connect again)!',
-                color: colors.error,
-            })
-            return
-        }
-        const track = cache.getQueue()[0]
-        Luke.embed({
-            object: message,
-            title: ':notes: Now playing',
-            description: `Title: ${track.music.title}\nPosition: ${track.music.position}\nRequester: ${track.requester.username} (${track.requester.id})`,
-            thumbnail: track.music.thumbnail,
-        })
     },
 }
 
